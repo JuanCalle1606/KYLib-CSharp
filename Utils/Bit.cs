@@ -9,6 +9,15 @@ namespace KYLib.Utils
 	/// </summary>
 	public struct Bit
 	{
+		/// <summary>
+		/// Representa el bit 1.
+		/// </summary>
+		public static readonly Bit One = 1;
+		/// <summary>
+		/// Representa el bit 0.
+		/// </summary>
+		public static readonly Bit Zero = 0;
+
 		// El valor del bit
 		bool Value;
 
@@ -52,45 +61,62 @@ namespace KYLib.Utils
 
 		#region Aritmetic Operator
 		/// <summary>
+		/// Suma dos bits.
+		/// </summary>
+		/// <param name="val1">Primer bit a sumar.</param>
+		/// <param name="val2">Segundo bit a sumar.</param>
+		/// <param name="res">La suma lleva o no resto.</param>
+		/// <returns>La suma de los bits, si la suma tiene resto el bit resultante tendra la propiedad <c>Rest</c> en <c>true</c>.</returns>
+		public static Bit Add(Bit val1, Bit val2, bool res)
+		{
+			bool OutR =
+				(val2 && res) ||
+				(val1 && res) ||
+				(val1 && val2);
+			bool Out =
+				(!val1 && !val2 && res) ||
+				(!val1 && val2 && !res) ||
+				(val1 && !val2 && !res) ||
+				(val1 && val2 && res);
+			return new Bit(Out, OutR);
+		}
+
+		/// <summary>
 		/// Operador que suma 2 bits.
 		/// </summary>
 		/// <param name="val1">Primer bit.</param>
 		/// <param name="val2">Segundo bit.</param>
 		/// <returns>El resultado de la suma.</returns>
-		public static Bit operator +(Bit val1, Bit val2)
+		public static Bit operator +(Bit val1, Bit val2) => Add(val1, val2, val1.Rest || val2.Rest);
+
+		/// <summary>
+		/// Resta 2 bits.
+		/// </summary>
+		/// <param name="val1">Primer bit.</param>
+		/// <param name="val2">Segundo bit.</param>
+		/// <param name="res">Si la suma tiene resto o no.</param>
+		/// <returns>El resultado de la resta.</returns>
+		public static Bit Subtract(Bit val1, Bit val2, bool res)
 		{
-			bool R = val1.Rest || val2.Rest;
 			bool OutR =
-				(val2 && R) ||
-				(val1 && R) ||
-				(val1 && val2);
+				(!val1 && res) ||
+				(!val1 && val2) ||
+				(val2 && res);
 			bool Out =
-				(!val1 && !val2 && R) ||
-				(!val1 && val2 && !R) ||
-				(val1 && !val2 && !R) ||
-				(val1 && val2 && R);
+				(!val1 && !val2 && res) ||
+				(!val1 && val2 && !res) ||
+				(val1 && !val2 && !res) ||
+				(val1 && val2 && res);
 			return new Bit(Out, OutR);
 		}
+
 		/// <summary>
 		/// Operador que resta 2 bits.
 		/// </summary>
 		/// <param name="val1">Primer bit.</param>
 		/// <param name="val2">Segundo bit.</param>
 		/// <returns>El resultado de la resta.</returns>
-		public static Bit operator -(Bit val1, Bit val2)
-		{
-			bool R = val1.Rest || val2.Rest;
-			bool OutR =
-				(!val1 && R) ||
-				(!val1 && val2) || 
-				(val2 && R);
-			bool Out =
-				(!val1 && !val2 && R) ||
-				(!val1 && val2 && !R) ||
-				(val1 && !val2 && !R) ||
-				(val1 && val2 && R);
-			return new Bit(Out, OutR);
-		}
+		public static Bit operator -(Bit val1, Bit val2) => Subtract(val1, val2, val1.Rest || val2.Rest);
 		/// <summary>
 		/// Operador que multiplica 2 bits.
 		/// </summary>
@@ -114,11 +140,15 @@ namespace KYLib.Utils
 		/// Compara si dos bits son diferentes.
 		/// </summary>
 		public static bool operator !=(Bit val1, Bit val2) => val1.Value != val2.Value;
+		/// <summary>
+		/// Compara si un bit es mayor que otro.
+		/// </summary>
+		public static bool operator >(Bit val1, Bit val2) => val1 && !val2;
+		/// <summary>
+		/// Compara si un bit es menor que otro.
+		/// </summary>
+		public static bool operator <(Bit val1, Bit val2) => !val1 && val2;
 		#endregion
-
-		/// <inheritdoc/>
-		public override string ToString() => 
-			Value ? "1" : "0";
 
 		#region From Numbers
 		private static Bit FromDouble(double value)
@@ -166,6 +196,10 @@ namespace KYLib.Utils
 		/// <inheritdoc/>
 		public static implicit operator bool(Bit value) => value.Value;
 		#endregion
+
+		/// <inheritdoc/>
+		public override string ToString() =>
+			Value ? "1" : "0";
 
 		/// <inheritdoc/>
 		public override bool Equals(object obj)
