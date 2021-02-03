@@ -1,0 +1,47 @@
+﻿namespace KYLib.Extensions
+{
+	/// <summary>
+	/// Extensiones generales para las matrices.
+	/// </summary>
+	public static class MatrizExtensions
+	{
+		/// <summary>
+		/// Converte la matriz en un arreglo de arreglos.
+		/// </summary>
+		/// <typeparam name="T">Cualquier tipo.</typeparam>
+		/// <param name="mat">Matriz de origen.</param>
+		/// <returns></returns>
+		public static T[][] ToArray<T>(this T[,] mat)
+		{
+			(int row, int col) = (mat.GetLength(0), mat.GetLength(1));
+			T[][] dev = new T[row][];
+			for (int i = 0; i < row; i++)
+			{
+				dev[i] = new T[col];
+				for (int j = 0; j < col; j++)
+					dev[i][j] = mat[i, j];
+			}
+			return dev;
+		}
+
+		/// <inheritdoc/>
+		public static string ToString<T>(this T[,] arr, char separator, bool multiline, bool showindex)
+		{
+			string dev = "";
+			for (int i = 0; i < arr.GetLength(0); i++)
+			{
+				if (showindex)
+					dev += $"{i}: ";
+				for (int j = 0; j < arr.GetLength(1); j++)
+					dev += arr[i, j] + ",";
+				if (multiline)
+				{
+					dev = dev.TrimEnd(',');
+					dev += "\n";
+				}
+			}
+			dev = dev.TrimEnd(separator);
+			return dev;
+		}
+	}
+}

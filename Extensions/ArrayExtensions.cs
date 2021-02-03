@@ -1,172 +1,106 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using KYLib.Utils;
 
 namespace KYLib.Extensions
 {
+	/// <summary>
+	/// Extenciones generales para los arreglos.
+	/// </summary>
 	public static class ArrayExtension
 	{
-		public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source)
-		{
-			T[] elements = source.ToArray();
-			for (int i = elements.Length - 1; i > 0; i--)
-			{
-				int swapIndex = Rand.GetInt(i + 1);
-				yield return elements[swapIndex];
-				elements[swapIndex] = elements[i];
-			}
-			yield return elements[0];
-		}
+		#region Metodos generales 
+		/// <summary>
+		/// Devuelve el indice de <paramref name="target"/> en el arreglo.
+		/// </summary>
+		/// <typeparam name="T">Cualquier tipo.</typeparam>
+		/// <param name="arr">Arreglo de origen.</param>
+		/// <param name="target">Elemento a buscar dentro del arreglo.</param>
+		/// <returns>Devuelve el indice en el que se encuentra <paramref name="target"/>, -1 si no se encuentra.</returns>
+		public static int IndexOf<T>(this T[] arr, T target) =>
+			Array.IndexOf(arr, target);
 
-		public static int IndexOf<T>(this T[] arr, T target)
-		{
-			int dev = -1;
-			for (int i = 0; i < arr.Length; i++)
-				if (arr[i].Equals(target))
-					return i;
-			return dev;
-		}
+		/// <summary>
+		/// Ordena los elementos del arreglo utilizando un <see cref="Comparison{T}"/> especificado.
+		/// </summary>
+		/// <typeparam name="T">Cualquier tipo.</typeparam>
+		/// <param name="arr">Arreglo de origen.</param>
+		/// <param name="comparison"><see cref="Comparison{T}"/> que se usara para ordena el arreglo.</param>
+		public static void Sort<T>(this T[] arr, Comparison<T> comparison) =>
+			Array.Sort(arr, comparison);
+		/// <summary>
+		/// Ordena el arreglo con el <see cref="IComparable"/> por defecto de ada elemento.
+		/// </summary>
+		/// <param name="arr">Arreglo de origen.</param>
+		public static void Sort(this Array arr) => Array.Sort(arr);
 
-		public static void Sort<T>(this T[] arr, Comparison<T> comparison)
-		{
-			int len = arr.Length;
-			int sorted = 0;
-			int limit;
-			T aux;
-			while (sorted < len)
-			{
-				limit = len - 1 - sorted;
-				for (int i = 0; i < limit; i++)
-				{
-					if (comparison(arr[i], arr[i + 1]) > 0)
-					{
-						aux = arr[i];
-						arr[i] = arr[i + 1];
-						arr[i + 1] = aux;
-					}
-				}
-				sorted++;
-			}
-		}
-
+		/// <summary>
+		/// Ordena los elementos del arreglo de forma ascendente.
+		/// </summary>
+		/// <typeparam name="T">Un tipo que implemente <see cref="IComparable{T}"/>.</typeparam>
+		/// <param name="arr">Arreglo de origen.</param>
 		public static void SortAsc<T>(this T[] arr) where T : IComparable<T> =>
 			arr.Sort((T1, T2) => T1.CompareTo(T2));
-
+		/// <summary>
+		/// Ordena los elementos del arreglo de forma descendente.
+		/// </summary>
+		/// <typeparam name="T">Un tipo que implemente <see cref="IComparable{T}"/>.</typeparam>
+		/// <param name="arr">Arreglo de origen.</param>
 		public static void SortDesc<T>(this T[] arr) where T : IComparable<T> =>
-			arr.Sort((T1, T2) => T1.CompareTo(T2) * -1);
+			arr.Sort((T1, T2) => T2.CompareTo(T1));
+		#endregion
 
-		public static int sum(this int[] arr)
-		{
-			int dev = 0;
-			foreach (int item in arr)
-				dev += item;
-			return dev;
-		}
+		#region Conversiones
+		/// <summary>
+		/// Convierte un arreglo de tipo <typeparamref name="T"/> en un arreglo de <see cref="int"/>.
+		/// </summary>
+		/// <typeparam name="T">Cualquier tipo que implemente <see cref="IConvertible"/></typeparam>.
+		/// <param name="arr">Arreglo de origen.</param>
+		/// <returns>Un arreglo de <see cref="int"/> resultante de la conversión.</returns>
+		public static int[] ToIntArray<T>(this T[] arr) where T : IConvertible =>
+			arr.ToArray(t => Convert.ToInt32(t));
 
-		public static int max(this int[] arr)
-		{
-			int dev = 0;
-			for (int i = 1; i < arr.Length; i++)
-				if (arr[i] > arr[dev])
-					dev = i;
-			return dev;
-		}
+		/// <summary>
+		/// Convierte un arreglo de tipo <typeparamref name="T"/> en un arreglo de <see cref="float"/>.
+		/// </summary>
+		/// <param name="arr">Arreglo de origen.</param>
+		/// <returns>Un arreglo de <see cref="float"/> resultante de la conversión.</returns>
+		public static float[] ToFloatArray<T>(this T[] arr) where T : IConvertible =>
+			arr.ToArray(t => Convert.ToSingle(t));
 
-		public static int min(this int[] arr)
-		{
-			int dev = 0;
-			for (int i = 1; i < arr.Length; i++)
-				if (arr[i] < arr[dev])
-					dev = i;
-			return dev;
-		}
-
-		public static T[][] ToBidimensionalArray<T>(this T[,] mat)
-		{
-
-			return null;
-		}
-
-		public static T[,] ToMatriz<T>(this T[][] arr)
-		{
-
-			return null;
-		}
-
-		public static int[] ToIntArray(this string[] arr)
+		/// <summary>
+		/// Convierte un arreglo de tipo <typeparamref name="TInput"/> en un arreglo de tipo <typeparamref name="TOutput"/> usando un <see cref="Converter{TInput, TOutput}"/>.
+		/// </summary>
+		/// <typeparam name="TInput">Cualquier tipo.</typeparam>
+		/// <typeparam name="TOutput">Cualquier tipo.</typeparam>
+		/// <param name="arr">Arreglo de origen.</param>
+		/// <param name="converter">Delegado que se usa para convertir cada elemento del arreglo.</param>
+		/// <returns>Un nuevo arreglo con todos los elementos convertidos.</returns>
+		public static TOutput[] ToArray<TInput, TOutput>(this TInput[] arr, Converter<TInput, TOutput> converter)
 		{
 			int len = arr.Length;
-			int[] dev = new int[len];
+			TOutput[] dev = new TOutput[len];
 			for (int i = 0; i < len; i++)
-				dev[i] = int.Parse(arr[i]);
-
+				dev[i] = converter(arr[i]);
 			return dev;
 		}
 
-		public static float[] ToFloatArray(this string[] arr)
-		{
-			int len = arr.Length;
-			float[] dev = new float[len];
-			for (int i = 0; i < len; i++)
-				dev[i] = float.Parse(arr[i]);
-
-			return dev;
-		}
-
-		public static string ToString<T>(this T[] arr, char separator, bool ShowIndex)
+		/// <inheritdoc/>
+		public static string ToString<T>(this T[][] arr, char separator, bool multiline, bool showindex)
 		{
 			string dev = "";
 			for (int i = 0; i < arr.Length; i++)
 			{
-				if (ShowIndex)
+				if (showindex)
 					dev += $"{i}: ";
-				dev += arr[i].ToString() + separator;
+				dev += arr[i].ToString(separator) + separator;
+				if (multiline && i > 0)
+					dev += $"{separator}\n";
 			}
 			dev = dev.TrimEnd(separator);
 			return dev;
 		}
-
-		public static string ToString<T>(this T[] arr, char separator) => arr.ToString(separator, false);
-
-		public static string ToString<T>(this T[][] arr, char separator, bool multiline, bool Showindex)
-		{
-			string dev = "";
-			for (int i = 0; i < arr.Length; i++)
-			{
-				if (Showindex)
-					dev += $"{i}: ";
-				dev += arr[i].ToString(separator);
-				if (multiline)
-					dev += "\n";
-			}
-			dev = dev.TrimEnd(separator);
-			return dev;
-		}
-
+		/// <inheritdoc/>
 		public static string ToString<T>(this T[][] arr, char separator, bool multiline) =>
 			arr.ToString(separator, multiline, false);
-
-		public static string ToString<T>(this T[,] arr, char separator, bool multiline, bool Showindex)
-		{
-			string dev = "";
-			for (int i = 0; i < arr.GetLength(0); i++)
-			{
-				if (Showindex)
-					dev += $"{i}: ";
-				for (int j = 0; j < arr.GetLength(1); j++)
-					dev += arr[i, j] + ",";
-				if (multiline)
-				{
-					dev = dev.TrimEnd(',');
-					dev += "\n";
-				}
-			}
-			dev = dev.TrimEnd(separator);
-			return dev;
-		}
-
-		public static string ToString<T>(this List<T> arr, char separator) =>
-			arr.ToArray().ToString(separator);
+		#endregion
 	}
 }
