@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using KYLib.Utils;
 
@@ -56,6 +57,35 @@ namespace KYLib.Extensions
 		#endregion
 
 		#region Conversiones
+		/// <summary>
+		/// Convierte un arreglo de tipo <typeparamref name="TInput"/> en un arreglo de tipo <typeparamref name="TOutput"/> usando un <see cref="Converter{TInput, TOutput}"/>.
+		/// </summary>
+		/// <typeparam name="TInput">Cualquier tipo.</typeparam>
+		/// <typeparam name="TOutput">Cualquier tipo.</typeparam>
+		/// <param name="arr">Arreglo de origen.</param>
+		/// <param name="converter">Delegado que se usa para convertir cada elemento del arreglo.</param>
+		/// <returns>Un nuevo arreglo con todos los elementos convertidos.</returns>
+		public static TOutput[] ToArray<TInput, TOutput>(
+			this IEnumerable<TInput> arr, Converter<TInput, TOutput> converter) =>
+			arr.ToArray().ToArray(converter);
+
+		/// <summary>
+		/// Convierte un enumerable de tipo <typeparamref name="T"/> en un arreglo de <see cref="int"/>.
+		/// </summary>
+		/// <typeparam name="T">Cualquier tipo que implemente <see cref="IConvertible"/></typeparam>.
+		/// <param name="arr">Enumerable de origen.</param>
+		/// <returns>Un arreglo de <see cref="int"/> resultante de la conversión.</returns>
+		public static int[] ToIntArray<T>(this IEnumerable<T> arr) where T : IConvertible =>
+			arr.ToArray(t => Convert.ToInt32(t));
+
+		/// <summary>
+		/// Convierte un enumerable de tipo <typeparamref name="T"/> en un arreglo de <see cref="float"/>.
+		/// </summary>
+		/// <typeparam name="T">Cualquier tipo.</typeparam>
+		/// <param name="arr">Enumerable de origen.</param>
+		/// <returns>Un arreglo de <see cref="float"/> resultante de la conversión.</returns>
+		public static float[] ToFloatArray<T>(this IEnumerable<T> arr) where T : IConvertible =>
+			arr.ToArray(t => Convert.ToSingle(t));
 
 		/// <inheritdoc/>
 		public static string ToString<T>(this IEnumerable<T> arr, bool multiline) =>

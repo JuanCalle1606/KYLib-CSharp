@@ -50,21 +50,12 @@ namespace KYLib.Extensions
 
 		#region Conversiones
 		/// <summary>
-		/// Convierte un arreglo de tipo <typeparamref name="T"/> en un arreglo de <see cref="int"/>.
+		/// Convierte un arreglo de arreglos en una matriz.
 		/// </summary>
-		/// <typeparam name="T">Cualquier tipo que implemente <see cref="IConvertible"/></typeparam>.
+		/// <typeparam name="T">Cualquier tipo.</typeparam>
 		/// <param name="arr">Arreglo de origen.</param>
-		/// <returns>Un arreglo de <see cref="int"/> resultante de la conversión.</returns>
-		public static int[] ToIntArray<T>(this T[] arr) where T : IConvertible =>
-			arr.ToArray(t => Convert.ToInt32(t));
-
-		/// <summary>
-		/// Convierte un arreglo de tipo <typeparamref name="T"/> en un arreglo de <see cref="float"/>.
-		/// </summary>
-		/// <param name="arr">Arreglo de origen.</param>
-		/// <returns>Un arreglo de <see cref="float"/> resultante de la conversión.</returns>
-		public static float[] ToFloatArray<T>(this T[] arr) where T : IConvertible =>
-			arr.ToArray(t => Convert.ToSingle(t));
+		/// <returns>Una matriz bidimensional de <typeparamref name="T"/>.</returns>
+		public static T[,] ToMatriz<T>(this T[][] arr) => throw new NotImplementedException();
 
 		/// <summary>
 		/// Convierte un arreglo de tipo <typeparamref name="TInput"/> en un arreglo de tipo <typeparamref name="TOutput"/> usando un <see cref="Converter{TInput, TOutput}"/>.

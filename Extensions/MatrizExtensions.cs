@@ -5,6 +5,7 @@
 	/// </summary>
 	public static class MatrizExtensions
 	{
+		#region Conversiones
 		/// <summary>
 		/// Converte la matriz en un arreglo de arreglos.
 		/// </summary>
@@ -43,5 +44,6 @@
 			dev = dev.TrimEnd(separator);
 			return dev;
 		}
+		#endregion
 	}
 }
