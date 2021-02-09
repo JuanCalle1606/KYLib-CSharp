@@ -18,15 +18,15 @@ namespace KYLib.MathFn
 	/// <summary>
 	/// Representa un entero de un numero variable de bits.
 	/// </summary>
-	public class BitArray : IComparable<BitArray>, IEnumerable<bit>, IEquatable<BitArray>
+	public struct BitArray : IComparable<BitArray>, IEnumerable<bit>, IEquatable<BitArray>
 	{
 		#region Base
 		//Guarda la secuencia de bits.
-		private List<bit> bits = new List<bit>() { 0, 0 };
+		private readonly List<bit> bits;
 		//Guarda la representacion en cadena de este nuemro.
 		private string String { get; set; }
 		//indica si hay que actualizar la cadena o no.
-		private bool ChangeString = false;
+		private bool ChangeString;
 
 		/// <summary>
 		/// Indica el numero maximo de bits que puede tener un numero, este valor puede ser aumentado hasta la cantidad de int.MaxValue lo que implicaria un numero de 268Mb.
@@ -36,27 +36,19 @@ namespace KYLib.MathFn
 		BitArray(List<bit> source)
 		{
 			if (source.Count == 0)
-			{
 				source.Add(bit.Zero);
-			}
-
 			while (source.Count > MaxBits)
-			{
 				source.RemoveAt(0);
-			}
-
 			bits = source;
+			ChangeString = true;
+			String = null;
 			RemoveZeros();
-			ChangeString = false;
-			String = GetString();
 		}
 
 		private void RemoveZeros()
 		{
-			while (bits[0] == bit.Zero && bits.Count > 1)
-			{
+			while (bits.Count > 1 && bits[0] == bit.Zero)
 				bits.RemoveAt(0);
-			}
 		}
 
 		/// <summary>
@@ -145,17 +137,15 @@ namespace KYLib.MathFn
 		{
 			List<bit> dev;
 			//Con este if aceleremanos un 200% el proceso
-			if (num[num.Length - 1] == bit.Zero)
+			if (num[^1] == bit.Zero)
 			{
 				dev = num.bits.ToList();
-				dev[num.Length - 1] = 1;
+				dev[^1] = 1;
 				return new BitArray(dev);
 			}
-
 			else if (num.bits.IndexOf(bit.Zero) == -1)
 			{
-				dev = new List<bit>();
-				dev.Add(bit.One);
+				dev = new List<bit> { bit.One };
 				dev.FillEnd(num.Length + 1, bit.Zero);
 				return new BitArray(dev);
 			}
@@ -486,10 +476,9 @@ namespace KYLib.MathFn
 		}
 
 		/// <inheritdoc/>
-		public override bool Equals(object obj) => Equals(obj as BitArray);
+		public override bool Equals(object obj) => obj.Equals(this);
 		/// <inheritdoc/>
 		public bool Equals(BitArray other) =>
-			other != null &&
 			EqualityComparer<List<bit>>.Default.Equals(bits, other.bits);
 		/// <inheritdoc/>
 		public override int GetHashCode() => 1537853281 + EqualityComparer<List<bit>>.Default.GetHashCode(bits);
