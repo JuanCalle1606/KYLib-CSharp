@@ -11,3 +11,6 @@ Este paquete contiene extenciones a los tipos que actualmente posee C#, principa
 
 ## [KYLib.ConsoleUtils](ConsoleUtils)
 Este paquete esta pensado unicamente para aplicaciones de consola y contiene algunas funcionalidades para facilitar las aplicaciones de consola.
+
+## [KYLib.Interfaces](Interfaces)
+Este paquete contiene todas las interfaces que se usan en la libreria.
