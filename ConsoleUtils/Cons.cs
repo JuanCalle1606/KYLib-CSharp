@@ -9,17 +9,11 @@ namespace KYLib.ConsoleUtils
 	/// </summary>
 	public static class Cons
 	{
-		private static ConsoleApp App;
-
 		/// <summary>
 		/// Inicia la ejecución de un programa de consola.
 		/// </summary>
 		/// <typeparam name="T">Tipo que herede de <see cref="ConsoleApp"/>.</typeparam>
-		public static void Start<T>() where T : ConsoleApp, new()
-		{
-			App ??= new T();
-			App.Start();
-		}
+		public static void Start<T>() where T : ConsoleApp, new() => new T().Start();
 
 		#region Variables
 
