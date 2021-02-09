@@ -7,7 +7,7 @@ namespace KYLib.Utils
 	/// <summary>
 	/// Representa un entero de 1 bit.
 	/// </summary>
-	public struct Bit
+	public struct Bit : IEquatable<Bit>
 	{
 		/// <summary>
 		/// Representa el bit 1.
@@ -202,15 +202,13 @@ namespace KYLib.Utils
 			Value ? "1" : "0";
 
 		/// <inheritdoc/>
-		public override bool Equals(object obj)
-		{
-			return base.Equals(obj);
-		}
+		public override bool Equals(object obj) => obj.Equals(Value) || obj.ToString().Equals(this.ToString());
 
 		/// <inheritdoc/>
-		public override int GetHashCode()
-		{
-			return base.GetHashCode();
-		}
+		public bool Equals(Bit other) => this == other;
+
+		/// <inheritdoc/>
+		public override int GetHashCode() => base.GetHashCode();
+
 	}
 }
