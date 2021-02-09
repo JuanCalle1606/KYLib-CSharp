@@ -14,3 +14,6 @@ Este paquete esta pensado unicamente para aplicaciones de consola y contiene alg
 
 ## [KYLib.Interfaces](Interfaces)
 Este paquete contiene todas las interfaces que se usan en la libreria.
+
+## [KYLib.MathFn](MathFn)
+Este paquete contiene todo lo que tiene que ver con matematicas y numeros.
