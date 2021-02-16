@@ -1,7 +1,9 @@
-﻿using System;
+﻿using KYLib.Interfaces;
+using KYLib.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using KYLib.Utils;
+using System.Text;
 
 namespace KYLib.Extensions
 {
@@ -29,6 +31,18 @@ namespace KYLib.Extensions
 			yield return elements[0];
 		}
 
+		#endregion
+
+		#region Utilidades
+		/// <summary>
+		/// Busca un elemento que tenga como nombre <paramref name="name"/>.
+		/// </summary>
+		/// <typeparam name="T">Tipo que implemente <see cref="INameable"/>.</typeparam>
+		/// <param name="arr">Enumerable de origen.</param>
+		/// <param name="name">Nombre a buscar.</param>
+		/// <returns>El primer elemento de la lista con <paramref name="name"/> como nombre, default si no hay ninguno.</returns>
+		public static T FindByName<T>(this IEnumerable<T> arr, string name) where T : INameable =>
+			arr.ToList().Find(t => t.Name.Equals(name));
 		#endregion
 
 		#region Listas
@@ -100,19 +114,21 @@ namespace KYLib.Extensions
 		/// <inheritdoc/>
 		public static string ToString<T>(this IEnumerable<T> arr, char? separator, bool showindex, bool multiline)
 		{
-			T[] newArr = arr.ToArray();
-			string dev = "";
-			for (int i = 0; i < newArr.Length; i++)
+			stringBuilder.Clear();
+			int i = 0;
+			foreach (T item in arr)
 			{
 				if (multiline && i > 0)
-					dev += "\n";
+					stringBuilder.Append("\n");
 				if (showindex)
-					dev += $"{i}: ";
-				dev += $"{newArr[i]}{separator}";
+					stringBuilder.Append($"{i}: ");
+				stringBuilder.Append($"{item}{separator}");
+				i++;
 			}
-			dev = dev.TrimEnd(separator ?? ' ');
-			return dev;
+			return stringBuilder.ToString().TrimEnd(separator ?? ' ');
 		}
+
+		private static StringBuilder stringBuilder = new StringBuilder();
 		#endregion
 	}
 }
