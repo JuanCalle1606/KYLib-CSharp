@@ -79,10 +79,18 @@ namespace KYLib.Extensions
 		/// <param name="arr">Arreglo de origen.</param>
 		/// <param name="converter">Delegado que se usa para convertir cada elemento del arreglo.</param>
 		/// <returns>Un nuevo arreglo con todos los elementos convertidos.</returns>
+		/// <exception cref="ArgumentNullException">El delegado de conversión es nulo.</exception>
 		public static TOutput[] ToArray<TInput, TOutput>(
-			this IEnumerable<TInput> arr, Converter<TInput, TOutput> converter) =>
-			arr.ToArray().ToArray(converter);
-
+			this IEnumerable<TInput> arr, Converter<TInput, TOutput> converter)
+		{
+			if (converter == null)
+				throw new ArgumentNullException(nameof(converter), "El delegado de conversión no puede ser nulo.");
+			int i = 0;
+			TOutput[] dev = new TOutput[arr.Count()];
+			foreach (TInput item in arr)
+				dev[i++] = converter(item);
+			return dev;
+		}
 		/// <summary>
 		/// Convierte un enumerable de tipo <typeparamref name="T"/> en un arreglo de <see cref="int"/>.
 		/// </summary>
@@ -128,6 +136,9 @@ namespace KYLib.Extensions
 			return stringBuilder.ToString().TrimEnd(separator ?? ' ');
 		}
 
+		/// <summary>
+		/// StringBuilder que se usa para contruir los toString().
+		/// </summary>
 		private static StringBuilder stringBuilder = new StringBuilder();
 		#endregion
 	}

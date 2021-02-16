@@ -57,23 +57,6 @@ namespace KYLib.Extensions
 		/// <returns>Una matriz bidimensional de <typeparamref name="T"/>.</returns>
 		public static T[,] ToMatriz<T>(this T[][] arr) => throw new NotImplementedException();
 
-		/// <summary>
-		/// Convierte un arreglo de tipo <typeparamref name="TInput"/> en un arreglo de tipo <typeparamref name="TOutput"/> usando un <see cref="Converter{TInput, TOutput}"/>.
-		/// </summary>
-		/// <typeparam name="TInput">Cualquier tipo.</typeparam>
-		/// <typeparam name="TOutput">Cualquier tipo.</typeparam>
-		/// <param name="arr">Arreglo de origen.</param>
-		/// <param name="converter">Delegado que se usa para convertir cada elemento del arreglo.</param>
-		/// <returns>Un nuevo arreglo con todos los elementos convertidos.</returns>
-		public static TOutput[] ToArray<TInput, TOutput>(this TInput[] arr, Converter<TInput, TOutput> converter)
-		{
-			int len = arr.Length;
-			TOutput[] dev = new TOutput[len];
-			for (int i = 0; i < len; i++)
-				dev[i] = converter(arr[i]);
-			return dev;
-		}
-
 		/// <inheritdoc/>
 		public static string ToString<T>(this T[][] arr, char separator, bool multiline, bool showindex)
 		{
