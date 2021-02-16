@@ -1,5 +1,5 @@
 # KYLib-CSharp
-Librería propia de funciones para C# que esta pensada para usar C# 8.0 por lo que se requiere de .NET Standard 2.1, .NET Core 3.x o .NET 5.0 para funcionar.
+Librería propia de funciones para C# con utilidades, esta hecha con C# 8.0 pero con soporte para .netstandard2.0
 
 #### Actualmente la libreria tiene 3 paquetes:
 

@@ -1,18 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Juan Pablo Calle</Authors>
-    <Company>Teepo</Company>
+    <Company>Juan Pablo Calle Grafe</Company>
     <Description>Libreria personal de clases para C#</Description>
-    <Copyright>© Juan Pablo Calle</Copyright>
-    <PackageProjectUrl></PackageProjectUrl>
+    <Copyright>Copyrigth © 2021 Juan Pablo Calle</Copyright>
+    <PackageProjectUrl>https://github.com/JuanCalle1606/KYLib-CSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/JuanCalle1606/KYLib-CSharp</RepositoryUrl>
-    <RepositoryType>Publico</RepositoryType>
     <PackageReleaseNotes>Beta</PackageReleaseNotes>
-    <PackageTags>Basic, C#</PackageTags>
+    <PackageTags>Basic, C#, Simple</PackageTags>
     <AssemblyVersion>0.1.0.0</AssemblyVersion>
     <FileVersion>0.1.0.0</FileVersion>
   </PropertyGroup>
@@ -25,6 +24,10 @@
     <Compile Remove="KYLib.Example\**" />
     <EmbeddedResource Remove="KYLib.Example\**" />
     <None Remove="KYLib.Example\**" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework) == 'netstandard2.0'">
+    <PackageReference Include="IndexRange" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
