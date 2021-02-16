@@ -104,6 +104,16 @@ namespace KYLib.ConsoleUtils
 		/// <returns>Devuelve si el item se pudo agregar al menu.</returns>
 		public bool AddItem(string name, Action action) => AddItem(new ConsoleItem(name, action));
 
+		/// <summary>
+		/// Agrega un nuevo item al menu.
+		/// </summary>
+		/// <param name="name">Nombre que tendra el item.</param>
+		/// <param name="action"></param>
+		/// <returns>Devuelve si el item se pudo agregar al menu.</returns>
+		public bool AddItem(string name, Action action, bool instaOption) => 
+			AddItem(new ConsoleItem(name, action) { InstaOption = instaOption });
+
+
 		#endregion
 
 		#region Logica principal
