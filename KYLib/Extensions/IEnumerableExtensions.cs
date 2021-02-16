@@ -43,6 +43,18 @@ namespace KYLib.Extensions
 		/// <returns>El primer elemento de la lista con <paramref name="name"/> como nombre, default si no hay ninguno.</returns>
 		public static T FindByName<T>(this IEnumerable<T> arr, string name) where T : INameable =>
 			arr.ToList().Find(t => t.Name.Equals(name));
+
+		/// <summary>
+		/// Determina si se cumple una condición para cada elemento en el <see cref="IEnumerable{T}"/>.
+		/// </summary>
+		/// <typeparam name="T">Cualquier tipo.</typeparam>
+		/// <param name="arr">Enumerable de origen.</param>
+		/// <param name="predicate"></param>
+		/// <returns>Devuelve <c>true</c> si cada elemento del <see cref="IEnumerable{T}"/> cumple con la condición <paramref name="predicate"/>, de lo contrario devuelve <c>false</c>.</returns>
+		/// <exception cref="ArgumentException">Se lanza cuando el predicado es nulo.</exception>
+		public static bool TrueForAll<T>(this IEnumerable<T> arr, Predicate<T> predicate) =>
+			Array.TrueForAll(arr.ToArray(), predicate);
+		
 		#endregion
 
 		#region Listas

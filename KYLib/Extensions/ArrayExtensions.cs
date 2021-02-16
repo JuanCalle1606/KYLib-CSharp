@@ -55,7 +55,19 @@ namespace KYLib.Extensions
 		/// <typeparam name="T">Cualquier tipo.</typeparam>
 		/// <param name="arr">Arreglo de origen.</param>
 		/// <returns>Una matriz bidimensional de <typeparamref name="T"/>.</returns>
-		public static T[,] ToMatriz<T>(this T[][] arr) => throw new NotImplementedException();
+		public static T[,] ToMatriz<T>(this T[][] arr)
+		{
+			int cols = arr.Length;
+			int rows = arr[0].Length;
+			if (!arr.TrueForAll(t => t.Length == rows))
+				throw new ArgumentException("Todos lo arreglos internos deben tener la misma longitud");
+			T[,] dev = new T[cols, rows];
+			for (int i = 0; i < cols; i++)
+				for (int j = 0; j < rows; j++)
+					dev[i, j] = arr[i][j];
+
+			return dev;
+		}
 
 		/// <inheritdoc/>
 		public static string ToString<T>(this T[][] arr, char separator, bool multiline, bool showindex)

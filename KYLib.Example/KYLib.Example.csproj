@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KYLib.csproj" />
+    <ProjectReference Include="..\KYLib\KYLib.csproj" />
   </ItemGroup>
 
 </Project>
