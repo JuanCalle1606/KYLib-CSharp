@@ -16,14 +16,18 @@
     <PackageReleaseNotes>Beta</PackageReleaseNotes>
     <PackageTags>Basic, C#, Simple</PackageTags>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageId>KYLib</PackageId>
+    <PackageId>KYLib.Forms</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Version>0.1.2.16</Version>
-    <DocumentationFile>$(ProjectDir)KYLibDocs.xml</DocumentationFile>
+    <DocumentationFile>$(ProjectDir)KYLib.FormsDocs.xml</DocumentationFile>
     <NeutralLanguage>es</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup Condition="$(TargetFramework) == 'netstandard2.0'">
     <PackageReference Include="IndexRange" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KYLib\KYLib.csproj" />
   </ItemGroup>
 </Project>
