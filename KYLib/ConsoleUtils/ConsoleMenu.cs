@@ -142,7 +142,7 @@ namespace KYLib.ConsoleUtils
 					OptionErrorText ?? DefaultOptionErrorText);
 				Cons.Clear();
 
-				items[option].Task();
+				items[option].Task?.Invoke();
 
 				if (!items[option].InstaOption)
 					_ = Cons.Key;
