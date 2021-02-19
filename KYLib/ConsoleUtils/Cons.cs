@@ -113,15 +113,19 @@ namespace KYLib.ConsoleUtils
 		public static void Trace(object obj) => Console.WriteLine(obj);
 
 		/// <summary>
-		/// Muestra un objeto por consola si se esta en modo debug.
+		/// Muestra un cojunto de objetos en la consola, uno por linea.
 		/// </summary>
-		/// <param name="obj">Cualquier objeto.</param>
-		public static void Debug(object obj) =>
-		#if DEBUG
-		Trace(obj);
-		#else
-		_ = obj;
-		#endif
+		/// <param name="obj">Lista de objetos a mostrar.</param>
+		public static void Trace(params object[] obj)
+		{
+			foreach(var item in obj)
+				Trace(item);
+		}
+
+		/// <summary>
+		/// Añade un salto de linea a la consola.
+		/// </summary>
+		public static void Trace()=>Console.WriteLine();
 
 		#endregion
 	}
