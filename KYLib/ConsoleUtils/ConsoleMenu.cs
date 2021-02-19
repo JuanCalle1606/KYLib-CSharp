@@ -109,6 +109,7 @@ namespace KYLib.ConsoleUtils
 		/// </summary>
 		/// <param name="name">Nombre que tendra el item.</param>
 		/// <param name="action"></param>
+		/// <param name="instaOption">Indica la acción que efectuara este item.</param>
 		/// <returns>Devuelve si el item se pudo agregar al menu.</returns>
 		public bool AddItem(string name, Action action, bool instaOption) => 
 			AddItem(new ConsoleItem(name, action) { InstaOption = instaOption });
@@ -128,6 +129,14 @@ namespace KYLib.ConsoleUtils
 		public void Start()
 		{
 			running = true;
+			Run();
+		}
+
+		/// <summary>
+		/// Es el bucle principal del menu.
+		/// </summary>
+		private void Run()
+		{
 			int option;
 			//bucle principal del menu.
 			while (running)
