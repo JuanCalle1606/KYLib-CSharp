@@ -448,11 +448,11 @@ namespace KYLib.MathFn
 		}
 		private string GetString()
 		{
-			ulong n = 0;
+			decimal n = 0;
 			int count = bits.Count - 1;
 			for (int i = count; i >= 0; i--)
 			{
-				n += bits[i] == bit.One ? (ulong)Math.Pow(2, count - i) : 0;
+				n += bits[i] == bit.One ? (decimal)Math.Pow(2, count - i) : 0;
 			}
 
 			List<char> nl = n.ToString().ToCharArray().ToList();
@@ -472,7 +472,7 @@ namespace KYLib.MathFn
 				nl.RemoveAt(0);
 			}
 
-			return $"{nl.ToString(null)} - {bits.ToString(null)}";
+			return $"{nl.ToString(null)}";
 		}
 
 		/// <inheritdoc/>
