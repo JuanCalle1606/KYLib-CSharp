@@ -12,6 +12,6 @@ namespace KYLib.ConsoleUtils
 		/// <summary>
 		/// Crea una nueva aplicación de consola.
 		/// </summary>
-		protected ConsoleApp(string appName) : base(true) => Title = appName;
+		protected ConsoleApp(string appName) : base(true) => Title = appName+Environment.NewLine;
 	}
 }

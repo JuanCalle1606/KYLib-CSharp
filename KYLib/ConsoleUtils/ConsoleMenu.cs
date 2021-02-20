@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using KYLib.Extensions;
 
 namespace KYLib.ConsoleUtils
 {
@@ -164,9 +165,7 @@ namespace KYLib.ConsoleUtils
 		#region secundario
 		void UpdateString()
 		{
-			String = "\n";
-			for (int i = 0; i < items.Count; i++)
-				String += $"{i}. {items[i]}\n";
+			String = items.ToString(null,true,true);
 		}
 		#endregion
 	}
