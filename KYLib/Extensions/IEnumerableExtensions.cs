@@ -121,9 +121,13 @@ namespace KYLib.Extensions
 		public static float[] ToFloatArray<T>(this IEnumerable<T> arr) where T : IConvertible =>
 			arr.ToArray(t => Convert.ToSingle(t));
 
+
 		/// <inheritdoc/>
-		public static string ToString<T>(this IEnumerable<T> arr, bool multiline) =>
-			arr.ToString(null, false, multiline);
+		public static string ToString<T>(this IEnumerable<T> arr, bool showindex, bool multiline) =>
+			arr.ToString(null, showindex, multiline);
+		/// <inheritdoc/>
+		public static string ToString<T>(this IEnumerable<T> arr, bool showindex) =>
+			arr.ToString(null, showindex, false);
 		/// <inheritdoc/>
 		public static string ToString<T>(this IEnumerable<T> arr, char? separator) =>
 			arr.ToString(separator, false);
