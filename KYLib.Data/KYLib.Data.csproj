@@ -16,10 +16,10 @@
     <PackageReleaseNotes>Beta</PackageReleaseNotes>
     <PackageTags>Basic, C#, Simple</PackageTags>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageId>KYLib.Forms</PackageId>
+    <PackageId>KYLib.Data</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Version>0.1.2.16</Version>
-    <DocumentationFile>$(ProjectDir)KYLib.FormsDocs.xml</DocumentationFile>
+    <DocumentationFile>$(ProjectDir)KYLib.DataDocs.xml</DocumentationFile>
     <NeutralLanguage>es</NeutralLanguage>
   </PropertyGroup>
 
@@ -29,5 +29,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KYLib\KYLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 </Project>
