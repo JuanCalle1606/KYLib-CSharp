@@ -11,16 +11,12 @@ namespace KYLib.ConsoleUtils
 	public class ConsoleMenu
 	{
 		#region Variables
-		List<ConsoleItem> items = new List<ConsoleItem>();
-
-		bool running = true;
-
-		string String;
-
 		/// <summary>
-		/// Obtiene el padre de este menu.
+		/// Guarda todos los items del menu.
 		/// </summary>
-		public ConsoleMenu Parent { get; }
+		protected List<ConsoleItem> Items = new List<ConsoleItem>();
+		bool running = true;
+		string String;
 
 		/// <summary>
 		/// Optiene el titulo del menu.
@@ -75,11 +71,18 @@ namespace KYLib.ConsoleUtils
 		/// <param name="addExit">Indica si se quiere agregar la opción de salir.</param>
 		public ConsoleMenu(bool addExit)
 		{
-			if (addExit) items.Add(new ConsoleItem("Salir", Stop) { InstaOption = true });
+			if (addExit) Items.Add(new ConsoleItem("Salir", Stop) { InstaOption = true });
 		}
 		#endregion
 
 		#region Interacciones
+
+		/// <summary>
+		/// Agrega un menu como submenu de este item.
+		/// </summary>
+		/// <param name="menu"></param>
+		/// <returns></returns>
+		public bool AddMenu(ConsoleMenu menu) => AddItem(menu.Title, menu.Start);
 
 		/// <summary>
 		/// Agrega un nuevo item al menu.
@@ -88,9 +91,9 @@ namespace KYLib.ConsoleUtils
 		/// <returns>Devuelve si el item se pudo agregar al menu.</returns>
 		public bool AddItem(ConsoleItem item)
 		{
-			if (!items.Contains(item))
+			if (!Items.Contains(item))
 			{
-				items.Add(item);
+				Items.Add(item);
 				UpdateString();
 				return true;
 			}
@@ -112,7 +115,7 @@ namespace KYLib.ConsoleUtils
 		/// <param name="action"></param>
 		/// <param name="instaOption">Indica la acción que efectuara este item.</param>
 		/// <returns>Devuelve si el item se pudo agregar al menu.</returns>
-		public bool AddItem(string name, Action action, bool instaOption) => 
+		public bool AddItem(string name, Action action, bool instaOption) =>
 			AddItem(new ConsoleItem(name, action) { InstaOption = instaOption });
 
 
@@ -147,14 +150,14 @@ namespace KYLib.ConsoleUtils
 				Cons.Line = String;
 				AfterRender?.Invoke();
 
-				option = Cons.GetInt(0, items.Count,
+				option = Cons.GetInt(0, Items.Count,
 					OptionText ?? DefaultOptionText,
 					OptionErrorText ?? DefaultOptionErrorText);
 				Cons.Clear();
 
-				items[option].Task?.Invoke();
+				Items[option].Task?.Invoke();
 
-				if (!items[option].InstaOption)
+				if (!Items[option].InstaOption)
 					_ = Cons.Key;
 
 				Cons.Clear();
@@ -165,7 +168,7 @@ namespace KYLib.ConsoleUtils
 		#region secundario
 		void UpdateString()
 		{
-			String = items.ToString(null,true,true);
+			String = Items.ToString(null, true, true);
 		}
 		#endregion
 	}
