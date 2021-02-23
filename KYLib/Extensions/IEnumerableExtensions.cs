@@ -138,7 +138,7 @@ namespace KYLib.Extensions
 		/// <inheritdoc/>
 		public static string ToString<T>(this IEnumerable<T> arr, char? separator, bool showindex, bool multiline)
 		{
-			stringBuilder.Clear();
+			StringBuilder stringBuilder = new StringBuilder();
 			int i = 0;
 			foreach (T item in arr)
 			{
@@ -151,11 +151,6 @@ namespace KYLib.Extensions
 			}
 			return stringBuilder.ToString().TrimEnd(separator ?? ' ');
 		}
-
-		/// <summary>
-		/// StringBuilder que se usa para contruir los toString().
-		/// </summary>
-		private static StringBuilder stringBuilder = new StringBuilder();
 		#endregion
 	}
 }
