@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace KYLib.Utils
+namespace KYLib.MathFn
 {
 	/// <summary>
 	/// Representa un entero de 1 bit.
@@ -34,8 +34,10 @@ namespace KYLib.Utils
 		/// </summary>
 		/// <see cref="Rest"/>
 		/// <seealso cref="Rest"/>
-		public bool ResetRest{
-			get{
+		public bool ResetRest
+		{
+			get
+			{
 				bool tmp = Rest;
 				Rest = false;
 				return tmp;
@@ -45,7 +47,8 @@ namespace KYLib.Utils
 		/// Crea un nuevo bit con un valor dado.
 		/// </summary>
 		/// <param name="value">Es <c>true</c> si el bit debe vale 1 o <c>false</c> si debe valer 0.</param>
-		Bit(bool value){
+		Bit(bool value)
+		{
 			Value = value;
 			Rest = false;
 		}
@@ -54,7 +57,8 @@ namespace KYLib.Utils
 		/// </summary>
 		/// <param name="value">Es <c>true</c> si el bit debe vale 1 o <c>false</c> si debe valer 0.</param> 
 		/// <param name="rest">Es <c>true</c> si el bit tiene resto o <c>false</c> si debe no.</param>
-		Bit(bool value,bool rest){
+		Bit(bool value, bool rest)
+		{
 			Value = value;
 			Rest = rest;
 		}

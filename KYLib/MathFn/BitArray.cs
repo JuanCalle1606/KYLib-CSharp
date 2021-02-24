@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using bit = KYLib.Utils.Bit;
+using bit = KYLib.MathFn.Bit;
 
 /*
  * TODO:

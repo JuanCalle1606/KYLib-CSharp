@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using bit = KYLib.Utils.Bit;
+using bit = KYLib.MathFn.Bit;
 using xint = KYLib.MathFn.BitArray;
 
 namespace KYLib.MathFn
