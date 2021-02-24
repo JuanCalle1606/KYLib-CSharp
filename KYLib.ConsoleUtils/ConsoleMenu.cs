@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using KYLib.Extensions;
+using DP = Newtonsoft.Json.JsonPropertyAttribute;
+using DI = Newtonsoft.Json.JsonIgnoreAttribute;
 
 namespace KYLib.ConsoleUtils
 {
@@ -14,7 +16,8 @@ namespace KYLib.ConsoleUtils
 		/// <summary>
 		/// Guarda todos los items del menu.
 		/// </summary>
-		protected List<ConsoleItem> Items = new List<ConsoleItem>();
+
+		[DP] protected List<ConsoleItem> Items = new List<ConsoleItem>();
 		bool running = true;
 		string String;
 
@@ -42,14 +45,14 @@ namespace KYLib.ConsoleUtils
 		/// <remarks>
 		/// Esta acción por defecto esta establecida en null por lo que no puede usar el operador += unicamente el =.
 		/// </remarks>
-		public Action BeforeRender;
+		[DI] public Action BeforeRender;
 		/// <summary>
 		/// Define una función que sera llamada despues de dibujarse las opciones en pantalla.
 		/// </summary>
 		/// <remarks>
 		/// Esta acción por defecto esta establecida en null por lo que no puede usar el operador += unicamente el =.
 		/// </remarks>
-		public Action AfterRender;
+		[DI] public Action AfterRender;
 		#endregion
 
 		#region Estaticas

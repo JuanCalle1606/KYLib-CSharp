@@ -1,11 +1,16 @@
 ﻿using KYLib.Interfaces;
 using System;
+using Newtonsoft.Json;
+using DC = Newtonsoft.Json.JsonObjectAttribute;
+using DP = Newtonsoft.Json.JsonPropertyAttribute;
 
 namespace KYLib.ConsoleUtils
 {
+
 	/// <summary>
 	/// Representa un item de un menu de consola.
 	/// </summary>
+	[DC(Newtonsoft.Json.MemberSerialization.OptIn)]
 	public class ConsoleItem : INameable
 	{
 		/// <summary>
@@ -16,12 +21,12 @@ namespace KYLib.ConsoleUtils
 		/// <summary>
 		/// Indica si esta opción se devuelve al menu contenedor inmediatamente despues de ejecutarse.
 		/// </summary>
-		public bool InstaOption { get; set; } = false;
+		[DP] public bool InstaOption { get; set; } = false;
 
 		/// <summary>
 		/// Nombre del item.
 		/// </summary>
-		public string Name { get; set; }
+		[DP] public string Name { get; set; }
 
 		/// <summary>
 		/// Crea un nuevo item con un nombre por defecto y que no hace nada.
