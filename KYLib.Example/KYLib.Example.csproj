@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KYLib\KYLib.csproj" />
+    <ProjectReference Include="..\KYLib.ConsoleUtils\KYLib.ConsoleUtils.csproj" />
   </ItemGroup>
 
 </Project>
