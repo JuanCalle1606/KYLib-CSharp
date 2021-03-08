@@ -8,22 +8,31 @@ namespace KYLib.System
 		/// <summary>
 		/// Indica que el programa no ha reconocido el sistema operativo actual.
 		/// </summary>
-		Unknow,
-		/// <summary>
-		/// Sistema operativo Unix, todas las distribuciones no soportadas seran detectadas como unix.
-		/// </summary>
-		Unix,
+		Unknow = 0,
 		/// <summary>
 		/// Sistema operativo Windows.
 		/// </summary>
-		Windows,
+		Windows = 0x100000,
+		/// <summary>
+		/// Sistema operativo Unix, todas las distribuciones no soportadas seran detectadas como unix.
+		/// </summary>
+		Unix = 1,
 		/// <summary>
 		/// Sistema operativo GNU/Linux.
 		/// </summary> 
-		Linux,
+		Linux = 3,
+		/// <summary>
+		/// Sistema operativo Debian.
+		/// </summary> 
+		Debian = 7,
+		/*
+		/// <summary>
+		/// Sistema operativo Ubuntu.
+		/// </summary> 
+		Ubuntu = 23,*/
 		/// <summary>
 		/// Sistema operativo Parrot OS.
 		/// </summary>
-		Parrot = 12,
+		Parrot = 39,
 	}
 }
