@@ -8,68 +8,50 @@ namespace KYLib.System
 	/// </summary>
 	public static class Bash
 	{
+		///	GetCommand: ejecuta y espera a por la salida
+		/// GetCommandAsync: ejecuta en segundo plano y cuando acaba obtiene la salida.
+		/// RunCommand: ejecuta directamente en la terminal de forma interactiva, no se controla ni entrada ni salida controlada.
+		/// Command:ejecuta en segundo plano pero controlando tanto la salida como la entrada.
 
 		/// <summary>
-		/// Ejecuta un comando por terminal.
+		/// Ejecuta un proceso en el terminal y devuelve la salida de ese proceso.
 		/// </summary>
-		/// <param name="bash">Comando a ejecutar, con parametros</param>
-		public static string Command(string bash)
-		{
-			throw new NotImplementedException("El bash multiplataforma aun no ha sido implementado");
-		}
-
-		/// <summary>
-		/// Ejecuta un comando por terminal en sistemas unix.
-		/// Este metodo espera a que el proceso acabe para luego devolver toda su salida.
-		/// </summary>
-		/// <param name="bash">Comando a ejecutar, con parametros</param>
-		/// <returns>Devuelve la salida del progarama.</returns>
-		public static string GetCommandUnix(string bash)
-		{
-			Process process = CommandUnixCore(bash, true);
-			string result = "";
-			process.OutputDataReceived += (o, e) => result += e.Data + Environment.NewLine;
-			process.Start();
-			process.BeginOutputReadLine();
-			process.WaitForExit();
-			process.Close();
-			process.Dispose();
-			return result;
-		}
-
-		public static void GetCommandUnix(string bash, Action<string> callback)
-		{
-			Process process = CommandUnixCore(bash, true);
-			process.OutputDataReceived += (o, e) => callback?.Invoke(e.Data);
-			process.Start();
-			process.BeginOutputReadLine();
-			process.WaitForExit();
-			process.Close();
-			process.Dispose();
-		}
+		/// <remarks>
+		/// NO se debe utilizar este metodo para ejecutar procesos que soliciten entrada de datos ya que este metodo solo captura las salidas, si se usa en un metodo que solicita entrada se producira un bloqueo porque siempre se estara esperando por una entrada.
+		/// </remarks>
+		/// <param name="bash"></param>
+		/// <returns></returns>
+		public static string GetCommand(string bash) => GetCommand(Info.CurrentSystem, bash);
 
 		/// <summary>
 		/// 
 		/// </summary>
+		/// <param name="os"></param>
 		/// <param name="bash"></param>
-		public static void CommandUnix(string bash)
+		/// <returns></returns>
+		public static string GetCommand(OS os, string bash)
 		{
-			Process process = CommandUnixCore(bash, false);
-			process.Start();
-			process.WaitForExit();
-			process.Close();
-			process.Dispose();
+			string dev;
+			using (var process = CreateProcess(os, bash, true))
+			{
+				process.Start();
+				process.WaitForExit();
+				dev = process.StandardOutput.ReadToEnd();
+			}
+			return dev;
 		}
 
-		private static Process CommandUnixCore(string bash, bool redirect)
+		private static Process CreateProcess(OS os, string bash, bool redirect)
 		{
 			string escapedArgs = bash.Replace("\"", "\\\"");
+			string[] path = Info.GetTerminalPath(os).Split(' ');
+
 			return new Process
 			{
 				StartInfo = new ProcessStartInfo
 				{
-					FileName = "/bin/bash",
-					Arguments = $"-c \"{escapedArgs}\"",
+					FileName = path[0],
+					Arguments = $"{path[1]} \"{escapedArgs}\"",
 					RedirectStandardOutput = redirect,
 					UseShellExecute = false,
 					CreateNoWindow = true
