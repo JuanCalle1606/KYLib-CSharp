@@ -37,7 +37,7 @@ namespace KYLib.System
 
 			else CurrentSystem = OS.Unix;
 
-			string uname = Bash.GetCommandUnix("uname -a").ToLower();
+			string uname = Bash.GetCommand(OS.Unix, "uname -a").ToLower();
 			if (uname.Contains("linux")) CurrentSystem = OS.Linux;
 			if (uname.Contains("debian")) CurrentSystem = OS.Debian;
 			if (uname.Contains("parrot")) CurrentSystem = OS.Parrot;
@@ -58,8 +58,8 @@ namespace KYLib.System
 		/// <returns>La ruta o comando que se sua para ejecutar ordenes de consola.</returns>
 		public static string GetTerminalPath(OS os)
 		{
-			if (IsOSBased(os, OS.Windows)) return "cmd.exe /c ";
-			if (IsOSBased(os, OS.Linux)) return "/bin/bash -c ";
+			if (IsOSBased(os, OS.Windows)) return "cmd.exe /c";
+			if (IsOSBased(os, OS.Unix)) return "/bin/bash -c";
 			return string.Empty;
 		}
 	}

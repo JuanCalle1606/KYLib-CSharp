@@ -1,7 +1,7 @@
 namespace KYLib.System
 {
 	/// <summary>
-	/// Lista de enumeración de sistemas operativos soportados por la libreria.
+	/// Enumeración de sistemas operativos soportados por la libreria.
 	/// </summary>
 	public enum OS
 	{
