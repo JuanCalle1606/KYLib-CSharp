@@ -40,6 +40,14 @@ namespace KYLib.ConsoleUtils
 		public static string Line { get => Console.ReadLine(); set => Console.WriteLine(value); }
 
 		/// <summary>
+		/// Obtiene una linea escrita por consola o escribe en la linea actual si se establece.
+		/// </summary>
+		/// <value>
+		/// Su valor es cualquiera ingresado por el usuario.
+		/// </value>
+		public static string Inline { get => Console.ReadLine(); set => Console.Write(value); }
+
+		/// <summary>
 		/// Esta propiedad se usa para obtener una key ingresada por el usuario, usea el desecho "_" o  establezcala en null para detener la consola hasta que el usuario pulse una tecla.
 		/// </summary>
 		/// <value>
