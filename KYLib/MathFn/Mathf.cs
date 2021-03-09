@@ -11,6 +11,22 @@ namespace KYLib.MathFn
 	/// </summary>
 	public static class Mathf
 	{
+		#region Utilidades
+
+		/// <summary>
+		/// Calcula la media de un conjunto de numeros enteros.
+		/// </summary>
+		/// <param name="source">Conjunto de numeros de origen.</param>
+		/// <returns>Media del conjunto numerico.</returns>
+		public static int Mean(IEnumerable<int> source)
+		{
+			int count = source.Count();
+			int sum = source.Sum();
+			return sum / count;
+		}
+
+		#endregion
+
 		#region Overrides System.Math
 		/// <summary>
 		/// Devuelve el mayor de dos enteros sin signo.
@@ -34,10 +50,9 @@ namespace KYLib.MathFn
 		/// <returns>La raiz cuadrada de <paramref name="n"/>.</returns>
 		public static float Sqrt(float n) => (float)Math.Sqrt(n);
 
-
-
 		#endregion
 
+		#region  Trabajo con cadenas.
 		/// <summary>
 		/// Devuelve la <paramref name="power"/> potencia de 2.
 		/// </summary>
@@ -97,5 +112,6 @@ namespace KYLib.MathFn
 			return char.Parse($"{temp}");
 
 		}
+		#endregion
 	}
 }
