@@ -37,7 +37,7 @@ namespace KYLib.System
 
 			else CurrentSystem = OS.Unix;
 
-			string uname = Bash.GetCommand(OS.Unix, "uname -a").ToLower();
+			string uname = Bash.GetCommand("uname -a").ToLower();
 			if (uname.Contains("linux")) CurrentSystem = OS.Linux;
 			if (uname.Contains("debian")) CurrentSystem = OS.Debian;
 			if (uname.Contains("parrot")) CurrentSystem = OS.Parrot;

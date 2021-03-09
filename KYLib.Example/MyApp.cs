@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using KYLib.ConsoleUtils;
 using KYLib.Extensions;
 using KYLib.System;
@@ -37,7 +39,7 @@ namespace KYLib.Example
 		{
 			Cons.Line = "Ingresa el comando a ejecutar";
 			string comando = Cons.Line;
-			Cons.Line = Bash.GetCommand(comando);
+			Bash.RunCommand(comando);
 		}
 
 		void ShowTicks() => Cons.Trace($"Ticks: {DateTime.Now.Ticks}\n");
