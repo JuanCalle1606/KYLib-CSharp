@@ -2,8 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
-    <LangVersion>8.0</LangVersion>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Juan Pablo Calle</Authors>
     <Company>Juan Pablo Calle Grafe</Company>
@@ -22,10 +21,6 @@
     <DocumentationFile>$(ProjectDir)KYLib.ConsoleUtilsDocs.xml</DocumentationFile>
     <NeutralLanguage>es</NeutralLanguage>
   </PropertyGroup>
-
-  <ItemGroup Condition="$(TargetFramework) == 'netstandard2.0'">
-    <PackageReference Include="IndexRange" Version="1.0.0" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\KYLib.Data\KYLib.Data.csproj" />
