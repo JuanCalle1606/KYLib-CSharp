@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Linq;
 using KYLib.ConsoleUtils;
+using KYLib.Extensions;
 using KYLib.System;
-using KYLib.Utils;
-using xint = KYLib.MathFn.BitArray;
 
 namespace KYLib.Example
 {
@@ -13,7 +11,7 @@ namespace KYLib.Example
 		{
 			AddItem("Saludar", Saludar);
 			AddItem("Mostar Carpetas", ShowFolders);
-			AddItem("Ejecutar comando", RunCommand, false);
+			AddItem("Ejecutar comando", RunCommand);
 			AddItem("Información del sistema", SysInfo);
 			AddMenu(new FileExample());
 			AfterRender = ShowTicks;
@@ -31,14 +29,15 @@ namespace KYLib.Example
 			Cons.Trace($"   Minor: {os.Version.Minor}");
 			Cons.Trace($"Service Pack: '{os.ServicePack}'");
 			Cons.Trace($"Detected OS: {Info.CurrentSystem}");
-			Cons.Trace($"Is Linux?: {Info.IsOSBased(Info.CurrentSystem, OS.Linux)}");
-			Cons.Trace($"Is Windows?: {Info.IsOSBased(Info.CurrentSystem, OS.Windows)}");
+			Cons.Trace($"Is Linux?: {Info.CurrentSystem.IsUnix()}");
+			Cons.Trace($"Is Windows?: {Info.CurrentSystem.IsWindows()}");
 		}
 
 		private void RunCommand()
 		{
 			Cons.Line = "Ingresa el comando a ejecutar";
 			string comando = Cons.Line;
+			Cons.Line = Bash.GetCommand(comando);
 		}
 
 		void ShowTicks() => Cons.Trace($"Ticks: {DateTime.Now.Ticks}\n");
