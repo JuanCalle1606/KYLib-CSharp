@@ -17,11 +17,13 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageId>KYLib</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>1.3.28</Version>
+    <Version>1.3.9</Version>
     <DocumentationFile>$(ProjectDir)KYLibDocs.xml</DocumentationFile>
     <NeutralLanguage>es</NeutralLanguage>
   </PropertyGroup>
-
+  <PropertyGroup Condition="$(TargetFramework) == 'netstandard2.1'">
+	<DefineConstants>$(DefineConstants);NS21;</DefineConstants>
+  </PropertyGroup>
   <ItemGroup Condition="$(TargetFramework) == 'netstandard2.0'">
     <PackageReference Include="IndexRange" Version="1.0.0" />
   </ItemGroup>
