@@ -35,15 +35,14 @@ namespace KYLib.Interfaces
 		/// Calcula el resto entre este numero y otro.
 		/// </summary>
 		/// <param name="num">El numero por el que se va a dividir.</param>
-		/// <returns>El resto de la división</returns>
-		INumber Rest(INumber num);
+		void Rest(INumber num);
 	}
 
 	/// <summary>
 	/// Representa un numero que esta basado en un tipo numerico nativo de C#.
 	/// </summary>
 	/// <typeparam name="TBase">Cualquier structura que pueda actuar como numero.</typeparam>
-	public interface INumber<TBase> : INumber
+	public interface INumber<TBase> : INumber, IEquatable<int>
 	where TBase : struct, IComparable, IComparable<TBase>, IConvertible, IEquatable<TBase>, IFormattable
 	{
 		/// <summary>
@@ -79,7 +78,6 @@ namespace KYLib.Interfaces
 		/// Calcula el resto entre este numero y otro.
 		/// </summary>
 		/// <param name="num">El numero por el que se va a dividir.</param>
-		/// <returns>El resto de la división</returns>
-		INumber Rest(TBase num);
+		void Rest(TBase num);
 	}
 }
