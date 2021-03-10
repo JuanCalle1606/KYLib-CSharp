@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using bit = KYLib.MathFn.Bit;
+using KYLib.Extensions;
+using KYLib.Interfaces;
 using xint = KYLib.MathFn.BitArray;
 
 namespace KYLib.MathFn
@@ -18,12 +19,38 @@ namespace KYLib.MathFn
 		/// </summary>
 		/// <param name="source">Conjunto de numeros de origen.</param>
 		/// <returns>Media del conjunto numerico.</returns>
-		public static int Mean(IEnumerable<int> source)
+		public static int MeanOf(IEnumerable<int> source)
 		{
 			int count = source.Count();
 			int sum = source.Sum();
-			return sum / count;
+			sum /= count;
+			return sum;
 		}
+
+		/// <summary>
+		/// Calcula la media de un conjunto de numeros.
+		/// </summary>
+		/// <param name="source">Conjunto numerico.</param>
+		/// <typeparam name="T">Algun tipo numerico.</typeparam>
+		/// <returns>La media del conjunto de datos.</returns>
+		public static T MeanOf<T>(IEnumerable<T> source) where T : struct, INumber
+		{
+			Int count = source.Count();
+			INumber sum = source.Sum();
+			sum.Div(count);
+			return (T)sum;
+		}
+
+		/// <summary>
+		/// Calcula la media de un conjunto de numeros.
+		/// </summary>
+		/// <param name="source">Conjunto numerico.</param>
+		/// <typeparam name="T">Algun tipo numerico.</typeparam>
+		/// <returns>La media del conjunto de datos.</returns>
+		public static T Mean<T>(params T[] source) where T : struct, INumber =>
+			MeanOf(source);
+
+
 
 		#endregion
 

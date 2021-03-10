@@ -3,7 +3,7 @@ using System;
 namespace KYLib.Interfaces
 {
 	/// <summary>
-	/// Representa un numero en el cual se pueden operar las operacione sbasicas como suma, resta, multiplicación y división.
+	/// Representa un numero en el cual se pueden operar las operaciones basicas como suma, resta, multiplicación y división.
 	/// </summary>
 	public interface INumber : IComparable, IComparable<INumber>, IConvertible, IEquatable<INumber>, IFormattable
 	{

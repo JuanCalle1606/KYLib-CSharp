@@ -1,14 +1,16 @@
 ﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
 using KYLib.ConsoleUtils;
 using KYLib.Extensions;
+using KYLib.MathFn;
 using KYLib.System;
+using static KYLib.ConsoleUtils.Cons;
+using Sys = System;
 
 namespace KYLib.Example
 {
 	public class MyApp : ConsoleApp
 	{
+
 		public MyApp() : base(nameof(MyApp))
 		{
 			AddItem("Saludar", Saludar);
@@ -16,7 +18,14 @@ namespace KYLib.Example
 			AddItem("Ejecutar comando", RunCommand);
 			AddItem("Información del sistema", SysInfo);
 			AddMenu(new FileExample());
+			AddItem("Probar numeros", TestNumber);
 			AfterRender = ShowTicks;
+		}
+
+		private void TestNumber()
+		{
+			Int[] ints = { 10, 5, 15, 37 };
+			Trace(Mathf.Mean<Int>(ints));
 		}
 
 		private void SysInfo()
