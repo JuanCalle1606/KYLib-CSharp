@@ -79,5 +79,58 @@ namespace KYLib.Interfaces
 		/// </summary>
 		/// <param name="num">El numero por el que se va a dividir.</param>
 		void Rest(TBase num);
+
+		/// <inheritdoc/>
+		bool IConvertible.ToBoolean(IFormatProvider provider) => ((IConvertible)Value).ToBoolean(provider);
+
+		/// <inheritdoc/>
+		byte IConvertible.ToByte(IFormatProvider provider) => ((IConvertible)Value).ToByte(provider);
+
+		/// <inheritdoc/>
+		char IConvertible.ToChar(IFormatProvider provider) => ((IConvertible)Value).ToChar(provider);
+
+		/// <inheritdoc/>
+		DateTime IConvertible.ToDateTime(IFormatProvider provider) => ((IConvertible)Value).ToDateTime(provider);
+
+		/// <inheritdoc/>
+		decimal IConvertible.ToDecimal(IFormatProvider provider) => ((IConvertible)Value).ToDecimal(provider);
+
+		/// <inheritdoc/>
+		double IConvertible.ToDouble(IFormatProvider provider) => ((IConvertible)Value).ToDouble(provider);
+
+		/// <inheritdoc/>
+		short IConvertible.ToInt16(IFormatProvider provider) => ((IConvertible)Value).ToInt16(provider);
+
+		/// <inheritdoc/>
+		int IConvertible.ToInt32(IFormatProvider provider) => ((IConvertible)Value).ToInt32(provider);
+
+		/// <inheritdoc/>
+		long IConvertible.ToInt64(IFormatProvider provider) => ((IConvertible)Value).ToInt64(provider);
+
+		/// <inheritdoc/>
+		sbyte IConvertible.ToSByte(IFormatProvider provider) => ((IConvertible)Value).ToSByte(provider);
+
+		/// <inheritdoc/>
+		float IConvertible.ToSingle(IFormatProvider provider) => ((IConvertible)Value).ToSingle(provider);
+
+		/// <inheritdoc/>
+		string IConvertible.ToString(IFormatProvider provider) => ((IConvertible)Value).ToString(provider);
+
+		/// <inheritdoc/>
+		string IFormattable.ToString(string format, IFormatProvider formatProvider) =>
+			((IFormattable)Value).ToString(format, formatProvider);
+
+		/// <inheritdoc/>
+		object IConvertible.ToType(Type conversionType, IFormatProvider provider) =>
+		((IConvertible)Value).ToType(conversionType, provider);
+
+		/// <inheritdoc/>
+		ushort IConvertible.ToUInt16(IFormatProvider provider) => ((IConvertible)Value).ToUInt16(provider);
+
+		/// <inheritdoc/>
+		uint IConvertible.ToUInt32(IFormatProvider provider) => ((IConvertible)Value).ToUInt32(provider);
+
+		/// <inheritdoc/>
+		ulong IConvertible.ToUInt64(IFormatProvider provider) => ((IConvertible)Value).ToUInt64(provider);
 	}
 }
