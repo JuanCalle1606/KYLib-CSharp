@@ -1,9 +1,9 @@
-﻿using KYLib.Extensions;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using KYLib.Extensions;
 using bit = KYLib.MathFn.Bit;
 
 /*
@@ -18,6 +18,7 @@ namespace KYLib.MathFn
 	/// <summary>
 	/// Representa un entero de un numero variable de bits.
 	/// </summary>
+	[Obsolete("La clase BitArray tiene problemas de rendimiento por lo que sera eliminada", true)]
 	public struct BitArray : IComparable<BitArray>, IEnumerable<bit>, IEquatable<BitArray>
 	{
 		#region Base

@@ -61,13 +61,16 @@ namespace KYLib.MathFn
 		/// <param name="val1">Primer entero.</param>
 		/// <param name="val2">Segundo entero.</param>
 		/// <returns>El mayor entre <paramref name="val1"/> y <paramref name="val2"/>, si son iguales se devuelve <paramref name="val1"/>.</returns>
+		[Obsolete("La clase BitArray tiene problemas de rendimiento por lo que sera eliminada", true)]
 		public static xint Max(xint val1, xint val2) => val1 < val2 ? val2 : val1;
+
 		/// <summary>
 		/// Devuelve el menor de dos enteros sin signo.
 		/// </summary>
 		/// <param name="val1">Primer entero.</param>
 		/// <param name="val2">Segundo entero.</param>
 		/// <returns>El menor entre <paramref name="val1"/> y <paramref name="val2"/>, si son iguales se devuelve <paramref name="val2"/>.</returns>
+		[Obsolete("La clase BitArray tiene problemas de rendimiento por lo que sera eliminada", true)]
 		public static xint Min(xint val1, xint val2) => val1 < val2 ? val1 : val2;
 
 		/// <summary>
