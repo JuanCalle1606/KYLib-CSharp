@@ -350,4 +350,4 @@ MigrationBackup/
 .ionide/
 
 # Generated Docs Files
-*Docs.xml
+KYLib*.xml

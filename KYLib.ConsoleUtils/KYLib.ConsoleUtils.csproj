@@ -6,19 +6,18 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Juan Pablo Calle</Authors>
     <Company>Juan Pablo Calle Grafe</Company>
+	<Title>KYLib.ConsoleUtils</Title>
     <Description>Libreria de utilidades de consola</Description>
     <Copyright>Copyrigth © 2021 Juan Pablo Calle</Copyright>
-    <PackageProjectUrl>https://github.com/JuanCalle1606/KYLib-CSharp</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/JuanCalle1606/KYLib-CSharp/tree/main/KYLib.ConsoleUtils</PackageProjectUrl>
     <RepositoryUrl>https://github.com/JuanCalle1606/KYLib-CSharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryBranch>master</RepositoryBranch>
-    <PackageReleaseNotes>Beta</PackageReleaseNotes>
-    <PackageTags>Basic, C#, Simple</PackageTags>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageId>KYLib.ConsoleUtils</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Version>0.1.3.23</Version>
-    <DocumentationFile>$(ProjectDir)KYLib.ConsoleUtilsDocs.xml</DocumentationFile>
+    <DocumentationFile>$(ProjectDir)KYLib.ConsoleUtils.xml</DocumentationFile>
     <NeutralLanguage>es</NeutralLanguage>
   </PropertyGroup>
 

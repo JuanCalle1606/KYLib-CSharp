@@ -9,7 +9,7 @@
     <Title>KYLib</Title>
     <Description>Libreria sencilla de clases y utilidades</Description>
     <Copyright>Copyrigth © 2021 Juan Pablo Calle</Copyright>
-    <PackageProjectUrl>https://github.com/JuanCalle1606/KYLib-CSharp/KYLib</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/JuanCalle1606/KYLib-CSharp/tree/main/KYLib</PackageProjectUrl>
     <RepositoryUrl>https://github.com/JuanCalle1606/KYLib-CSharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryBranch>master</RepositoryBranch>
@@ -17,7 +17,7 @@
     <PackageId>KYLib</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Version>1.3.9</Version>
-    <DocumentationFile>$(ProjectDir)KYLibDocs.xml</DocumentationFile>
+    <DocumentationFile>$(ProjectDir)KYLib.xml</DocumentationFile>
     <NeutralLanguage>es</NeutralLanguage>
   </PropertyGroup>
 </Project>
