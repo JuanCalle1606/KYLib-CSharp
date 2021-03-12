@@ -1,5 +1,4 @@
-# KYlib
-
+# KYLib-CSharp
 Conjuntos de librerias propias con utilidades de todo tipo.
 
 #### La libreria en conjunto tiene 3 paquetes:

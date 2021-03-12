@@ -1,4 +1,4 @@
-# KYLib-CSharp
+# KYLib
 Librería propia de funciones para C# con utilidades, esta hecha para ser unasada en .NET 5.0 en adelante.
 
 #### Actualmente la libreria tiene 5 paquetes:
