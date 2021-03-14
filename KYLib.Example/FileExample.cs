@@ -17,7 +17,7 @@ namespace KYLib.Example
 			Length = 1.73f,
 			IsMale = true
 		};
-
+		//{"Name": "Juan","Age": "18","Length": 1.73,"IsMale": true}
 		public FileExample() : base(true)
 		{
 			Title = "Manejo de archivos";

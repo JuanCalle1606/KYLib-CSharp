@@ -17,9 +17,9 @@ namespace KYLib.Data.Converters
 		/// <inheritdoc/>
 		public override INumber ReadJson(JsonReader reader, Type objectType, [AllowNull] INumber existingValue, bool hasExistingValue, JsonSerializer serializer)
 		{
-			// Creamos una nueva instancia numerica cuyo valor por defecto seria 0.
-			INumber ins = (INumber)Activator.CreateInstance(objectType);
-			//Actualziamos el valor del numero instanciado al valor leido por el Serializer. EN casod e ser un valor no valido esta linea producira un error que debe ser controlado.
+			// Se obtiene el valor actual que por defecto es 0 en los tipos definidos INumber en las librerias
+			INumber ins = existingValue;
+			//Actualizamos el valor del numero actual al valor leido por el Serializer. En caso de ser un valor no valido esta linea producira un error que debe ser controlado.
 			ins.UpdateValue(reader.Value);
 			// Devolvemos la instancia con el valor dado, al manejar INumber se nos da la posibilidad de que el valor escrito sea en formato de cadena parseable o en cualquier formato numerico ya que es convertido.
 			return ins;
