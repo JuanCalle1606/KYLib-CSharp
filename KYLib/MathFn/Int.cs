@@ -182,6 +182,36 @@ namespace KYLib.MathFn
 		int INumber<int>.Value { get => value; set => this.value = value; }
 
 		/// <inheritdoc/>
+		void INumber.UpdateValue(INumber source) =>
+			value = source.ToInt32(null);
+
+		/// <inheritdoc/>
+		void INumber.UpdateValue(object source)
+		{
+			//primero vemos si es un IConvertible
+			var n = (IConvertible)source;
+			if (n != null)
+			{
+				value = n.ToInt32(null);
+				return;
+			}
+			//AHora obtenemos el string del objeto
+			string s = source.ToString();
+			if (!string.IsNullOrWhiteSpace(s))
+			{
+				int tempval = 0;
+				//vemos si se puede parsear el string
+				if (int.TryParse(s, out tempval))
+				{
+					value = tempval;
+					return;
+				}
+			}
+			//si llegamos aqui es porque no se pudo leer el numero, en ese caso se produce una exepción
+			throw new ArgumentException("El valor proporcionado no puede ser convertido en Int.", nameof(source));
+		}
+
+		/// <inheritdoc/>
 		void INumber<int>.Add(int num) => value += num;
 
 		/// <inheritdoc/>

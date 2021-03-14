@@ -36,6 +36,18 @@ namespace KYLib.Interfaces
 		/// </summary>
 		/// <param name="num">El numero por el que se va a dividir.</param>
 		void Rest(INumber num);
+
+		/// <summary>
+		/// Actualiza el valor interno de este numero basado en otro numero.
+		/// </summary>
+		/// <param name="source">Otro numero o algun objeto que sea convertible a numero del cual queremos copiar el valor a este.</param>
+		void UpdateValue(object source);
+
+		/// <summary>
+		/// Actualiza el valor interno de este numero basado en otro numero.
+		/// </summary>
+		/// <param name="source">Otro numero del cual queremos copiar el valor a este.</param>
+		void UpdateValue(INumber source);
 	}
 
 	/// <summary>
