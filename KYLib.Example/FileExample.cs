@@ -1,8 +1,9 @@
-using KYLib.ConsoleUtils;
-using Newtonsoft.Json;
-using KYLib.Data;
-using KYLib.Data.DataFiles;
 using System;
+using KYLib.ConsoleUtils;
+using KYLib.Data;
+using KYLib.Data.Converters;
+using KYLib.Data.DataFiles;
+using Newtonsoft.Json;
 
 namespace KYLib.Example
 {
@@ -20,27 +21,28 @@ namespace KYLib.Example
 		public FileExample() : base(true)
 		{
 			Title = "Manejo de archivos";
-			AddItem("Escribir .json", WriteJson);
-			AddItem("Guardar .json", SaveJson);
+			AddItem("Escribir Json", WriteJson);
+			AddItem("Leer Json", ReadJson);
+		}
+
+		private void ReadJson()
+		{
+			Cons.Line = "Ingresa la cadena a deserializar";
+			ExampleObject obj = Files.Deserialize<ExampleObject>(Cons.Line, new JsonFile());
+			Cons.Line = $"Name: {obj.Name}";
+			Cons.Line = $"Age: {obj.Age}";
+			Cons.Line = $"Length: {obj.Length}";
+			Cons.Line = $"IsMale: {obj.IsMale}";
 		}
 
 		void WriteJson()
 		{
 			Cons.Line = "Objeto serializado como json:";
-			Cons.Line = Files.Serialize<JsonFile>(this);
+			Cons.Line = Files.Serialize<JsonFile>(exampleObject);
 		}
 
 		void SaveJson()
 		{
-			string path = $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/kya/KYLib.example/json";
-
-			Cons.Line =
-			$"Saving in {path}.json";
-			Cons.Line = Environment.UserName;
-			Cons.Line = Environment.CurrentDirectory;
-			Cons.Line = Environment.CommandLine;
-
-			//Files.Save<JsonFile>(exampleObject, path);
 		}
 	}
 }
