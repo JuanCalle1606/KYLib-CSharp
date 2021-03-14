@@ -192,8 +192,15 @@ namespace KYLib.MathFn
 			var n = (IConvertible)source;
 			if (n != null)
 			{
-				value = n.ToInt32(null);
-				return;
+				try
+				{
+					value = n.ToInt32(null);
+					return;
+				}
+				catch (Exception)
+				{
+					//En caso de un error lo ignoramos he intentamos otro metodo de conversión.
+				}
 			}
 			//AHora obtenemos el string del objeto
 			string s = source.ToString();
