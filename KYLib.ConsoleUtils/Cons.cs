@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using KYLib.Extensions;
+using kint = KYLib.MathFn.Int;
 
 namespace KYLib.ConsoleUtils
 {
@@ -27,6 +28,22 @@ namespace KYLib.ConsoleUtils
 		/// Mensaje que se le mostrara al usuario cuando deba ingresar un valor numerico y ocurre un error.
 		/// </summary>
 		public static string ParseErrorText { get; set; } = "Valor no aceptado, ingresa otro:";
+
+		/// <summary>
+		/// Al solicitar un <see cref="bool"/> por consola cualquiera de estos valores puede ser ingresado para tomarlo como <c>true</c>.
+		/// </summary>
+		public static readonly List<string> AllowStrings = new List<string>(new string[] {
+			"y",
+			"s",
+			"yes",
+			"si",
+			"allow",
+			"1",
+			"permitir",
+			"aceptar",
+			"true"
+		});
+
 		#endregion
 
 		#region Entradas
@@ -56,6 +73,38 @@ namespace KYLib.ConsoleUtils
 		public static ConsoleKeyInfo? Key { get => Console.ReadKey(); set => Console.ReadKey(); }
 
 		/// <summary>
+		/// Obtiene un valor booleano de la entrada del usuario.
+		/// </summary>
+		/// <param name="text">Mensaje a mostrar al usario al solicitar una entrada.</param>
+		/// <returns>Devuelve <c>true</c> si la cadena ingresada por el usuario se encuentra en el arreglo <see cref="AllowStrings"/> o <c>false</c> si no se encuentra.</returns>
+		public static bool GetBool(string text)
+		{
+			Inline = text;
+			return AllowStrings.Contains(Line.ToLower());
+		}
+
+		/// <summary>
+		/// Obtiene un numero flotante de la entrada del usuario.
+		/// </summary>
+		/// <param name="text">Texto a mostrar al solicitar el numero.</param>
+		/// <param name="errorText">Texto a mostrar al ingresar un validor invalido.</param>
+		/// <returns>Devuelve el flotante ingresado por el usuario.</returns>
+		public static float GetFloat(string text, string errorText)
+		{
+			try
+			{
+				if (!string.IsNullOrWhiteSpace(text))
+					Line = text;
+				return float.Parse(Line);
+			}
+			catch (Exception)
+			{
+				Line = errorText;
+				return GetFloat(null, errorText);
+			}
+		}
+
+		/// <summary>
 		/// Obtiene un entero de la entrada del usuario.
 		/// </summary>
 		/// <remarks>
@@ -64,7 +113,7 @@ namespace KYLib.ConsoleUtils
 		/// <value>
 		/// Su valor es un un numero entero dado por el usuario.
 		/// </value>
-		public static int Int => GetInt(ParseText, ParseErrorText);
+		public static kint Int => GetInt(ParseText, ParseErrorText);
 
 		/// <summary>
 		/// Obtiene un numero entero de la entrada del usuario.
@@ -75,13 +124,13 @@ namespace KYLib.ConsoleUtils
 		/// <param name="text">Texto que se le mostrara al usuario para que ingrese una opción.</param>
 		/// <param name="errorText">Texto que se le mostrara al usuaro cuando no se pueda parsear el texto.</param>
 		/// <returns>Un valor entero ingresado por el usuario.</returns>
-		public static int GetInt(string text, string errorText)
+		public static kint GetInt(string text, string errorText)
 		{
 			try
 			{
 				if (!string.IsNullOrWhiteSpace(text))
 					Line = text;
-				return int.Parse(Line);
+				return kint.Parse(Line);
 			}
 			catch (Exception)
 			{
@@ -96,7 +145,7 @@ namespace KYLib.ConsoleUtils
 		/// <param name="min">Valor minimo que puede tener el numero.</param>
 		/// <param name="max">Valor maximo excluyente que puede tener el numero.</param>
 		/// <returns>Un valor entero ingresado por el usuario.</returns>
-		public static int GetInt(int min, int max) =>
+		public static kint GetInt(kint min, kint max) =>
 		GetInt(min, max, ParseText, ParseErrorText);
 
 		/// <summary>
@@ -107,7 +156,7 @@ namespace KYLib.ConsoleUtils
 		/// <param name="text">Texto que se le mostrara al usuario para que ingrese una opción.</param>
 		/// <param name="errorText">Texto que se le mostrara al usuaro cuando no se pueda parsear el texto.</param>
 		/// <returns>Un valor entero ingresado por el usuario.</returns>
-		public static int GetInt(int min, int max, string text, string errorText)
+		public static kint GetInt(kint min, kint max, string text, string errorText)
 		{
 			int dev = GetInt(text, errorText);
 			while (dev < min || dev >= max)
