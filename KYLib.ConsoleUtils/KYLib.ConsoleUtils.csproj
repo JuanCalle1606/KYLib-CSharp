@@ -16,12 +16,12 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageId>KYLib.ConsoleUtils</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>0.1.3.23</Version>
+    <Version>1.3.16</Version>
     <DocumentationFile>$(ProjectDir)KYLib.ConsoleUtils.xml</DocumentationFile>
     <NeutralLanguage>es</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KYLib.Data\KYLib.Data.csproj" />
+    <ProjectReference Include="..\KYLib\KYLib.csproj" />
   </ItemGroup>
 </Project>
