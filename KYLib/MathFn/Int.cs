@@ -175,6 +175,9 @@ namespace KYLib.MathFn
 		/// <inheritdoc/>
 		public static implicit operator int(Int value) => value.value;
 
+		/// <inheritdoc/>
+		public static explicit operator Int(Real value) => new Int(((INumber)value).ToInt32(null));
+
 		#endregion
 
 		#region Interfaces
