@@ -54,7 +54,7 @@ namespace KYLib.Interfaces
 	/// Representa un numero que esta basado en un tipo numerico nativo de C#.
 	/// </summary>
 	/// <typeparam name="TBase">Cualquier structura que pueda actuar como numero.</typeparam>
-	public interface INumber<TBase> : INumber, IEquatable<int>
+	public interface INumber<TBase> : INumber
 	where TBase : struct, IComparable, IComparable<TBase>, IConvertible, IEquatable<TBase>, IFormattable
 	{
 		/// <summary>
