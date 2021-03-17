@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using KYLib.Extensions;
+using KYLib.MathFn;
 
 namespace KYLib.ConsoleUtils
 {
@@ -144,7 +145,7 @@ namespace KYLib.ConsoleUtils
 		/// </summary>
 		private void Run()
 		{
-			int option;
+			Int option;
 			//bucle principal del menu.
 			while (running)
 			{

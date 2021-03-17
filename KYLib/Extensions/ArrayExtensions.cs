@@ -1,4 +1,5 @@
 ﻿using System;
+using KYLib.MathFn;
 
 namespace KYLib.Extensions
 {
@@ -57,13 +58,13 @@ namespace KYLib.Extensions
 		/// <returns>Una matriz bidimensional de <typeparamref name="T"/>.</returns>
 		public static T[,] ToMatriz<T>(this T[][] arr)
 		{
-			int cols = arr.Length;
-			int rows = arr[0].Length;
+			Int cols = arr.Length;
+			Int rows = arr[0].Length;
 			if (!arr.TrueForAll(t => t.Length == rows))
 				throw new ArgumentException("Todos lo arreglos internos deben tener la misma longitud");
 			T[,] dev = new T[cols, rows];
-			for (int i = 0; i < cols; i++)
-				for (int j = 0; j < rows; j++)
+			for (Int i = 0; i < cols; i++)
+				for (Int j = 0; j < rows; j++)
 					dev[i, j] = arr[i][j];
 
 			return dev;
@@ -73,7 +74,7 @@ namespace KYLib.Extensions
 		public static string ToString<T>(this T[][] arr, char separator, bool multiline, bool showindex)
 		{
 			string dev = "";
-			for (int i = 0; i < arr.Length; i++)
+			for (Int i = 0; i < arr.Length; i++)
 			{
 				if (showindex)
 					dev += $"{i}: ";

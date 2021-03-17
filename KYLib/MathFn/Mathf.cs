@@ -94,7 +94,7 @@ namespace KYLib.MathFn
 				throw new ArgumentOutOfRangeException(nameof(power), power, "La potencia no puede ser negativa en esta función");
 			string dev = "1";
 
-			for (int i = 0; i < power; i++)
+			for (Int i = 0; i < power; i++)
 				dev = Mult2(dev);
 			return dev;
 		}
@@ -111,9 +111,9 @@ namespace KYLib.MathFn
 		{
 			List<char> chars = n.ToCharArray().ToList();
 			List<char> output = new List<char>();
-			int count = chars.Count - 1;
+			Int count = chars.Count - 1;
 			char res = '0';
-			for (int i = count; i >= 0; i--)
+			for (Int i = count; i >= 0; i--)
 				output.Insert(0, Mult2core(chars[i], res, out res));
 			if (res == '1')
 				output.Insert(0, res);

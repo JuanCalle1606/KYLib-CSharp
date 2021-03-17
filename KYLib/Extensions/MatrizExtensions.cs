@@ -1,4 +1,6 @@
-﻿namespace KYLib.Extensions
+﻿using KYLib.MathFn;
+
+namespace KYLib.Extensions
 {
 	/// <summary>
 	/// Extensiones generales para las matrices.
@@ -14,12 +16,12 @@
 		/// <returns></returns>
 		public static T[][] ToArray<T>(this T[,] mat)
 		{
-			(int row, int col) = (mat.GetLength(0), mat.GetLength(1));
+			(Int row, Int col) = (mat.GetLength(0), mat.GetLength(1));
 			T[][] dev = new T[row][];
-			for (int i = 0; i < row; i++)
+			for (Int i = 0; i < row; i++)
 			{
 				dev[i] = new T[col];
-				for (int j = 0; j < col; j++)
+				for (Int j = 0; j < col; j++)
 					dev[i][j] = mat[i, j];
 			}
 			return dev;
@@ -29,11 +31,11 @@
 		public static string ToString<T>(this T[,] arr, char separator, bool multiline, bool showindex)
 		{
 			string dev = "";
-			for (int i = 0; i < arr.GetLength(0); i++)
+			for (Int i = 0; i < arr.GetLength(0); i++)
 			{
 				if (showindex)
 					dev += $"{i}: ";
-				for (int j = 0; j < arr.GetLength(1); j++)
+				for (Int j = 0; j < arr.GetLength(1); j++)
 					dev += arr[i, j] + ",";
 				if (multiline)
 				{

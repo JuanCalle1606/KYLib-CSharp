@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using KYLib.MathFn;
 
 namespace KYLib.Utils
 {
@@ -22,7 +23,7 @@ namespace KYLib.Utils
 		public static string ConvertToHex(byte[] arr)
 		{
 			char[] dev = new char[arr.Length * 2];
-			for (int i = 0; i < arr.Length; i++)
+			for (Int i = 0; i < arr.Length; i++)
 			{
 				uint val = HexDict[arr[i]];
 				dev[2 * i] = (char)val;
@@ -44,7 +45,7 @@ namespace KYLib.Utils
 			char[] dev = new char[arr.Length * 2];
 			await Task.Run(() =>
 			{
-				for (int i = 0; i < arr.Length; i++)
+				for (Int i = 0; i < arr.Length; i++)
 				{
 					uint val = HexDict[arr[i]];
 					dev[2 * i] = (char)val;

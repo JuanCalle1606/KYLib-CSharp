@@ -9,6 +9,6 @@ namespace KYLib.Interfaces
 		/// <summary>
 		/// Nombre de la instancia.
 		/// </summary>
-		public string Name { get; }
+		string Name { get; }
 	}
 }

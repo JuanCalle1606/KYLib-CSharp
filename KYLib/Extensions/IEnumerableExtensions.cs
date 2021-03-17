@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using KYLib.Interfaces;
+using KYLib.MathFn;
 using KYLib.Utils;
 
 namespace KYLib.Extensions
@@ -22,9 +23,9 @@ namespace KYLib.Extensions
 		public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source)
 		{
 			T[] elements = source.ToArray();
-			for (int i = elements.Length - 1; i > 0; i--)
+			for (Int i = elements.Length - 1; i > 0; i--)
 			{
-				int swapIndex = Rand.GetInt(i + 1);
+				Int swapIndex = Rand.GetInt(i + 1);
 				yield return elements[swapIndex];
 				elements[swapIndex] = elements[i];
 			}
@@ -81,7 +82,7 @@ namespace KYLib.Extensions
 		/// <param name="arr">Lista de origen.</param>
 		/// <param name="EndIn">Longitud que debe tener la lista para dejar de insertarle <paramref name="content"/>.</param>
 		/// <param name="content">Contenido con el que queremos llenar la lista.</param>
-		public static void FillStart<T>(this List<T> arr, int EndIn, T content)
+		public static void FillStart<T>(this List<T> arr, Int EndIn, T content)
 		{
 			while (arr.Count < EndIn) arr.Insert(0, content);
 		}
@@ -92,7 +93,7 @@ namespace KYLib.Extensions
 		/// <param name="arr">Lista de origen.</param>
 		/// <param name="EndIn">Longitud que debe tener la lista para dejar de insertarle <paramref name="content"/>.</param>
 		/// <param name="content">Contenido con el que queremos llenar la lista.</param>
-		public static void FillEnd<T>(this List<T> arr, int EndIn, T content)
+		public static void FillEnd<T>(this List<T> arr, Int EndIn, T content)
 		{
 			while (arr.Count < EndIn) arr.Add(content);
 		}
@@ -113,20 +114,20 @@ namespace KYLib.Extensions
 		{
 			if (converter == null)
 				throw new ArgumentNullException(nameof(converter), "El delegado de conversión no puede ser nulo.");
-			int i = 0;
+			Int i = 0;
 			TOutput[] dev = new TOutput[arr.Count()];
 			foreach (TInput item in arr)
 				dev[i++] = converter(item);
 			return dev;
 		}
 		/// <summary>
-		/// Convierte un enumerable de tipo <typeparamref name="T"/> en un arreglo de <see cref="int"/>.
+		/// Convierte un enumerable de tipo <typeparamref name="T"/> en un arreglo de <see cref="Int"/>.
 		/// </summary>
 		/// <typeparam name="T">Cualquier tipo que implemente <see cref="IConvertible"/></typeparam>.
 		/// <param name="arr">Enumerable de origen.</param>
-		/// <returns>Un arreglo de <see cref="int"/> resultante de la conversión.</returns>
-		public static int[] ToIntArray<T>(this IEnumerable<T> arr) where T : IConvertible =>
-			arr.ToArray(t => Convert.ToInt32(t));
+		/// <returns>Un arreglo de <see cref="Int"/> resultante de la conversión.</returns>
+		public static Int[] ToIntArray<T>(this IEnumerable<T> arr) where T : IConvertible =>
+			arr.ToArray(t => (Int)Convert.ToInt32(t));
 
 		/// <summary>
 		/// Convierte un enumerable de tipo <typeparamref name="T"/> en un arreglo de <see cref="float"/>.
@@ -155,7 +156,7 @@ namespace KYLib.Extensions
 		public static string ToString<T>(this IEnumerable<T> arr, char? separator, bool showindex, bool multiline)
 		{
 			StringBuilder stringBuilder = new StringBuilder();
-			int i = 0;
+			Int i = 0;
 			foreach (T item in arr)
 			{
 				if (multiline && i > 0)
