@@ -1,5 +1,9 @@
 # KYLib
-Librería propia de funciones para C# con utilidades, esta hecha para ser unasada en .NET 5.0 en adelante.
+[![Build KYLib](https://img.shields.io/github/workflow/status/JuanCalle1606/KYLib-CSharp/.NET%20Build%20KYLib%20Project?label=Build%20KYLib%20Project&logo=github)](https://github.com/JuanCalle1606/KYLib-CSharp/actions/workflows/BuildKYLib.yml)
+[![KYLib](https://img.shields.io/nuget/v/KYLib?label=Nuget&logo=nuget)](https://www.nuget.org/packages/KYLib/)
+[![KYLib](https://img.shields.io/nuget/dt/KYLib?label=Downloads&logo=nuget)](https://www.nuget.org/packages/KYLib/)
+
+Librería propia de funciones para C# con utilidades, esta hecha para ser usada en .NET 5.0 en adelante.
 
 #### Actualmente la libreria tiene 5 paquetes:
 
