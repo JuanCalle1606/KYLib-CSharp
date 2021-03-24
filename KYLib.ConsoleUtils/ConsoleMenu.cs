@@ -15,10 +15,12 @@ namespace KYLib.ConsoleUtils
 		/// <summary>
 		/// Guarda todos los items del menu.
 		/// </summary>
-
 		protected List<ConsoleItem> Items = new List<ConsoleItem>();
+
+		/// <summary>
+		/// Indica si el menu esta corriendo
+		/// </summary>
 		bool running = true;
-		string String;
 
 		/// <summary>
 		/// Optiene el titulo del menu.
@@ -57,6 +59,7 @@ namespace KYLib.ConsoleUtils
 		#endregion
 
 		#region Estaticas
+
 		/// <summary>
 		/// Indica cual es el texto por defecto que se usa para indicar al usaurio que ingrese una opción.
 		/// </summary>
@@ -66,6 +69,12 @@ namespace KYLib.ConsoleUtils
 		/// Indica cual es el texto por defecto que se usa para indicar al usurio que la opción no es valida.
 		/// </summary>
 		public static string DefaultOptionErrorText = "Opción no valida, ingresa otra:";
+
+		/// <summary>
+		/// Indica si la consola debe ser limpiada cada vez en cada iteración del menu.
+		/// </summary>
+		public static bool ClearConsole = true;
+
 		#endregion
 
 		#region Constructores
@@ -82,11 +91,32 @@ namespace KYLib.ConsoleUtils
 		#region Interacciones
 
 		/// <summary>
-		/// Agrega un menu como submenu de este item.
+		/// Agrega un <see cref="ConsoleMenu"/> como submenu de este.
 		/// </summary>
-		/// <param name="menu"></param>
-		/// <returns></returns>
-		public bool AddMenu(ConsoleMenu menu) => AddItem(menu.Title, menu.Start);
+		/// <param name="menu">El menu que se quiere agregar.</param>
+		/// <returns>Devuelve si se pudo agregar el submenu.</returns>
+		public bool AddMenu(ConsoleMenu menu) =>
+			AddMenu(menu, menu.Title);
+
+		/// <summary>
+		/// Agrega un <see cref="ConsoleMenu"/> como submenu de este.
+		/// </summary>
+		/// <param name="menu">El menu que se quiere agregar.</param>
+		/// <param name="name">Indica si un nombre con el cual se mostrara el menu.</param>
+		/// <returns>Devuelve si se pudo agregar el submenu.</returns>
+		public bool AddMenu(ConsoleMenu menu, string name) =>
+			AddMenu(menu, name, true);
+
+		/// <summary>
+		/// Agrega un <see cref="ConsoleMenu"/> como submenu de este.
+		/// </summary>
+		/// <param name="menu">El menu que se quiere agregar.</param>
+		/// <param name="name">Indica si un nombre con el cual se mostrara el menu.</param>
+		/// <param name="instaOption">Indica si una ves se salga de ese menu se volvera inmediatamente a este o si se espera por una pulsación del usuario.</param>
+		/// <returns>Devuelve si se pudo agregar el submenu.</returns>
+		public bool AddMenu(ConsoleMenu menu, string name, bool instaOption) =>
+			AddItem(name, menu.Start, instaOption);
+
 
 		/// <summary>
 		/// Agrega un nuevo item al menu.
@@ -95,10 +125,9 @@ namespace KYLib.ConsoleUtils
 		/// <returns>Devuelve si el item se pudo agregar al menu.</returns>
 		public bool AddItem(ConsoleItem item)
 		{
-			if (!Items.Contains(item))
+			if (Items.FindByName(item.Name) == null)
 			{
 				Items.Add(item);
-				UpdateString();
 				return true;
 			}
 			return false;
@@ -151,29 +180,28 @@ namespace KYLib.ConsoleUtils
 			{
 				Cons.Line = Title;
 				BeforeRender?.Invoke();
-				Cons.Line = String;
+				Cons.Line = String();
 				AfterRender?.Invoke();
 
 				option = Cons.GetInt(0, Items.Count,
 					OptionText ?? DefaultOptionText,
 					OptionErrorText ?? DefaultOptionErrorText);
-				Cons.Clear();
+				if (ClearConsole) Cons.Clear();
 
 				Items[option].Task?.Invoke();
 
 				if (!Items[option].InstaOption)
 					_ = Cons.Key;
 
-				Cons.Clear();
+				if (ClearConsole) Cons.Clear();
 			}
 		}
 		#endregion
 
-		#region secundario
-		void UpdateString()
-		{
-			String = Items.ToString(null, true, true);
-		}
+		#region Secundario
+
+		string String() => Items.ToString(null, true, true);
+
 		#endregion
 	}
 }
