@@ -72,31 +72,16 @@ namespace KYLib.MathFn
 		public static Int operator +(Int num1, Int num2) => new Int(num1.value + num2.value);
 
 		/// <inheritdoc/>
-		public static Int operator +(Int num1, INumber num2) => new Int(num1.value + num2.ToInt32(null));
-
-		/// <inheritdoc/>
 		public static Int operator -(Int num1, Int num2) => new Int(num1.value - num2.value);
-
-		/// <inheritdoc/>
-		public static Int operator -(Int num1, INumber num2) => new Int(num1.value - num2.ToInt32(null));
 
 		/// <inheritdoc/>
 		public static Int operator *(Int num1, Int num2) => new Int(num1.value * num2.value);
 
 		/// <inheritdoc/>
-		public static Int operator *(Int num1, INumber num2) => new Int(num1.value * num2.ToInt32(null));
-
-		/// <inheritdoc/>
 		public static Int operator /(Int num1, Int num2) => new Int(num1.value / num2.value);
 
 		/// <inheritdoc/>
-		public static Int operator /(Int num1, INumber num2) => new Int(num1.value / num2.ToInt32(null));
-
-		/// <inheritdoc/>
 		public static Int operator %(Int num1, Int num2) => new Int(num1.value % num2.value);
-
-		/// <inheritdoc/>
-		public static Int operator %(Int num1, INumber num2) => new Int(num1.value % num2.ToInt32(null));
 
 		#endregion
 
@@ -106,19 +91,10 @@ namespace KYLib.MathFn
 		public static Int operator &(Int num1, Int num2) => new Int(num1.value & num2.value);
 
 		/// <inheritdoc/>
-		public static Int operator &(Int num1, INumber num2) => new Int(num1.value & num2.ToInt32(null));
-
-		/// <inheritdoc/>
 		public static Int operator |(Int num1, Int num2) => new Int(num1.value | num2.value);
 
 		/// <inheritdoc/>
-		public static Int operator |(Int num1, INumber num2) => new Int(num1.value | num2.ToInt32(null));
-
-		/// <inheritdoc/>
 		public static Int operator ^(Int num1, Int num2) => new Int(num1.value ^ num2.value);
-
-		/// <inheritdoc/>
-		public static Int operator ^(Int num1, INumber num2) => new Int(num1.value ^ num2.ToInt32(null));
 
 		/// <inheritdoc/>
 		public static Int operator <<(Int num1, Int32 num2) => new Int(num1.value << num2);
@@ -134,37 +110,19 @@ namespace KYLib.MathFn
 		public static bool operator ==(Int num1, Int num2) => num1.value == num2.value;
 
 		/// <inheritdoc/>
-		public static bool operator ==(Int num1, INumber num2) => num1.value == num2.ToInt32(null);
-
-		/// <inheritdoc/>
 		public static bool operator !=(Int num1, Int num2) => num1.value != num2.value;
-
-		/// <inheritdoc/>
-		public static bool operator !=(Int num1, INumber num2) => num1.value != num2.ToInt32(null);
 
 		/// <inheritdoc/>
 		public static bool operator <(Int num1, Int num2) => num1.value < num2.value;
 
 		/// <inheritdoc/>
-		public static bool operator <(Int num1, INumber num2) => num1.value < num2.ToInt32(null);
-
-		/// <inheritdoc/>
 		public static bool operator >(Int num1, Int num2) => num1.value > num2.value;
-
-		/// <inheritdoc/>
-		public static bool operator >(Int num1, INumber num2) => num1.value > num2.ToInt32(null);
 
 		/// <inheritdoc/>
 		public static bool operator <=(Int num1, Int num2) => num1.value <= num2.value;
 
 		/// <inheritdoc/>
-		public static bool operator <=(Int num1, INumber num2) => num1.value <= num2.ToInt32(null);
-
-		/// <inheritdoc/>
 		public static bool operator >=(Int num1, Int num2) => num1.value >= num2.value;
-
-		/// <inheritdoc/>
-		public static bool operator >=(Int num1, INumber num2) => num1.value >= num2.ToInt32(null);
 
 		#endregion
 

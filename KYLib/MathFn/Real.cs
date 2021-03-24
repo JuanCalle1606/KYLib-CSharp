@@ -72,31 +72,16 @@ namespace KYLib.MathFn
 		public static Real operator +(Real num1, Real num2) => new Real(num1.value + num2.value);
 
 		/// <inheritdoc/>
-		public static Real operator +(Real num1, INumber num2) => new Real(num1.value + num2.ToDouble(null));
-
-		/// <inheritdoc/>
 		public static Real operator -(Real num1, Real num2) => new Real(num1.value - num2.value);
-
-		/// <inheritdoc/>
-		public static Real operator -(Real num1, INumber num2) => new Real(num1.value - num2.ToDouble(null));
 
 		/// <inheritdoc/>
 		public static Real operator *(Real num1, Real num2) => new Real(num1.value * num2.value);
 
 		/// <inheritdoc/>
-		public static Real operator *(Real num1, INumber num2) => new Real(num1.value * num2.ToDouble(null));
-
-		/// <inheritdoc/>
 		public static Real operator /(Real num1, Real num2) => new Real(num1.value / num2.value);
 
 		/// <inheritdoc/>
-		public static Real operator /(Real num1, INumber num2) => new Real(num1.value / num2.ToDouble(null));
-
-		/// <inheritdoc/>
 		public static Real operator %(Real num1, Real num2) => new Real(num1.value % num2.value);
-
-		/// <inheritdoc/>
-		public static Real operator %(Real num1, INumber num2) => new Real(num1.value % num2.ToDouble(null));
 
 		#endregion
 
@@ -134,37 +119,19 @@ namespace KYLib.MathFn
 		public static bool operator ==(Real num1, Real num2) => num1.value == num2.value;
 
 		/// <inheritdoc/>
-		public static bool operator ==(Real num1, INumber num2) => num1.value == num2.ToDouble(null);
-
-		/// <inheritdoc/>
 		public static bool operator !=(Real num1, Real num2) => num1.value != num2.value;
-
-		/// <inheritdoc/>
-		public static bool operator !=(Real num1, INumber num2) => num1.value != num2.ToDouble(null);
 
 		/// <inheritdoc/>
 		public static bool operator <(Real num1, Real num2) => num1.value < num2.value;
 
 		/// <inheritdoc/>
-		public static bool operator <(Real num1, INumber num2) => num1.value < num2.ToDouble(null);
-
-		/// <inheritdoc/>
 		public static bool operator >(Real num1, Real num2) => num1.value > num2.value;
-
-		/// <inheritdoc/>
-		public static bool operator >(Real num1, INumber num2) => num1.value > num2.ToDouble(null);
 
 		/// <inheritdoc/>
 		public static bool operator <=(Real num1, Real num2) => num1.value <= num2.value;
 
 		/// <inheritdoc/>
-		public static bool operator <=(Real num1, INumber num2) => num1.value <= num2.ToDouble(null);
-
-		/// <inheritdoc/>
 		public static bool operator >=(Real num1, Real num2) => num1.value >= num2.value;
-
-		/// <inheritdoc/>
-		public static bool operator >=(Real num1, INumber num2) => num1.value >= num2.ToDouble(null);
 
 		#endregion
 
