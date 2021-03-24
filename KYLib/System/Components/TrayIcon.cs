@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel;
 
-namespace KYLib.System
+namespace KYLib.System.Components
 {
 	/// <summary>
 	/// Representa un icono en el area de notificaciones, esta clase es abstracta y distintas implementaciones sera creadas para cada plataforma.
