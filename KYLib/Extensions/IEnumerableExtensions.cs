@@ -98,11 +98,7 @@ namespace KYLib.Extensions
 		{
 			if (converter == null)
 				throw new ArgumentNullException(nameof(converter), "El delegado de conversión no puede ser nulo.");
-			Int i = 0;
-			TOutput[] dev = new TOutput[arr.Count()];
-			foreach (TInput item in arr)
-				dev[i++] = converter(item);
-			return dev;
+			return arr.Select(i => converter(i)).ToArray();
 		}
 		/// <summary>
 		/// Convierte un enumerable de tipo <typeparamref name="T"/> en un arreglo de <see cref="Int"/>.
