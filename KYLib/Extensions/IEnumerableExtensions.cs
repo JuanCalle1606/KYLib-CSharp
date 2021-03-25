@@ -34,22 +34,6 @@ namespace KYLib.Extensions
 
 		#endregion
 
-		#region Numerico
-		/// <summary>
-		/// Calcula la suma de los elemetos de este arreglo.
-		/// </summary>
-		/// <param name="arr">Arreglo numerico de origen.</param>
-		/// <typeparam name="T">Cualquier tipo numerico.</typeparam>
-		/// <returns>Devuelve la suma de los elementos del arreglo.</returns>
-		public static T Sum<T>(this IEnumerable<T> arr) where T : struct, INumber
-		{
-			INumber sum = default(T);
-			foreach (var item in arr)
-				sum.Add(item);
-			return (T)sum;
-		}
-		#endregion
-
 		#region Utilidades
 		/// <summary>
 		/// Busca un elemento que tenga como nombre <paramref name="name"/>.
