@@ -41,59 +41,178 @@ namespace KYLib.MathFn
 		/// <summary>
 		/// Calcula la media de un conjunto de numeros.
 		/// </summary>
-		/// <param name="source">Conjunto numerico.</param>
-		/// <typeparam name="T">Algun tipo numerico.</typeparam>
+		/// <param name="nums">Conjunto numerico.</param>
+		/// <typeparam name="T">Tipo numerico que se quiere de salida.</typeparam>
 		/// <returns>La media del conjunto de datos.</returns>
-		public static T MeanOf<T>(IEnumerable<INumber> source) where T : struct, INumber
+		public static T MeanOf<T>(IEnumerable<INumber> nums) where T : struct, INumber
 		{
-			Int count = source.Count();
-			INumber sum = source.Sum<T>();
+			Int count = nums.Count();
+			T sum = SumOf<T>(nums);
 			sum.Div(count);
-			return (T)sum;
+			return sum;
 		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="source"></param>
-		/// <returns></returns>
-		public static Real MeanOf(IEnumerable<INumber> source) =>
-			MeanOf<Real>(source);
 
 		/// <summary>
 		/// Calcula la media de un conjunto de numeros.
 		/// </summary>
-		/// <param name="source">Conjunto numerico.</param>
-		/// <typeparam name="T">Algun tipo numerico.</typeparam>
+		/// <param name="nums">Conjunto numerico.</param>
 		/// <returns>La media del conjunto de datos.</returns>
-		public static T Mean<T>(params T[] source) where T : struct, INumber =>
-			MeanOf<T>(source.ToArray<T, INumber>(i => i));
+		public static Real MeanOf(IEnumerable<INumber> nums) =>
+			MeanOf<Real>(nums);
 
 		/// <summary>
-		/// Calcula la suma de los elementos de este arreglo.
+		/// Calcula la media de un conjunto de numeros.
+		/// </summary>
+		/// <param name="nums">Conjunto numerico.</param>
+		/// <typeparam name="T">Cualquier tipo numerico.</typeparam>
+		/// <typeparam name="TOut">Tipo numerico que se quiere de salida.</typeparam>
+		/// <returns>La media del conjunto de datos.</returns>
+		public static TOut MeanOf<T, TOut>(IEnumerable<T> nums)
+		where T : struct, INumber
+		where TOut : struct, INumber
+		{
+			Int count = nums.Count();
+			TOut sum = SumOf<T, TOut>(nums);
+			sum.Div(count);
+			return sum;
+		}
+
+		/// <summary>
+		/// Calcula la media de un conjunto de numeros.
+		/// </summary>
+		/// <param name="nums">Conjunto numerico.</param>
+		/// <typeparam name="T">Cualquier tipo numerico.</typeparam>
+		/// <returns>La media del conjunto de datos.</returns>
+		public static T MeanOf<T>(IEnumerable<T> nums) where T : struct, INumber =>
+			MeanOf<T, T>(nums);
+
+		/// <summary>
+		/// Calcula la media de un conjunto de numeros.
+		/// </summary>
+		/// <param name="nums">Conjunto numerico.</param>
+		/// <typeparam name="T">Tipo numerico que se quiere de salida.</typeparam>
+		/// <returns>La media del conjunto de datos.</returns>
+		public static T Mean<T>(params INumber[] nums) where T : struct, INumber =>
+			MeanOf<T>(nums);
+
+		/// <summary>
+		/// Calcula la media de un conjunto de numeros.
+		/// </summary>
+		/// <param name="nums">Conjunto numerico.</param>
+		/// <returns>La media del conjunto de datos.</returns>
+		public static Real Mean(params INumber[] nums) =>
+			MeanOf(nums);
+
+		/// <summary>
+		/// Calcula la media de un conjunto de numeros.
+		/// </summary>
+		/// <param name="nums">Conjunto numerico.</param>
+		/// <typeparam name="T">Cualquier tipo numerico.</typeparam>
+		/// <typeparam name="TOut">Tipo numerico que se quiere de salida.</typeparam>
+		/// <returns>La media del conjunto de datos.</returns>
+		public static TOut Mean<T, TOut>(params T[] nums)
+		where T : struct, INumber
+		where TOut : struct, INumber =>
+			MeanOf<T, TOut>(nums);
+
+		/// <summary>
+		/// Calcula la media de un conjunto de numeros.
+		/// </summary>
+		/// <param name="nums">Conjunto numerico.</param>
+		/// <typeparam name="T">Cualquier tipo numerico.</typeparam>
+		/// <returns>La media del conjunto de datos.</returns>
+		public static T Mean<T>(params T[] nums) where T : struct, INumber =>
+			MeanOf(nums);
+
+		/// <summary>
+		/// Calcula la suma de los elementos de un arreglo numerico.
 		/// </summary>
 		/// <param name="arr">Arreglo numerico de origen.</param>
-		/// <typeparam name="T">Cualquier tipo numerico.</typeparam>
+		/// <typeparam name="T">Tipo numerico que se quiere de salida.</typeparam>
 		/// <returns>Devuelve la suma de los elementos del arreglo.</returns>
-		public static T Sum<T>(IEnumerable<INumber> arr) where T : struct, INumber
+		public static T SumOf<T>(IEnumerable<INumber> arr) where T : struct, INumber
 		{
-			T sum = default(T);
+			T sum = default;
 			foreach (var item in arr)
 				sum.Add(item);
 			return sum;
 		}
 
 		/// <summary>
-		/// Calcula la suma de los elementos de este arreglo.
+		/// Calcula la suma de los elementos de un arreglo.
 		/// </summary>
 		/// <param name="arr">Arreglo numerico de origen.</param>
 		/// <returns>Devuelve la suma de los elementos del arreglo.</returns>
-		public static Real Sum(IEnumerable<INumber> arr) =>
-			arr.Sum<Real>();
+		public static Real SumOf(IEnumerable<INumber> arr) =>
+			SumOf<Real>(arr);
+
+		/// <summary>
+		/// Calcula la suma de los elementos de un arreglo de numeros de un tipo.
+		/// </summary>
+		/// <param name="arr">Arreglo numerico de origen.</param>
+		/// <typeparam name="T">Cualquier tipo numerico.</typeparam>
+		/// <typeparam name="TOut">Tipo numerico que se quiere de salida.</typeparam>
+		/// <returns>Devuelve la suma de los elemetnos de un arreglo</returns>
+		public static TOut SumOf<T, TOut>(IEnumerable<T> arr)
+		where T : struct, INumber
+		where TOut : struct, INumber
+		{
+			TOut sum = default(TOut);
+			foreach (var item in arr)
+				sum.Add(item);
+			return sum;
+		}
+
+		/// <summary>
+		/// Calcula la suma de los elementos de un arreglo de numeros de un tipo.
+		/// </summary>
+		/// <param name="arr">Arreglo numerico de origen.</param>
+		/// <typeparam name="T">Cualquier tipo numerico.</typeparam>
+		/// <returns>Devuelve la suma de los elemetnos de un arreglo</returns>
+		public static T SumOf<T>(IEnumerable<T> arr) where T : struct, INumber =>
+			SumOf<T, T>(arr);
+
+		/// <summary>
+		/// Calcula la suma de los elementos de un arreglo numerico.
+		/// </summary>
+		/// <param name="nums">Arreglo numerico de origen.</param>
+		/// <typeparam name="T">Tipo numerico que se quiere de salida.</typeparam>
+		/// <returns>Devuelve la suma de los elementos del arreglo.</returns>
+		public static T Sum<T>(params INumber[] nums) where T : struct, INumber =>
+			SumOf<T>(nums);
+
+		/// <summary>
+		/// Calcula la suma de los elementos de un arreglo.
+		/// </summary>
+		/// <param name="nums">Arreglo numerico de origen.</param>
+		/// <returns>Devuelve la suma de los elementos del arreglo.</returns>
+		public static Real Sum(params INumber[] nums) =>
+			Sum<Real>(nums);
+
+		/// <summary>
+		/// Calcula la suma de los elementos de un arreglo de numeros de un tipo.
+		/// </summary>
+		/// <param name="nums">Arreglo numerico de origen.</param>
+		/// <typeparam name="T">Cualquier tipo numerico.</typeparam>
+		/// <typeparam name="TOut">Tipo numerico que se quiere de salida.</typeparam>
+		/// <returns>Devuelve la suma de los elemetnos de un arreglo</returns>
+		public static TOut Sum<T, TOut>(params T[] nums)
+		where T : struct, INumber where TOut : struct, INumber =>
+			SumOf<T, TOut>(nums);
+
+		/// <summary>
+		/// Calcula la suma de los elementos de un arreglo de numeros de un tipo.
+		/// </summary>
+		/// <param name="nums">Arreglo numerico de origen.</param>
+		/// <typeparam name="T">Cualquier tipo numerico.</typeparam>
+		/// <returns>Devuelve la suma de los elemetnos de un arreglo</returns>
+		public static T Sum<T>(params T[] nums) where T : struct, INumber =>
+			SumOf<T>(nums);
 
 		#endregion
 
 		#region Overrides System.Math
+
 		/// <summary>
 		/// Devuelve el mayor de dos enteros sin signo.
 		/// </summary>
@@ -127,7 +246,7 @@ namespace KYLib.MathFn
 		/// </summary>
 		/// <param name="power">Potencia a la que se va a elevar el 2.</param>
 		/// <returns>2 elevado a la <paramref name="power"/> en formato de cadenas.</returns>
-		public static string Pow2To(int power)
+		public static string Pow2To(Int power)
 		{
 			if (power < 0)
 				throw new ArgumentOutOfRangeException(nameof(power), power, "La potencia no puede ser negativa en esta función");
