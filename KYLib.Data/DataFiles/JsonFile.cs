@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using KYLib.Data.Converters;
 using KYLib.Interfaces;
 using Newtonsoft.Json;
@@ -24,6 +25,7 @@ namespace KYLib.Data.DataFiles
 			DefaultConverter = new NumberConverter();
 			m_Settings.Converters.Add(DefaultConverter);
 			m_Settings.Formatting = Formatting.Indented;
+			m_Settings.NullValueHandling = NullValueHandling.Ignore;
 		}
 
 		#region IDataFile
@@ -45,19 +47,45 @@ namespace KYLib.Data.DataFiles
 		/// <inheritdoc/>
 		public object Load(string path)
 		{
-			throw new NotImplementedException();
+			string realpath = ValidatePath(path);
+			string content = File.ReadAllText(realpath);
+			return JsonConvert.DeserializeObject(content, m_Settings);
 		}
 
 		/// <inheritdoc/>
 		public T Load<T>(string path)
 		{
-			throw new NotImplementedException();
+			string realpath = ValidatePath(path);
+			string content = File.ReadAllText(realpath);
+			return JsonConvert.DeserializeObject<T>(content, m_Settings);
+		}
+
+		/// <summary>
+		/// Usamos esta función para ver si existe el archivo solicitado.
+		/// </summary>
+		private string ValidatePath(string path)
+		{
+			string realpath = null;
+			//primero vemos si el archivo especificado existe, esto se hace por si el nombre pasado no tiene la extension del archivo
+			if (File.Exists(path))
+				realpath = path;
+			// ahora vemos si existe el archivo pero con extension especifica
+			else if (File.Exists(path + Extension))
+				realpath = path + Extension;
+			//si no existe se genera error
+			else
+				throw new FileNotFoundException("El archivo especificado no existe por lo que no puede ser cargado", path);
+			return realpath;
 		}
 
 		/// <inheritdoc/>
 		public void Save(object source, string path)
 		{
-			throw new NotImplementedException();
+			using (StreamWriter file = File.CreateText(path))
+			{
+				JsonSerializer serializer = JsonSerializer.CreateDefault(m_Settings);
+				serializer.Serialize(file, source);
+			}
 		}
 
 		/// <inheritdoc/>
