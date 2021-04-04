@@ -9,6 +9,43 @@ namespace KYLib.Data
 	/// </summary>
 	public static class Files
 	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="path"></param>
+		/// <typeparam name="T"></typeparam>
+		/// <returns></returns>
+		public static object Load<T>(string path) where T : IDataFile, new() =>
+			Load(path, new T());
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="path"></param>
+		/// <param name="serializer"></param>
+		/// <returns></returns>
+		public static object Load(string path, IDataFile serializer) =>
+			serializer.Load(path);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="path"></param>
+		/// <typeparam name="T"></typeparam>
+		/// <typeparam name="TResult"></typeparam>
+		/// <returns></returns>
+		public static TResult Load<T, TResult>(string path) where T : IDataFile, new() =>
+			Load<TResult>(path, new T());
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="path"></param>
+		/// <param name="deserializer"></param>
+		/// <typeparam name="T"></typeparam>
+		/// <returns></returns>
+		public static T Load<T>(string path, IDataFile deserializer) =>
+			deserializer.Load<T>(path);
 
 		/// <summary>
 		/// 
@@ -25,8 +62,7 @@ namespace KYLib.Data
 		/// <param name="source"></param>
 		/// <param name="path"></param>
 		/// <param name="serializer"></param>
-		/// <typeparam name="T"></typeparam>
-		public static void Save<T>(object source, string path, T serializer) where T : IDataFile =>
+		public static void Save(object source, string path, IDataFile serializer) =>
 			serializer.Save(source, path);
 
 		/// <summary>
