@@ -49,20 +49,28 @@ namespace KYLib.ConsoleUtils
 		#region Entradas
 
 		/// <summary>
-		/// Obtiene una linea escrita por consola o escribe una nueva si se establece.
+		/// Obtiene una linea escrita por consola o escribe una en la salida estandar si se establece.
 		/// </summary>
 		/// <value>
 		/// Su valor es cualquiera ingresado por el usuario.
 		/// </value>
-		public static string Line { get => Console.ReadLine(); set => Console.WriteLine(value); }
+		public static string Line { get => Console.ReadLine(); set => Trace(value); }
 
 		/// <summary>
-		/// Obtiene una linea escrita por consola o escribe en la linea actual si se establece.
+		/// Obtiene una linea escrita por consola o escribe en la linea actual de la salida estandar si se establece.
 		/// </summary>
 		/// <value>
 		/// Su valor es cualquiera ingresado por el usuario.
 		/// </value>
 		public static string Inline { get => Console.ReadLine(); set => Console.Write(value); }
+
+		/// <summary>
+		/// Obtiene una linea escrita por consola o escribe una en la salida estandar si se establece.
+		/// </summary>
+		/// <value>
+		/// Su valor es cualquiera ingresado por el usuario.
+		/// </value>
+		public static string Error { get => Console.ReadLine(); set => TraceError(value); }
 
 		/// <summary>
 		/// Esta propiedad se usa para obtener una key ingresada por el usuario, usea el desecho "_" o  establezcala en null para detener la consola hasta que el usuario pulse una tecla.
@@ -228,6 +236,21 @@ namespace KYLib.ConsoleUtils
 		/// Añade un salto de linea a la consola.
 		/// </summary>
 		public static void Trace() => Console.WriteLine();
+
+		/// <summary>
+		/// Muestra un objeto en la salida de error estandar.
+		/// </summary>
+		/// <remarks>
+		/// Para poder mostrar los objetos en consola se llama a <c><paramref name="obj"/>.ToString()</c>.
+		/// </remarks>
+		/// <param name="obj">Cualquier objeto.</param>
+		public static void TraceError(object obj)
+		{
+			var currentColor = Console.ForegroundColor;
+			Console.ForegroundColor = ConsoleColor.Red;
+			Console.Error.WriteLine(obj);
+			Console.ForegroundColor = currentColor;
+		}
 
 		#endregion
 	}
