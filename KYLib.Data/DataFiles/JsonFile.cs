@@ -3,6 +3,7 @@ using System.IO;
 using KYLib.Data.Converters;
 using KYLib.Interfaces;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace KYLib.Data.DataFiles
 {
@@ -24,8 +25,10 @@ namespace KYLib.Data.DataFiles
 		{
 			DefaultConverter = new NumberConverter();
 			m_Settings.Converters.Add(DefaultConverter);
+			m_Settings.Converters.Add(new StringEnumConverter());
 			m_Settings.Formatting = Formatting.Indented;
 			m_Settings.NullValueHandling = NullValueHandling.Ignore;
+
 		}
 
 		#region IDataFile
