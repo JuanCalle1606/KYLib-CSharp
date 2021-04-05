@@ -66,7 +66,7 @@ namespace KYLib.System
 		/// <returns>Devuelve un objeto de proceso que representa al programa invocado corriendo.</returns>
 		public static Process Start(string file, string args, Action<string> stdout, Action<string> stderr, out Action<string> stdin)
 		{
-			var process = CreateProcess(file, args, true, true);
+			var process = CreateProcess(file, args, Environment.CurrentDirectory, true, true);
 			process.OutputDataReceived += (o, e) => stdout?.Invoke(e.Data);
 			process.ErrorDataReceived += (o, e) => stderr?.Invoke(e.Data);
 			process.Start();
@@ -118,6 +118,25 @@ namespace KYLib.System
 		}
 
 		/// <summary>
+		/// Ejecuta un comando en consola y no intercepta ni su salida ni su entrada por lo que es interactivo y el usuario puede verlo en consola.
+		/// </summary>
+		/// <remarks>
+		/// Este metodo solo debe ser usado en aplicaciones de consola, de lo contrario nunca se terminara de ejecutar si un proceso solicita entrada del usuario.
+		/// </remarks>
+		/// <param name="bash">Comando a ejecutar.</param>
+		/// <param name="args">Argumentos opcionales para pasar al programa.</param>
+		/// <param name="runin">Directorio en el cual se ejecutara el proceso</param>
+		/// <exception cref="PlatformNotSupportedException">Se produce cuando no se conoce el sistema operativo.</exception>
+		public static void RunCommand(string bash, string args, string runin)
+		{
+			using (var process = CreateProcess(bash, args, runin, false, false))
+			{
+				process.Start();
+				process.WaitForExit();
+			}
+		}
+
+		/// <summary>
 		/// Crea un proceso de ejecucion por medio del bash nativo
 		/// </summary>
 		private static Process CreateProcess(string bash, bool redirect)
@@ -125,13 +144,13 @@ namespace KYLib.System
 			var path = Info.TerminalPath.Split(' ');
 			string file = path[0];
 			string args = $"{path[1]} \"{bash.Replace("\"", "\\\"")}\"";
-			return CreateProcess(file, args, redirect, false);
+			return CreateProcess(file, args, Environment.CurrentDirectory, redirect, false);
 		}
 
 		/// <summary>
 		/// Crea un proceso de ejecucion con un archivo especifico.
 		/// </summary>
-		private static Process CreateProcess(string file, string args, bool output, bool errorandinput)
+		private static Process CreateProcess(string file, string args, string runin, bool output, bool errorandinput)
 		{
 			if (Info.CurrentSystem == OS.Unknow)
 				throw new PlatformNotSupportedException("El sistema operativo actual no es conocido por lo tanto no se pueden ejecutar ordenes por medio de la clase Bash.");
@@ -146,7 +165,8 @@ namespace KYLib.System
 					RedirectStandardError = errorandinput,
 					RedirectStandardInput = errorandinput,
 					UseShellExecute = false,
-					CreateNoWindow = true
+					CreateNoWindow = true,
+					WorkingDirectory = runin
 				},
 				EnableRaisingEvents = true
 			};
