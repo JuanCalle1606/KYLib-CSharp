@@ -12,6 +12,12 @@ namespace KYLib.ConsoleUtils
 		/// <summary>
 		/// Crea una nueva aplicación de consola.
 		/// </summary>
-		protected ConsoleApp(string appName) : base(true) => Title = appName+Environment.NewLine;
+		protected ConsoleApp(string appName) : base(true)
+		{
+			if (Console.IsOutputRedirected || Console.IsInputRedirected)
+				throw new NotSupportedException("No se puede crear una aplicación de consola si se ridirige la entrada o la salida.");
+			Title = appName + Environment.NewLine;
+			Console.Title = appName;
+		}
 	}
 }

@@ -44,6 +44,16 @@ namespace KYLib.ConsoleUtils
 			"true"
 		});
 
+		/// <summary>
+		/// Tipo de color de fondo de consola.
+		/// </summary>
+		private static readonly Type BColor = typeof(BackgroundColor);
+
+		/// <summary>
+		/// Tipo de color de letra de consola.
+		/// </summary>
+		private static readonly Type FColor = typeof(ForegroundColor);
+
 		#endregion
 
 		#region Entradas
@@ -54,7 +64,8 @@ namespace KYLib.ConsoleUtils
 		/// <value>
 		/// Su valor es cualquiera ingresado por el usuario.
 		/// </value>
-		public static string Line { get => Console.ReadLine(); set => Trace(value); }
+		public static string Line
+		{ get => Console.ReadLine(); set => Trace(value); }
 
 		/// <summary>
 		/// Obtiene una linea escrita por consola o escribe en la linea actual de la salida estandar si se establece.
@@ -214,13 +225,56 @@ namespace KYLib.ConsoleUtils
 		public static void Clear() => Console.Clear();
 
 		/// <summary>
-		/// Muestra un objeto por consola.
+		/// Añade un salto de linea a la consola.
+		/// </summary>
+		public static void Trace() => Console.WriteLine();
+
+		/// <summary>
+		/// Muestra un objeto por consola y añade un salto de linea.
 		/// </summary>
 		/// <remarks>
 		/// Para poder mostrar los objetos en consola se llama a <c><paramref name="obj"/>.ToString()</c>.
 		/// </remarks>
-		/// <param name="obj">Cualquier objeto.</param>
+		/// <param name="obj">Cualquier objeto a mostrar.</param>
 		public static void Trace(object obj) => Console.WriteLine(obj);
+
+		/// <summary>
+		/// Muestra un objeto por consola y añade un salto de linea.
+		/// </summary>
+		/// <param name="fontColor">Color de la letra a mostrar.</param>
+		/// <param name="obj">Cualquier objeto a mostrar.</param>
+		public static void Trace(object obj, ForegroundColor fontColor)
+		{
+			Console.ForegroundColor = fontColor.ToConsoleColor();
+			Trace(obj);
+			Console.ResetColor();
+		}
+
+		/// <summary>
+		/// Muestra un objeto por consola y añade un salto de linea.
+		/// </summary>
+		/// <param name="backColor">Color del fondo a mostrar.</param>
+		/// <param name="obj">Cualquier objeto a mostrar.</param>
+		public static void Trace(object obj, BackgroundColor backColor)
+		{
+			Console.BackgroundColor = backColor.ToConsoleColor();
+			Trace(obj);
+			Console.ResetColor();
+		}
+
+		/// <summary>
+		/// Muestra un objeto por consola y añade un salto de linea.
+		/// </summary>
+		/// <param name="fontColor">Color de la letra a mostrar.</param>
+		/// <param name="obj">Cualquier objeto a mostrar.</param>
+		/// <param name="backColor">Color del fondo a mostrar.</param>
+		public static void Trace(object obj, ForegroundColor fontColor, BackgroundColor backColor)
+		{
+			Console.ForegroundColor = fontColor.ToConsoleColor();
+			Console.BackgroundColor = backColor.ToConsoleColor();
+			Trace(obj);
+			Console.ResetColor();
+		}
 
 		/// <summary>
 		/// Muestra un cojunto de objetos en la consola, uno por linea.
@@ -228,14 +282,36 @@ namespace KYLib.ConsoleUtils
 		/// <param name="obj">Lista de objetos a mostrar.</param>
 		public static void Trace(params object[] obj)
 		{
+			bool colorchanged = false;
 			foreach (var item in obj)
-				Trace(item);
-		}
+			{
+				if (item.GetType().IsEquivalentTo(FColor))
+				{
+					Console.ForegroundColor = (ConsoleColor)item;
+					colorchanged = true;
+					continue;
+				}
+				else if (item.GetType().IsEquivalentTo(BColor))
+				{
+					Console.BackgroundColor = (ConsoleColor)item;
+					colorchanged = true;
+					continue;
+				}
 
-		/// <summary>
-		/// Añade un salto de linea a la consola.
-		/// </summary>
-		public static void Trace() => Console.WriteLine();
+				if (colorchanged)
+				{
+					Console.Write(item);
+					Console.ResetColor();
+					colorchanged = false;
+					Trace();
+				}
+				else
+				{
+					Trace(item);
+				}
+
+			}
+		}
 
 		/// <summary>
 		/// Muestra un objeto en la salida de error estandar.
@@ -246,10 +322,9 @@ namespace KYLib.ConsoleUtils
 		/// <param name="obj">Cualquier objeto.</param>
 		public static void TraceError(object obj)
 		{
-			var currentColor = Console.ForegroundColor;
 			Console.ForegroundColor = ConsoleColor.Red;
 			Console.Error.WriteLine(obj);
-			Console.ForegroundColor = currentColor;
+			Console.ResetColor();
 		}
 
 		#endregion
