@@ -1,0 +1,20 @@
+{
+	"Build": {
+		"Name": "KYLib.Example",
+		"Configuration": "Debug",
+		"OutputDir": "{CurrentDir}/builds/{Configuration}",
+		"Cmd": [
+			{
+				"Comment": "Build the program",
+				"RunIn": "{CurrentDir}",
+				"Task": "build"
+			},
+			{
+				"Comment": "Run the program",
+				"RunIn": "{OutputDir}",
+				"Task": "dotnet",
+				"Args": "{Name}.dll"
+			}
+		]
+	}
+}
