@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using KYLib.MathFn;
+using KYLib.System;
 
 namespace KYLib.Extensions
 {
@@ -26,5 +27,21 @@ namespace KYLib.Extensions
 				sb.Append(me);
 			return sb.ToString();
 		}
+
+		/// <summary>
+		/// Formatea una cadena con los elementos pasados.
+		/// </summary>
+		/// <param name="me">Cadena a formatear</param>
+		/// <param name="objs">Arreglo de objetos a formatear.</param>
+		/// <returns>La cadena formateada.</returns>
+		public static string Format(this string me, params object[] objs) =>
+			string.Format(me, objs);
+
+		/// <summary>
+		/// Ejecuta esta cadena como un comando de terminal y devuelve la salida de dicho comando.
+		/// </summary>
+		/// <param name="me">Cadena que contiene el comando.</param>
+		/// <returns>Salida del proceso.</returns>
+		public static string RunInBash(this string me) => Bash.GetCommand(me);
 	}
 }

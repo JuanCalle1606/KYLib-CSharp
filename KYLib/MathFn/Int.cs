@@ -5,7 +5,7 @@ namespace KYLib.MathFn
 {
 
 	/// <summary>
-	/// Wrapper a la estructura System.Int32 implementando la interfaz INumber.
+	/// Wrapper a la estructura <see cref="Int32"/>  implementando la interfaz <see cref="INumber"/>.
 	/// Esta clase provee sobrecargas a todos los operadores sobrecargables.
 	/// </summary>
 	public struct Int : INumber<int>
@@ -132,6 +132,9 @@ namespace KYLib.MathFn
 
 		/// <inheritdoc/>
 		public static implicit operator int(Int value) => value.value;
+
+		/// <inheritdoc/>
+		public static implicit operator Int(Small value) => new Int(value);
 
 		/// <inheritdoc/>
 		public static explicit operator Int(Real value) => new Int(((INumber)value).ToInt32(null));

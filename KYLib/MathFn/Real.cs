@@ -5,8 +5,8 @@ namespace KYLib.MathFn
 {
 
 	/// <summary>
-	/// Wrapper a la estructura System.Double implementando la interfaz INumber.
-	/// Esta clase provee sobrecargas a todos los operadores sobrecargables.
+	/// Wrapper a la estructura <see cref="Double"/> implementando la interfaz <see cref="INumber"/>.
+	/// Esta clase provee sobrecargas a todos los operadores sobrecargables exceptuando los nos permitidos por <see cref="Double"/>.
 	/// </summary>
 	public struct Real : INumber<double>
 	{
@@ -144,6 +144,9 @@ namespace KYLib.MathFn
 
 		/// <inheritdoc/>
 		public static implicit operator Real(Int value) => new Real(value);
+
+		/// <inheritdoc/>
+		public static implicit operator Real(Small value) => new Real(value);
 
 		#endregion
 
