@@ -8,9 +8,9 @@ namespace KYLib.Interfaces
 	public interface IDataFile
 	{
 		/// <summary>
-		/// El converter por defecto que utiliza este formato de archivo.
+		/// Configuraciones que usa este formato de archivo.
 		/// </summary>
-		JsonConverter DefaultConverter { get; }
+		JsonSerializerSettings Settings { get; }
 
 		/// <summary>
 		/// Convierte un objeto en su representación de tipo de archivo.

@@ -12,47 +12,44 @@ namespace KYLib.Data.DataFiles
 	/// </summary>
 	public sealed class JsonFile : IDataFile
 	{
-
 		/// <summary>
-		/// Configuraciones que usa este formato de archivo
+		/// Almacena una unica instancia de un <see cref="JsonFile"/>
 		/// </summary>
-		private JsonSerializerSettings m_Settings = new JsonSerializerSettings();
+		public static readonly JsonFile Default = new JsonFile();
+
+		/// <inheritdoc/>
+		public JsonSerializerSettings Settings { get; set; } = new JsonSerializerSettings();
 
 		/// <summary>
 		/// Crea un nuevo <see cref="JsonFile"/> para la serialización y deserialización en formato Json.
 		/// </summary>
 		public JsonFile()
 		{
-			DefaultConverter = new NumberConverter();
-			m_Settings.Converters.Add(DefaultConverter);
-			m_Settings.Converters.Add(new StringEnumConverter());
-			m_Settings.Formatting = Formatting.Indented;
-			m_Settings.NullValueHandling = NullValueHandling.Ignore;
-
+			Settings.Converters.Add(new NumberConverter());
+			Settings.Converters.Add(new StringEnumConverter());
+			Settings.Formatting = Formatting.Indented;
+			Settings.NullValueHandling = NullValueHandling.Ignore;
 		}
 
 		#region IDataFile
-
-		/// <inheritdoc/>
-		public JsonConverter DefaultConverter { get; private set; }
 
 		/// <inheritdoc/>
 		public string Extension => ".json";
 
 		/// <inheritdoc/>
 		public object Deserialize(string source) =>
-			JsonConvert.DeserializeObject(source, m_Settings);
+			JsonConvert.DeserializeObject(source, Settings);
 
 		/// <inheritdoc/>
 		public T Deserialize<T>(string source) =>
-			JsonConvert.DeserializeObject<T>(source, m_Settings);
+			JsonConvert.DeserializeObject<T>(source, Settings);
 
 		/// <inheritdoc/>
 		public object Load(string path)
 		{
 			string realpath = ValidatePath(path);
 			string content = File.ReadAllText(realpath);
-			return JsonConvert.DeserializeObject(content, m_Settings);
+			return JsonConvert.DeserializeObject(content, Settings);
 		}
 
 		/// <inheritdoc/>
@@ -60,7 +57,7 @@ namespace KYLib.Data.DataFiles
 		{
 			string realpath = ValidatePath(path);
 			string content = File.ReadAllText(realpath);
-			return JsonConvert.DeserializeObject<T>(content, m_Settings);
+			return JsonConvert.DeserializeObject<T>(content, Settings);
 		}
 
 		/// <summary>
@@ -86,14 +83,14 @@ namespace KYLib.Data.DataFiles
 		{
 			using (StreamWriter file = File.CreateText(path))
 			{
-				JsonSerializer serializer = JsonSerializer.CreateDefault(m_Settings);
+				JsonSerializer serializer = JsonSerializer.CreateDefault(Settings);
 				serializer.Serialize(file, source);
 			}
 		}
 
 		/// <inheritdoc/>
 		public string Serialize(object source) =>
-			JsonConvert.SerializeObject(source, m_Settings);
+			JsonConvert.SerializeObject(source, Settings);
 
 		#endregion
 	}
