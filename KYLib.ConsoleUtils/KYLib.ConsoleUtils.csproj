@@ -1,24 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Library</OutputType>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Juan Pablo Calle</Authors>
-    <Company>Juan Pablo Calle Grafe</Company>
 	<Title>KYLib.ConsoleUtils</Title>
-    <Description>Libreria de utilidades de consola</Description>
-    <Copyright>Copyrigth © 2021 Juan Pablo Calle</Copyright>
+    <Description>Libreria de utilidades de consola, esta libreria esta pensada unicamnete para uso personal</Description>
     <PackageProjectUrl>https://github.com/JuanCalle1606/KYLib-CSharp/tree/main/KYLib.ConsoleUtils</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/JuanCalle1606/KYLib-CSharp</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryBranch>master</RepositoryBranch>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageId>KYLib.ConsoleUtils</PackageId>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>1.3.16</Version>
     <DocumentationFile>$(ProjectDir)KYLib.ConsoleUtils.xml</DocumentationFile>
-    <NeutralLanguage>es</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>

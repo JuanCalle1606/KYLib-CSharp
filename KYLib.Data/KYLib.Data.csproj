@@ -1,24 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Library</OutputType>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Juan Pablo Calle</Authors>
-    <Company>Juan Pablo Calle Grafe</Company>
 	<Title>KYLib.Data</Title>
-    <Description>Libreria sencilla de clases y utilidades</Description>
-    <Copyright>Copyrigth © 2021 Juan Pablo Calle</Copyright>
+    <Description>Libreria sencilla de guardado y carga de datos en archivos, esta libreria esta pensada unicamnete para uso personal</Description>
     <PackageProjectUrl>https://github.com/JuanCalle1606/KYLib-CSharp/tree/main/KYLib.Data</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/JuanCalle1606/KYLib-CSharp</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryBranch>master</RepositoryBranch>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageId>KYLib.Data</PackageId>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>1.3.20</Version>
     <DocumentationFile>$(ProjectDir)KYLib.Data.xml</DocumentationFile>
-    <NeutralLanguage>es</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>
