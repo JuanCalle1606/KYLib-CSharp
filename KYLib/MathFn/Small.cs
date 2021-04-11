@@ -214,7 +214,7 @@ namespace KYLib.MathFn
 		public bool Equals(INumber other) => value.Equals(other.ToByte(null));
 
 		/// <inheritdoc/>
-		public bool Equals(byte other) => value.Equals(other);
+		public bool Equals(Small other) => value.Equals(other.value);
 
 		/// <inheritdoc/>
 		public TypeCode GetTypeCode() => value.GetTypeCode();

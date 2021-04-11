@@ -2,7 +2,7 @@
 
   <PropertyGroup>
 	<Title>KYLib.ConsoleUtils</Title>
-    <Description>Libreria de utilidades de consola, esta libreria esta pensada unicamnete para uso personal</Description>
+    <Description>Libreria de utilidades de consola, esta libreria esta pensada unicamente para uso personal</Description>
     <PackageProjectUrl>https://github.com/JuanCalle1606/KYLib-CSharp/tree/main/KYLib.ConsoleUtils</PackageProjectUrl>
     <PackageId>KYLib.ConsoleUtils</PackageId>
     <DocumentationFile>$(ProjectDir)KYLib.ConsoleUtils.xml</DocumentationFile>

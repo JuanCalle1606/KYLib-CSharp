@@ -213,7 +213,7 @@ namespace KYLib.MathFn
 		public bool Equals(INumber other) => value.Equals(other.ToDouble(null));
 
 		/// <inheritdoc/>
-		public bool Equals(double other) => value.Equals(other);
+		public bool Equals(Real other) => value.Equals(other.value);
 
 		/// <inheritdoc/>
 		public TypeCode GetTypeCode() => value.GetTypeCode();

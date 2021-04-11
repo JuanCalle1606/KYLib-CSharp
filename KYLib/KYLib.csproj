@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Title>KYLib</Title>
-    <Description>Libreria sencilla de clases y utilidades, esta libreria esta pensada unicamnete para uso personal</Description>
+    <Description>Libreria sencilla de clases y utilidades, esta libreria esta pensada unicamente para uso personal</Description>
     <PackageProjectUrl>https://github.com/JuanCalle1606/KYLib-CSharp/tree/main/KYLib</PackageProjectUrl>
     <PackageId>KYLib</PackageId>
     <DocumentationFile>$(ProjectDir)KYLib.xml</DocumentationFile>
