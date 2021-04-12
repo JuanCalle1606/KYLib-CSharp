@@ -13,8 +13,20 @@ namespace KYLib.Data.Converters
 		/// <inheritdoc/>
 		public override string ReadJson(JsonReader reader, Type objectType, [AllowNull] string existingValue, bool hasExistingValue, JsonSerializer serializer)
 		{
-			var strb = Convert.FromBase64String(reader.ReadAsString());
-			return Encoding.UTF8.GetString(strb);
+			if (reader.TokenType != JsonToken.String)
+				throw new NotSupportedException("Base64Converter solo funciona con tipos string.");
+			var input = reader.Value as string;
+
+			try
+			{
+				var strb = Convert.FromBase64String(input);
+				return Encoding.UTF8.GetString(strb);
+			}
+			catch (Exception)
+			{
+				throw new ArgumentException("La cadena proporcionada no esta en formato base64");
+			}
+
 		}
 
 		/// <inheritdoc/>
