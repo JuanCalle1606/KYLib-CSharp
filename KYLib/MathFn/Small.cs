@@ -147,6 +147,9 @@ namespace KYLib.MathFn
 		public static explicit operator Small(Real value) => new Small(((INumber)value).ToByte(null));
 
 		/// <inheritdoc/>
+		public static explicit operator Small(Float value) => new Small(((INumber)value).ToByte(null));
+
+		/// <inheritdoc/>
 		public static explicit operator Small(Int value) => new Small(((INumber)value).ToByte(null));
 
 		#endregion

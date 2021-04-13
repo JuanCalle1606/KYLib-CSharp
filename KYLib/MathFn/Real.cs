@@ -146,6 +146,9 @@ namespace KYLib.MathFn
 		public static implicit operator Real(Int value) => new Real(value);
 
 		/// <inheritdoc/>
+		public static implicit operator Real(Float value) => new Real(value);
+
+		/// <inheritdoc/>
 		public static implicit operator Real(Small value) => new Real(value);
 
 		#endregion

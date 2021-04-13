@@ -5,7 +5,7 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Authors>Juan Pablo Calle</Authors>
 		<Company>Juan Pablo Calle Grafe</Company>
-		<OutputPath>$(SolutionDir)builds\$(Configuration)</OutputPath>
+		<OutputPath>$(SolutionDir)bin\$(Configuration)</OutputPath>
 		<Copyright>Copyrigth © 2021 Juan Pablo Calle</Copyright>
 		<RepositoryUrl>https://github.com/JuanCalle1606/KYLib-CSharp</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
