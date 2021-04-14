@@ -1,4 +1,5 @@
 using System;
+using KYLib.Helpers;
 using KYLib.Interfaces;
 
 namespace KYLib.MathFn
@@ -159,6 +160,9 @@ namespace KYLib.MathFn
 		byte INumber<byte>.Value { get => value; set => this.value = value; }
 
 		/// <inheritdoc/>
+		byte IConvertible.ToByte(IFormatProvider provider) => value;
+
+		/// <inheritdoc/>
 		void INumber.UpdateValue(INumber source) =>
 			value = source.ToByte(null);
 
@@ -169,34 +173,12 @@ namespace KYLib.MathFn
 			var n = (IConvertible)source;
 			if (n != null)
 			{
-				try
-				{
-					value = n.ToByte(null);
-					return;
-				}
-				catch (Exception)
-				{
-					//En caso de un error lo ignoramos he intentamos otro metodo de conversión.
-				}
-			}
-			//AHora obtenemos el string del objeto
-			string s = source.ToString();
-			if (!string.IsNullOrWhiteSpace(s))
-			{
-				byte tempval = 0;
-				//vemos si se puede parsear el string
-				if (byte.TryParse(s, out tempval))
-				{
-					value = tempval;
-					return;
-				}
+				value = ConvertHelper.ToByte(n);
+				return;
 			}
 			//si llegamos aqui es porque no se pudo leer el numero, en ese caso se produce una exepción
 			throw new ArgumentException("El valor proporcionado no puede ser convertido en Small.", nameof(source));
 		}
-
-		/// <inheritdoc/>
-		void INumber<byte>.Add(byte num) => value += num;
 
 		/// <inheritdoc/>
 		void INumber.Add(INumber num) => value += num.ToByte(null);
@@ -206,9 +188,6 @@ namespace KYLib.MathFn
 
 		/// <inheritdoc/>
 		public Int32 CompareTo(INumber other) => value.CompareTo(other.ToByte(null));
-
-		/// <inheritdoc/>
-		void INumber<byte>.Div(byte num) => value /= num;
 
 		/// <inheritdoc/>
 		void INumber.Div(INumber num) => value /= num.ToByte(null);
@@ -223,19 +202,10 @@ namespace KYLib.MathFn
 		public TypeCode GetTypeCode() => value.GetTypeCode();
 
 		/// <inheritdoc/>
-		void INumber<byte>.Mul(byte num) => value *= num;
-
-		/// <inheritdoc/>
 		void INumber.Mul(INumber num) => value *= num.ToByte(null);
 
 		/// <inheritdoc/>
-		void INumber<byte>.Rest(byte num) => value %= num;
-
-		/// <inheritdoc/>
 		void INumber.Rest(INumber num) => value %= num.ToByte(null);
-
-		/// <inheritdoc/>
-		void INumber<byte>.Sub(byte num) => value -= num;
 
 		/// <inheritdoc/>
 		void INumber.Sub(INumber num) => value -= num.ToByte(null);

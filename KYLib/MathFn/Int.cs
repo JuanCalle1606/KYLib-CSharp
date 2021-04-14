@@ -1,4 +1,5 @@
 using System;
+using KYLib.Helpers;
 using KYLib.Interfaces;
 
 namespace KYLib.MathFn
@@ -149,6 +150,9 @@ namespace KYLib.MathFn
 		int INumber<int>.Value { get => value; set => this.value = value; }
 
 		/// <inheritdoc/>
+		int IConvertible.ToInt32(IFormatProvider provider) => value;
+
+		/// <inheritdoc/>
 		void INumber.UpdateValue(INumber source) =>
 			value = source.ToInt32(null);
 
@@ -159,34 +163,12 @@ namespace KYLib.MathFn
 			var n = (IConvertible)source;
 			if (n != null)
 			{
-				try
-				{
-					value = n.ToInt32(null);
-					return;
-				}
-				catch (Exception)
-				{
-					//En caso de un error lo ignoramos he intentamos otro metodo de conversión.
-				}
-			}
-			//AHora obtenemos el string del objeto
-			string s = source.ToString();
-			if (!string.IsNullOrWhiteSpace(s))
-			{
-				int tempval = 0;
-				//vemos si se puede parsear el string
-				if (int.TryParse(s, out tempval))
-				{
-					value = tempval;
-					return;
-				}
+				value = ConvertHelper.ToInt32(n);
+				return;
 			}
 			//si llegamos aqui es porque no se pudo leer el numero, en ese caso se produce una exepción
 			throw new ArgumentException("El valor proporcionado no puede ser convertido en Int.", nameof(source));
 		}
-
-		/// <inheritdoc/>
-		void INumber<int>.Add(int num) => value += num;
 
 		/// <inheritdoc/>
 		void INumber.Add(INumber num) => value += num.ToInt32(null);
@@ -196,9 +178,6 @@ namespace KYLib.MathFn
 
 		/// <inheritdoc/>
 		public int CompareTo(INumber other) => value.CompareTo(other.ToInt32(null));
-
-		/// <inheritdoc/>
-		void INumber<int>.Div(int num) => value /= num;
 
 		/// <inheritdoc/>
 		void INumber.Div(INumber num) => value /= num.ToInt32(null);
@@ -213,19 +192,10 @@ namespace KYLib.MathFn
 		public TypeCode GetTypeCode() => value.GetTypeCode();
 
 		/// <inheritdoc/>
-		void INumber<int>.Mul(int num) => value *= num;
-
-		/// <inheritdoc/>
 		void INumber.Mul(INumber num) => value *= num.ToInt32(null);
 
 		/// <inheritdoc/>
-		void INumber<int>.Rest(int num) => value %= num;
-
-		/// <inheritdoc/>
 		void INumber.Rest(INumber num) => value %= num.ToInt32(null);
-
-		/// <inheritdoc/>
-		void INumber<int>.Sub(int num) => value -= num;
 
 		/// <inheritdoc/>
 		void INumber.Sub(INumber num) => value -= num.ToInt32(null);

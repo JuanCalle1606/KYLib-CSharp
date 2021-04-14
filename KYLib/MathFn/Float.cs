@@ -1,4 +1,5 @@
 using System;
+using KYLib.Helpers;
 using KYLib.Interfaces;
 
 namespace KYLib.MathFn
@@ -149,6 +150,9 @@ namespace KYLib.MathFn
 		float INumber<float>.Value { get => value; set => this.value = value; }
 
 		/// <inheritdoc/>
+		float IConvertible.ToSingle(IFormatProvider provider) => value;
+
+		/// <inheritdoc/>
 		void INumber.UpdateValue(INumber source) =>
 			value = source.ToSingle(null);
 
@@ -156,37 +160,16 @@ namespace KYLib.MathFn
 		void INumber.UpdateValue(object source)
 		{
 			//primero vemos si es un IConvertible
+			//primero vemos si es un IConvertible
 			var n = (IConvertible)source;
 			if (n != null)
 			{
-				try
-				{
-					value = n.ToSingle(null);
-					return;
-				}
-				catch (Exception)
-				{
-					//En caso de un error lo ignoramos he intentamos otro metodo de conversión.
-				}
-			}
-			//AHora obtenemos el string del objeto
-			string s = source.ToString();
-			if (!string.IsNullOrWhiteSpace(s))
-			{
-				float tempval = 0;
-				//vemos si se puede parsear el string
-				if (float.TryParse(s, out tempval))
-				{
-					value = tempval;
-					return;
-				}
+				value = ConvertHelper.ToSingle(n);
+				return;
 			}
 			//si llegamos aqui es porque no se pudo leer el numero, en ese caso se produce una exepción
 			throw new ArgumentException("El valor proporcionado no puede ser convertido en Float.", nameof(source));
 		}
-
-		/// <inheritdoc/>
-		void INumber<float>.Add(float num) => value += num;
 
 		/// <inheritdoc/>
 		void INumber.Add(INumber num) => value += num.ToSingle(null);
@@ -196,9 +179,6 @@ namespace KYLib.MathFn
 
 		/// <inheritdoc/>
 		public Int32 CompareTo(INumber other) => value.CompareTo(other.ToSingle(null));
-
-		/// <inheritdoc/>
-		void INumber<float>.Div(float num) => value /= num;
 
 		/// <inheritdoc/>
 		void INumber.Div(INumber num) => value /= num.ToSingle(null);
@@ -213,19 +193,10 @@ namespace KYLib.MathFn
 		public TypeCode GetTypeCode() => value.GetTypeCode();
 
 		/// <inheritdoc/>
-		void INumber<float>.Mul(float num) => value *= num;
-
-		/// <inheritdoc/>
 		void INumber.Mul(INumber num) => value *= num.ToSingle(null);
 
 		/// <inheritdoc/>
-		void INumber<float>.Rest(float num) => value %= num;
-
-		/// <inheritdoc/>
 		void INumber.Rest(INumber num) => value %= num.ToSingle(null);
-
-		/// <inheritdoc/>
-		void INumber<float>.Sub(float num) => value -= num;
 
 		/// <inheritdoc/>
 		void INumber.Sub(INumber num) => value -= num.ToSingle(null);

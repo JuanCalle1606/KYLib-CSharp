@@ -1,4 +1,5 @@
 using System;
+using KYLib.Helpers;
 
 namespace KYLib.Interfaces
 {
@@ -62,41 +63,11 @@ namespace KYLib.Interfaces
 		/// </summary>
 		TBase Value { get; set; }
 
-		/// <summary>
-		/// Le suma un numero a este numero.
-		/// </summary>
-		/// <param name="num">Numero a sumar.</param>
-		void Add(TBase num);
-
-		/// <summary>
-		/// Le resta un numero a este numero.
-		/// </summary>
-		/// <param name="num">Numero a restar.</param>
-		void Sub(TBase num);
-
-		/// <summary>
-		/// Le multiplica un numero a este numero.
-		/// </summary>
-		/// <param name="num">Numero a multiplicar.</param>
-		void Mul(TBase num);
-
-		/// <summary>
-		/// Le divide un numero a este numero.
-		/// </summary>
-		/// <param name="num">Numero a dividir.</param>
-		void Div(TBase num);
-
-		/// <summary>
-		/// Calcula el resto entre este numero y otro.
-		/// </summary>
-		/// <param name="num">El numero por el que se va a dividir.</param>
-		void Rest(TBase num);
-
 		/// <inheritdoc/>
 		bool IConvertible.ToBoolean(IFormatProvider provider) => ((IConvertible)Value).ToBoolean(provider);
 
 		/// <inheritdoc/>
-		byte IConvertible.ToByte(IFormatProvider provider) => ((IConvertible)Value).ToByte(provider);
+		byte IConvertible.ToByte(IFormatProvider provider) => ConvertHelper.ToByte(Value);
 
 		/// <inheritdoc/>
 		char IConvertible.ToChar(IFormatProvider provider) => ((IConvertible)Value).ToChar(provider);
@@ -108,13 +79,13 @@ namespace KYLib.Interfaces
 		decimal IConvertible.ToDecimal(IFormatProvider provider) => ((IConvertible)Value).ToDecimal(provider);
 
 		/// <inheritdoc/>
-		double IConvertible.ToDouble(IFormatProvider provider) => ((IConvertible)Value).ToDouble(provider);
+		double IConvertible.ToDouble(IFormatProvider provider) => ConvertHelper.ToDouble(Value);
 
 		/// <inheritdoc/>
 		short IConvertible.ToInt16(IFormatProvider provider) => ((IConvertible)Value).ToInt16(provider);
 
 		/// <inheritdoc/>
-		int IConvertible.ToInt32(IFormatProvider provider) => ((IConvertible)Value).ToInt32(provider);
+		int IConvertible.ToInt32(IFormatProvider provider) => ConvertHelper.ToInt32(Value);
 
 		/// <inheritdoc/>
 		long IConvertible.ToInt64(IFormatProvider provider) => ((IConvertible)Value).ToInt64(provider);
@@ -123,10 +94,10 @@ namespace KYLib.Interfaces
 		sbyte IConvertible.ToSByte(IFormatProvider provider) => ((IConvertible)Value).ToSByte(provider);
 
 		/// <inheritdoc/>
-		float IConvertible.ToSingle(IFormatProvider provider) => ((IConvertible)Value).ToSingle(provider);
+		float IConvertible.ToSingle(IFormatProvider provider) => ConvertHelper.ToSingle(Value);
 
 		/// <inheritdoc/>
-		string IConvertible.ToString(IFormatProvider provider) => ((IConvertible)Value).ToString(provider);
+		string IConvertible.ToString(IFormatProvider provider) => Value.ToString();
 
 		/// <inheritdoc/>
 		string IFormattable.ToString(string format, IFormatProvider formatProvider) =>

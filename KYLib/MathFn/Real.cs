@@ -1,4 +1,5 @@
 using System;
+using KYLib.Helpers;
 using KYLib.Interfaces;
 
 namespace KYLib.MathFn
@@ -158,6 +159,9 @@ namespace KYLib.MathFn
 		double INumber<double>.Value { get => value; set => this.value = value; }
 
 		/// <inheritdoc/>
+		double IConvertible.ToDouble(IFormatProvider provider) => value;
+
+		/// <inheritdoc/>
 		void INumber.UpdateValue(INumber source) =>
 			value = source.ToDouble(null);
 
@@ -168,34 +172,12 @@ namespace KYLib.MathFn
 			var n = (IConvertible)source;
 			if (n != null)
 			{
-				try
-				{
-					value = n.ToDouble(null);
-					return;
-				}
-				catch (Exception)
-				{
-					//En caso de un error lo ignoramos he intentamos otro metodo de conversión.
-				}
-			}
-			//AHora obtenemos el string del objeto
-			string s = source.ToString();
-			if (!string.IsNullOrWhiteSpace(s))
-			{
-				double tempval = 0;
-				//vemos si se puede parsear el string
-				if (double.TryParse(s, out tempval))
-				{
-					value = tempval;
-					return;
-				}
+				value = ConvertHelper.ToDouble(n);
+				return;
 			}
 			//si llegamos aqui es porque no se pudo leer el numero, en ese caso se produce una exepción
 			throw new ArgumentException("El valor proporcionado no puede ser convertido en Real.", nameof(source));
 		}
-
-		/// <inheritdoc/>
-		void INumber<double>.Add(double num) => value += num;
 
 		/// <inheritdoc/>
 		void INumber.Add(INumber num) => value += num.ToDouble(null);
@@ -205,9 +187,6 @@ namespace KYLib.MathFn
 
 		/// <inheritdoc/>
 		public int CompareTo(INumber other) => value.CompareTo(other.ToDouble(null));
-
-		/// <inheritdoc/>
-		void INumber<double>.Div(double num) => value /= num;
 
 		/// <inheritdoc/>
 		void INumber.Div(INumber num) => value /= num.ToDouble(null);
@@ -222,19 +201,10 @@ namespace KYLib.MathFn
 		public TypeCode GetTypeCode() => value.GetTypeCode();
 
 		/// <inheritdoc/>
-		void INumber<double>.Mul(double num) => value *= num;
-
-		/// <inheritdoc/>
 		void INumber.Mul(INumber num) => value *= num.ToDouble(null);
 
 		/// <inheritdoc/>
-		void INumber<double>.Rest(double num) => value %= num;
-
-		/// <inheritdoc/>
 		void INumber.Rest(INumber num) => value %= num.ToDouble(null);
-
-		/// <inheritdoc/>
-		void INumber<double>.Sub(double num) => value -= num;
 
 		/// <inheritdoc/>
 		void INumber.Sub(INumber num) => value -= num.ToDouble(null);
