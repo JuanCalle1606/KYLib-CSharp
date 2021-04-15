@@ -123,8 +123,7 @@ namespace KYLib.ConsoleUtils
 				}
 
 			}
-			Trace(dev);
-			_ = Key;
+			Trace();
 			return dev;
 		}
 
