@@ -20,22 +20,27 @@ namespace KYLib.ConsoleUtils
 		/// <summary>
 		/// Indica si el menu esta corriendo
 		/// </summary>
-		bool running = true;
+		private bool running = true;
 
 		/// <summary>
 		/// Optiene el titulo del menu.
 		/// </summary>
-		public string Title { get; set; } = "Menu";
+		public string Title = "Menu";
 
 		/// <summary>
 		/// Indica cual es el texto que se usa para indicar al usaurio que ingrese una opción.
 		/// </summary>
-		public string OptionText { get; set; } = null;
+		public string OptionText = null;
 
 		/// <summary>
 		/// Indica cual es el texto que se usa para indicar al usurio que la opción no es valida.
 		/// </summary>
-		public string OptionErrorText { get; set; } = null;
+		public string OptionErrorText = null;
+
+		/// <summary>
+		/// Indica si cuandos e agrega un nuevo item se debe agregar al final de la lista, en casod e ser false los items se agregan al inicio de la lista.
+		/// </summary>
+		public bool AddAtEnd = true;
 
 		#endregion
 
@@ -78,6 +83,13 @@ namespace KYLib.ConsoleUtils
 		#endregion
 
 		#region Constructores
+
+		/// <summary>
+		/// Crea un nuevo menu de consola.
+		/// </summary>
+		public ConsoleMenu() : this(false)
+		{ }
+
 		/// <summary>
 		/// Crea un nuevo menu de consola.
 		/// </summary>
@@ -86,6 +98,7 @@ namespace KYLib.ConsoleUtils
 		{
 			if (addExit) Items.Add(new ConsoleItem("Salir", Stop) { InstaOption = true });
 		}
+
 		#endregion
 
 		#region Interacciones
@@ -127,7 +140,10 @@ namespace KYLib.ConsoleUtils
 		{
 			if (Items.FindByName(item.Name) == null)
 			{
-				Items.Add(item);
+				if (AddAtEnd)
+					Items.Add(item);
+				else
+					Items.Insert(0, item);
 				return true;
 			}
 			return false;
