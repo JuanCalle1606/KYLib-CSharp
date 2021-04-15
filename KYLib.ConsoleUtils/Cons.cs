@@ -59,6 +59,11 @@ namespace KYLib.ConsoleUtils
 		#region Entradas
 
 		/// <summary>
+		/// Obtiene una cadena de la entrada del usuario sin mostrarle al usuario lo que ingresa.
+		/// </summary>
+		public static string SecretLine => GetSecretString();
+
+		/// <summary>
 		/// Obtiene una linea escrita por consola o escribe una en la salida estandar si se establece.
 		/// </summary>
 		/// <value>
@@ -90,6 +95,38 @@ namespace KYLib.ConsoleUtils
 		/// Su valor es cualquier tecla que el usuario pulse en consola.
 		/// </value>
 		public static ConsoleKeyInfo? Key { get => Console.ReadKey(); set => Console.ReadKey(); }
+
+		/// <summary>
+		/// Obtiene una cadena de la entrada del usuario sin mostrarle al usuario lo que ingresa.
+		/// </summary>
+		public static string GetSecretString()
+		{
+			string dev = "";
+			ConsoleKeyInfo key = default;
+			while (true)
+			{
+				key = Console.ReadKey(true);
+				if (key.Key == ConsoleKey.Enter)
+					break;
+				if (key.Key == ConsoleKey.Backspace)
+				{
+					if (dev.Length > 0)
+					{
+						dev = dev[0..^1];
+						Inline = "\b \b";
+					}
+				}
+				else
+				{
+					dev += key.KeyChar;
+					Inline = "*";
+				}
+
+			}
+			Trace(dev);
+			_ = Key;
+			return dev;
+		}
 
 		/// <summary>
 		/// Obtiene un valor booleano de la entrada del usuario.

@@ -12,12 +12,12 @@ namespace KYLib.ConsoleUtils
 		/// <summary>
 		/// Acción que ejecutara este item.
 		/// </summary>
-		public Action Task { get; }
+		public Action Task = null;
 
 		/// <summary>
 		/// Indica si esta opción se devuelve al menu contenedor inmediatamente despues de ejecutarse.
 		/// </summary>
-		public bool InstaOption { get; set; } = false;
+		public bool InstaOption = false;
 
 		/// <summary>
 		/// Nombre del item.
@@ -30,7 +30,6 @@ namespace KYLib.ConsoleUtils
 		public ConsoleItem()
 		{
 			Name = "MenuItem";
-			Task = delegate () { };
 		}
 		/// <summary>
 		/// Crea un nuevo item con un nombre y que no hace nada.
@@ -39,7 +38,6 @@ namespace KYLib.ConsoleUtils
 		public ConsoleItem(string name)
 		{
 			Name = name;
-			Task = delegate () { };
 		}
 		/// <summary>
 		/// Crea un nuevo item con un nombre por defecto y que hara una acción dada.
