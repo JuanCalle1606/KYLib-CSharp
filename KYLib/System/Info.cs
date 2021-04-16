@@ -1,14 +1,25 @@
-
 using System;
+using System.IO;
+using System.Reflection;
 
 namespace KYLib.System
 {
 
 	/// <summary>
-	/// Provee informacion del sistema operativo.
+	/// Provee informacion del sistema operativo y demas cosas.
 	/// </summary>
 	public static class Info
 	{
+
+		/// <summary>
+		/// Obtiene la dirección del punto de entrada.
+		/// </summary>
+		public static readonly string EntryDll = Assembly.GetEntryAssembly().Location;
+
+		/// <summary>
+		/// Obtiene la dirección del directorio en el que se encuentra el ejecutable.
+		/// </summary>
+		public static readonly string InstallDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
 		/// <summary>
 		/// Obtiene el sistema operativo actual.
