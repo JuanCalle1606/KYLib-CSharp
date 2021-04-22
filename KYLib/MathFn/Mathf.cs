@@ -23,7 +23,7 @@ namespace KYLib.MathFn
 		{
 			Real div = n1.ToDouble(null) / n2.ToDouble(null);
 			T dev = new T();
-			dev.UpdateValue(div * 100);
+			dev.UpdateValue(div);
 			return dev;
 		}
 
