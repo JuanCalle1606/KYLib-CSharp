@@ -48,10 +48,10 @@ namespace KYLib.Utils
 			});
 		}
 		/// <summary>
-		/// 
+		/// Ejecuta <paramref name="task"/> cada cierto tiempo.
 		/// </summary>
 		/// <param name="task"></param>
-		/// <param name="delay"></param>
+		/// <param name="delay">Función a ejecutar</param>
 		/// <param name="predicate"></param>
 		public static async void Every(Action task, TimeSpan delay, Func<bool> predicate)
 		{
@@ -70,39 +70,37 @@ namespace KYLib.Utils
 		#region WaitWhile
 
 		/// <summary>
-		/// 
+		/// Detiene el ciclo actual y hasta que <paramref name="predicate"/> no evalue <c>false</c> no devuelve el control.
 		/// </summary>
-		/// <param name="predicate"></param>
+		/// <param name="predicate">Predicado que indica si se debe seguir esperando, si el predicado retorna <c>false</c> entonces se devuelve el control al llamador.</param>
 		public static void WaitWhile(Func<bool> predicate) =>
 			WaitWhile(predicate, TimeSpan.FromMilliseconds(25));
 
 		/// <summary>
-		/// 
+		/// Detiene el ciclo actual y hasta que <paramref name="predicate"/> no evalue <c>false</c> no devuelve el control.
 		/// </summary>
-		/// <param name="predicate"></param>
-		/// <param name="interval"></param>
+		/// <param name="predicate">Predicado que indica si se debe seguir esperando, si el predicado retorna <c>false</c> entonces se devuelve el control al llamador.</param>
+		/// <param name="interval">Intervalo de tiempo que indica cada cuando hay que evaluar <paramref name="predicate"/>.</param>
 		public static void WaitWhile(Func<bool> predicate, TimeSpan interval) =>
 			WaitWhile(predicate, interval, TimeSpan.Zero);
 
 		/// <summary>
-		/// 
+		/// Detiene el ciclo actual y hasta que <paramref name="predicate"/> no evalue <c>false</c> no devuelve el control.
 		/// </summary>
-		/// <param name="predicate"></param>
-		/// <param name="interval"></param>
-		/// <param name="timeout"></param>
+		/// <param name="predicate">Predicado que indica si se debe seguir esperando, si el predicado retorna <c>false</c> entonces se devuelve el control al llamador.</param>
+		/// <param name="interval">Intervalo de tiempo que indica cada cuando hay que evaluar <paramref name="predicate"/>.</param>
+		/// <param name="timeout">Maximo tiempo de espera, cuando se supera este tiempo entonces se devolvera el control. Si este valor es <see cref="TimeSpan.Zero"/> entonces se esperara indefinidamente.</param>
 		public static void WaitWhile(Func<bool> predicate, TimeSpan interval, TimeSpan timeout)
 		{
 			using (var token = timeout == TimeSpan.Zero ?
 			new CancellationTokenSource() :
 			new CancellationTokenSource(timeout))
 			{
-				var task = Task.Run(() =>
+				Task.Run(() =>
 				{
 					while ((predicate?.Invoke()).GetValueOrDefault(false) && !token.IsCancellationRequested)
 						Task.Delay(interval).Wait();
-				});
-
-				task.Wait();
+				}).Wait();
 			}
 		}
 
