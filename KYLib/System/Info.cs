@@ -17,9 +17,24 @@ namespace KYLib.System
 		public static readonly string EntryDll = Assembly.GetEntryAssembly().Location;
 
 		/// <summary>
+		/// Nombre del ensamblado de entrada.
+		/// </summary>
+		public static readonly string AppName = AppDomain.CurrentDomain.FriendlyName;
+
+		/// <summary>
 		/// Obtiene la dirección del directorio en el que se encuentra el ejecutable.
 		/// </summary>
 		public static readonly string InstallDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
+		/// <summary>
+		/// Obtiene la ubicación desde la que se cargan ensamblados por defecto.
+		/// </summary>
+		public static readonly string BaseDir = AppDomain.CurrentDomain.BaseDirectory;
+
+		/// <summary>
+		/// Obtiene el directorio de trabajo actual.
+		/// </summary>
+		public static readonly string CurrentDir = Environment.CurrentDirectory;
 
 		/// <summary>
 		/// Obtiene el sistema operativo actual.
