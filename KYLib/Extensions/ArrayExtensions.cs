@@ -6,7 +6,7 @@ namespace KYLib.Extensions
 	/// <summary>
 	/// Extenciones generales para los arreglos.
 	/// </summary>
-	public static class ArrayExtension
+	public static class ArrayExtensions
 	{
 		#region Metodos generales 
 		/// <summary>
