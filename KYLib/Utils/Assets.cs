@@ -27,7 +27,7 @@ namespace KYLib.Utils
 		/// Crea una nueva instancia basada en un directorio.
 		/// </summary>
 		/// <param name="directory">Directorio relacionado a esta instancia.</param>
-		public Assets(string directory) => Directory = directory;
+		public Assets(string directory) => Directory = Path.GetFullPath(directory);
 
 		/// <summary>
 		/// Actualiza <see cref="Directory"/> con una ruta relativa al directorio de instalación.
@@ -35,6 +35,13 @@ namespace KYLib.Utils
 		/// <param name="path">Ruta relativa nueva</param>
 		public void UpdateRelPath(string path) =>
 			Directory = Path.GetFullPath(Path.GetRelativePath(Directory, path), Directory);
+
+		/// <summary>
+		/// Obtiene una instancia de <see cref="Assets"/> de una ruta relativa a <see cref="Directory"/>.
+		/// </summary>
+		/// <param name="path">Nombre de la ruta relativa.</param>
+		public Assets GetAssets(string path) =>
+			new Assets(this[path]);
 
 		/// <summary>
 		/// Obtiene la ruta de <paramref name="filename"/> absoluta a <see cref="Directory"/>.
