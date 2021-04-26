@@ -1,14 +1,15 @@
 using System;
 using System.IO;
 using System.Reflection;
+using KYLib.Extensions;
 
 namespace KYLib.System
 {
 
 	/// <summary>
-	/// Provee informacion del sistema operativo y demas cosas.
+	/// Provee información del sistema operativo y demas cosas.
 	/// </summary>
-	public static class Info
+	public static partial class Info
 	{
 
 		/// <summary>
@@ -50,7 +51,21 @@ namespace KYLib.System
 		/// <summary>
 		/// Constructor estatico.
 		/// </summary>
-		static Info() => DetectSystem();
+		static Info()
+		{
+			DetectSystem();
+			// set vars
+			if (CurrentSystem.IsLinux())
+			{
+				IsRoot = Linux.getuid() == 0;
+				IsPrivileged = IsRoot.Value;
+			}
+			if (CurrentSystem.IsWindows())
+			{
+				IsAdmin = Windows.IsUserAnAdmin();
+				IsPrivileged = IsAdmin.Value;
+			}
+		}
 
 		/// <summary>
 		/// Usamos esta función internamente para detectar el sistema operativo.
