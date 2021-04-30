@@ -51,7 +51,7 @@ namespace KYLib.MathFn
 		/// </summary>
 		/// <param name="input">Cadena de entrada con formato numerico.</param>
 		/// <returns>El entero parseado.</returns>
-		public static Float Parse(string input) => new Float(float.Parse(input));
+		public static Float Parse(string input) => new(float.Parse(input));
 
 		#endregion
 
@@ -61,54 +61,54 @@ namespace KYLib.MathFn
 		public static Float operator +(Float num) => num;
 
 		/// <inheritdoc/>
-		public static Float operator -(Float num) => new Float(-num.value);
+		public static Float operator -(Float num) => new(-num.value);
 
 		/*/// <inheritdoc/>
-		public static Float operator ~(Float num) => new Float(~num.value);*/
+		public static Float operator ~(Float num) => new(~num.value);*/
 
 		/// <inheritdoc/>
-		public static Float operator ++(Float num) => new Float(num.value + 1);
+		public static Float operator ++(Float num) => new(num.value + 1);
 
 		/// <inheritdoc/>
-		public static Float operator --(Float num) => new Float(num.value - 1);
+		public static Float operator --(Float num) => new(num.value - 1);
 
 		#endregion
 
 		#region Operadores Binarios Aritmeticos
 
 		/// <inheritdoc/>
-		public static Float operator +(Float num1, Float num2) => new Float(num1.value + num2.value);
+		public static Float operator +(Float num1, Float num2) => new(num1.value + num2.value);
 
 		/// <inheritdoc/>
-		public static Float operator -(Float num1, Float num2) => new Float(num1.value - num2.value);
+		public static Float operator -(Float num1, Float num2) => new(num1.value - num2.value);
 
 		/// <inheritdoc/>
-		public static Float operator *(Float num1, Float num2) => new Float(num1.value * num2.value);
+		public static Float operator *(Float num1, Float num2) => new(num1.value * num2.value);
 
 		/// <inheritdoc/>
-		public static Float operator /(Float num1, Float num2) => new Float(num1.value / num2.value);
+		public static Float operator /(Float num1, Float num2) => new(num1.value / num2.value);
 
 		/// <inheritdoc/>
-		public static Float operator %(Float num1, Float num2) => new Float(num1.value % num2.value);
+		public static Float operator %(Float num1, Float num2) => new(num1.value % num2.value);
 
 		#endregion
 
 		#region Operadores Binarios Logicos, Estos no aplican al tipo Float
 
 		/*/// <inheritdoc/>
-		public static Float operator &(Float num1, Float num2) => new Float(num1.value & num2.value);
+		public static Float operator &(Float num1, Float num2) => new(num1.value & num2.value);
 
 		/// <inheritdoc/>
-		public static Float operator |(Float num1, Float num2) => new Float(num1.value | num2.value);
+		public static Float operator |(Float num1, Float num2) => new(num1.value | num2.value);
 
 		/// <inheritdoc/>
-		public static Float operator ^(Float num1, Float num2) => new Float(num1.value ^ num2.value);
+		public static Float operator ^(Float num1, Float num2) => new(num1.value ^ num2.value);
 
 		/// <inheritdoc/>
-		public static Float operator <<(Float num1, Int32 num2) => new Float(num1.value << num2);
+		public static Float operator <<(Float num1, Int32 num2) => new(num1.value << num2);
 
 		/// <inheritdoc/>
-		public static Float operator >>(Float num1, Int32 num2) => new Float(num1.value >> num2);*/
+		public static Float operator >>(Float num1, Int32 num2) => new(num1.value >> num2);*/
 
 		#endregion
 
@@ -136,19 +136,19 @@ namespace KYLib.MathFn
 
 		#region conversiones
 		/// <inheritdoc/>
-		public static implicit operator Float(float value) => new Float(value);
+		public static implicit operator Float(float value) => new(value);
 
 		/// <inheritdoc/>
 		public static implicit operator float(Float value) => value.value;
 
 		/// <inheritdoc/>
-		public static implicit operator Float(Small value) => new Float(value);
+		public static implicit operator Float(Small value) => new(value);
 
 		/// <inheritdoc/>
-		public static implicit operator Float(Int value) => new Float(value);
+		public static implicit operator Float(Int value) => new(value);
 
 		/// <inheritdoc/>
-		public static explicit operator Float(Real value) => new Float(((INumber)value).ToSingle(null));
+		public static explicit operator Float(Real value) => new(((INumber)value).ToSingle(null));
 
 		#endregion
 

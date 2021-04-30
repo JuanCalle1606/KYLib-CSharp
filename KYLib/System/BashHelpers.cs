@@ -62,13 +62,11 @@ namespace KYLib.System
 		public static async Task CommandAsync(string bash, Action<string> callback) =>
 		await Task.Run(() =>
 		{
-			using (var process = CreateBashProcess(bash, null, true, false))
-			{
-				process.OutputDataReceived += (o, e) => callback?.Invoke(e.Data);
-				process.Start();
-				process.BeginOutputReadLine();
-				process.WaitForExit();
-			}
+			using var process = CreateBashProcess(bash, null, true, false);
+			process.OutputDataReceived += (o, e) => callback?.Invoke(e.Data);
+			process.Start();
+			process.BeginOutputReadLine();
+			process.WaitForExit();
 		});
 
 		/// <summary>
@@ -109,12 +107,10 @@ namespace KYLib.System
 			Int dev;
 			try
 			{
-				using (var process = CreateProcess(file, args, runin))
-				{
-					process.Start();
-					process.WaitForExit();
-					dev = process.ExitCode;
-				}
+				using var process = CreateProcess(file, args, runin);
+				process.Start();
+				process.WaitForExit();
+				dev = process.ExitCode;
 			}
 			catch (Exception)
 			{

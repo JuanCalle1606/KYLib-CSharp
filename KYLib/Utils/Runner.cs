@@ -93,16 +93,14 @@ namespace KYLib.Utils
 		/// <param name="timeout">Maximo tiempo de espera, cuando se supera este tiempo entonces se devolvera el control. Si este valor es <see cref="TimeSpan.Zero"/> entonces se esperara indefinidamente.</param>
 		public static void WaitWhile(Predicate predicate, TimeSpan interval, TimeSpan timeout)
 		{
-			using (var token = timeout == TimeSpan.Zero ?
+			using var token = timeout == TimeSpan.Zero ?
 			new CancellationTokenSource() :
-			new CancellationTokenSource(timeout))
+			new CancellationTokenSource(timeout);
+			Task.Run(() =>
 			{
-				Task.Run(() =>
-				{
-					while ((predicate?.Invoke()).GetValueOrDefault(false) && !token.IsCancellationRequested)
-						Task.Delay(interval).Wait();
-				}).Wait();
-			}
+				while ((predicate?.Invoke()).GetValueOrDefault(false) && !token.IsCancellationRequested)
+					Task.Delay(interval).Wait();
+			}).Wait();
 		}
 
 		#endregion

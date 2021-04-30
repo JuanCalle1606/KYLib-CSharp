@@ -1,8 +1,8 @@
 {
 	"Build": {
 		"Name": "KYLib.Example",
-		"Configuration": "Debug",
-		"OutputDir": "{CurrentDir}/bin/{Configuration}/net5.0",
+		"Configuration": "Release",
+		"OutputDir": "{CurrentDir}/bin/{Configuration}",
 		"Cmd": [
 			{
 				"Comment": "Build the source code into {OutputDir} using {Task}",

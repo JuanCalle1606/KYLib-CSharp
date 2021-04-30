@@ -37,11 +37,6 @@ namespace KYLib.MathFn
 		private static readonly Small One = 1;
 
 		/// <summary>
-		/// Guarda el valor 0 en tipo <see cref="Small"/>.
-		/// </summary>
-		private static readonly Small Zero = 0;
-
-		/// <summary>
 		/// Valor interno de este numero.
 		/// </summary>
 		private byte value;
@@ -61,7 +56,7 @@ namespace KYLib.MathFn
 		/// </summary>
 		/// <param name="input">Cadena de entrada con formato numerico.</param>
 		/// <returns>El entero parseado.</returns>
-		public static Small Parse(string input) => new Small(byte.Parse(input));
+		public static Small Parse(string input) => new(byte.Parse(input));
 
 		#endregion
 
@@ -71,54 +66,54 @@ namespace KYLib.MathFn
 		public static Small operator +(Small num) => num;
 
 		/// <inheritdoc/>
-		public static Small operator -(Small num) => new Small((byte)(-num.value));
+		public static Small operator -(Small num) => new((byte)(-num.value));
 
 		/// <inheritdoc/>
-		public static Small operator ~(Small num) => new Small((byte)(~num.value));
+		public static Small operator ~(Small num) => new((byte)(~num.value));
 
 		/// <inheritdoc/>
-		public static Small operator ++(Small num) => new Small(num.value + One);
+		public static Small operator ++(Small num) => new(num.value + One);
 
 		/// <inheritdoc/>
-		public static Small operator --(Small num) => new Small(num.value - One);
+		public static Small operator --(Small num) => new(num.value - One);
 
 		#endregion
 
 		#region Operadores Binarios Aritmeticos
 
 		/// <inheritdoc/>
-		public static Small operator +(Small num1, Small num2) => new Small((byte)(num1.value + num2.value));
+		public static Small operator +(Small num1, Small num2) => new((byte)(num1.value + num2.value));
 
 		/// <inheritdoc/>
-		public static Small operator -(Small num1, Small num2) => new Small((byte)(num1.value - num2.value));
+		public static Small operator -(Small num1, Small num2) => new((byte)(num1.value - num2.value));
 
 		/// <inheritdoc/>
-		public static Small operator *(Small num1, Small num2) => new Small((byte)(num1.value * num2.value));
+		public static Small operator *(Small num1, Small num2) => new((byte)(num1.value * num2.value));
 
 		/// <inheritdoc/>
-		public static Small operator /(Small num1, Small num2) => new Small((byte)(num1.value / num2.value));
+		public static Small operator /(Small num1, Small num2) => new((byte)(num1.value / num2.value));
 
 		/// <inheritdoc/>
-		public static Small operator %(Small num1, Small num2) => new Small((byte)(num1.value % num2.value));
+		public static Small operator %(Small num1, Small num2) => new((byte)(num1.value % num2.value));
 
 		#endregion
 
 		#region Operadores Binarios Logicos
 
 		/// <inheritdoc/>
-		public static Small operator &(Small num1, Small num2) => new Small((byte)(num1.value & num2.value));
+		public static Small operator &(Small num1, Small num2) => new((byte)(num1.value & num2.value));
 
 		/// <inheritdoc/>
-		public static Small operator |(Small num1, Small num2) => new Small((byte)(num1.value | num2.value));
+		public static Small operator |(Small num1, Small num2) => new((byte)(num1.value | num2.value));
 
 		/// <inheritdoc/>
-		public static Small operator ^(Small num1, Small num2) => new Small((byte)(num1.value ^ num2.value));
+		public static Small operator ^(Small num1, Small num2) => new((byte)(num1.value ^ num2.value));
 
 		/// <inheritdoc/>
-		public static Small operator <<(Small num1, Int32 num2) => new Small((byte)(num1.value << num2));
+		public static Small operator <<(Small num1, Int32 num2) => new((byte)(num1.value << num2));
 
 		/// <inheritdoc/>
-		public static Small operator >>(Small num1, Int32 num2) => new Small((byte)(num1.value >> num2));
+		public static Small operator >>(Small num1, Int32 num2) => new((byte)(num1.value >> num2));
 
 		#endregion
 
@@ -146,19 +141,19 @@ namespace KYLib.MathFn
 
 		#region conversiones
 		/// <inheritdoc/>
-		public static implicit operator Small(byte value) => new Small(value);
+		public static implicit operator Small(byte value) => new(value);
 
 		/// <inheritdoc/>
 		public static implicit operator byte(Small value) => value.value;
 
 		/// <inheritdoc/>
-		public static explicit operator Small(Real value) => new Small(((INumber)value).ToByte(null));
+		public static explicit operator Small(Real value) => new(((INumber)value).ToByte(null));
 
 		/// <inheritdoc/>
-		public static explicit operator Small(Float value) => new Small(((INumber)value).ToByte(null));
+		public static explicit operator Small(Float value) => new(((INumber)value).ToByte(null));
 
 		/// <inheritdoc/>
-		public static explicit operator Small(Int value) => new Small(((INumber)value).ToByte(null));
+		public static explicit operator Small(Int value) => new(((INumber)value).ToByte(null));
 
 		#endregion
 

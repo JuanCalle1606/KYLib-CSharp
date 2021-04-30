@@ -2,11 +2,13 @@ using System.Runtime.InteropServices;
 
 namespace KYLib.System
 {
+#pragma warning disable IDE1006
 	internal class Linux
 	{
 		[DllImport("libc")]
 		internal static extern int getuid();
 	}
+#pragma warning restore IDE1006
 	internal class Windows
 	{
 		/// <summary>

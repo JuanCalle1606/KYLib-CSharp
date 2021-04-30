@@ -19,7 +19,7 @@ namespace KYLib.MathFn
 		public static readonly Bit Zero = 0;
 
 		// El valor del bit
-		bool Value;
+		readonly bool Value;
 
 		/// <summary>
 		/// Indica si en la ultima operación que se realizo con este bit sobro(para suma) o falto(para resta) otro <c>bit</c>.
@@ -178,7 +178,7 @@ namespace KYLib.MathFn
 		/// <inheritdoc/>
 		public static implicit operator Bit(double value) => FromDouble(value);
 		/// <inheritdoc/>
-		public static implicit operator Bit(bool value) => new Bit(value);
+		public static implicit operator Bit(bool value) => new(value);
 		#endregion
 		#region To Numbers
 		int Toint() => Value ? 1 : 0;

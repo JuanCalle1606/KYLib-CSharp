@@ -22,7 +22,7 @@ namespace KYLib.Extensions
 			if (amount == 0) return string.Empty;
 			if (amount == 1) return me;
 			//en caso de ser necesario repetir si se usa el string builder.
-			StringBuilder sb = new StringBuilder(me.Length * amount, me.Length * amount);
+			StringBuilder sb = new(me.Length * amount, me.Length * amount);
 			for (Int i = 0; i < amount; i++)
 				sb.Append(me);
 			return sb.ToString();

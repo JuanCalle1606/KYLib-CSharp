@@ -15,7 +15,7 @@ namespace KYLib.Data.DataFiles
 		/// <summary>
 		/// Almacena una unica instancia de un <see cref="JsonFile"/>
 		/// </summary>
-		public static readonly JsonFile Default = new JsonFile();
+		public static readonly JsonFile Default = new();
 
 		/// <inheritdoc/>
 		public JsonSerializerSettings Settings { get; set; } = new JsonSerializerSettings();
@@ -65,7 +65,7 @@ namespace KYLib.Data.DataFiles
 		/// </summary>
 		private string ValidatePath(string path)
 		{
-			string realpath = null;
+			string realpath;
 			//primero vemos si el archivo especificado existe, esto se hace por si el nombre pasado no tiene la extension del archivo
 			if (File.Exists(path))
 				realpath = path;
@@ -81,11 +81,9 @@ namespace KYLib.Data.DataFiles
 		/// <inheritdoc/>
 		public void Save(object source, string path)
 		{
-			using (StreamWriter file = File.CreateText(path))
-			{
-				JsonSerializer serializer = JsonSerializer.CreateDefault(Settings);
-				serializer.Serialize(file, source);
-			}
+			using StreamWriter file = File.CreateText(path);
+			JsonSerializer serializer = JsonSerializer.CreateDefault(Settings);
+			serializer.Serialize(file, source);
 		}
 
 		/// <inheritdoc/>

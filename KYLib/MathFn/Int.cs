@@ -51,7 +51,7 @@ namespace KYLib.MathFn
 		/// </summary>
 		/// <param name="input">Cadena de entrada con formato numerico.</param>
 		/// <returns>El entero parseado.</returns>
-		public static Int Parse(string input) => new Int(int.Parse(input));
+		public static Int Parse(string input) => new(int.Parse(input));
 
 		#endregion
 
@@ -61,54 +61,54 @@ namespace KYLib.MathFn
 		public static Int operator +(Int num) => num;
 
 		/// <inheritdoc/>
-		public static Int operator -(Int num) => new Int(-num.value);
+		public static Int operator -(Int num) => new(-num.value);
 
 		/// <inheritdoc/>
-		public static Int operator ~(Int num) => new Int(~num.value);
+		public static Int operator ~(Int num) => new(~num.value);
 
 		/// <inheritdoc/>
-		public static Int operator ++(Int num) => new Int(num.value + 1);
+		public static Int operator ++(Int num) => new(num.value + 1);
 
 		/// <inheritdoc/>
-		public static Int operator --(Int num) => new Int(num.value - 1);
+		public static Int operator --(Int num) => new(num.value - 1);
 
 		#endregion
 
 		#region Operadores Binarios Aritmeticos
 
 		/// <inheritdoc/>
-		public static Int operator +(Int num1, Int num2) => new Int(num1.value + num2.value);
+		public static Int operator +(Int num1, Int num2) => new(num1.value + num2.value);
 
 		/// <inheritdoc/>
-		public static Int operator -(Int num1, Int num2) => new Int(num1.value - num2.value);
+		public static Int operator -(Int num1, Int num2) => new(num1.value - num2.value);
 
 		/// <inheritdoc/>
-		public static Int operator *(Int num1, Int num2) => new Int(num1.value * num2.value);
+		public static Int operator *(Int num1, Int num2) => new(num1.value * num2.value);
 
 		/// <inheritdoc/>
-		public static Int operator /(Int num1, Int num2) => new Int(num1.value / num2.value);
+		public static Int operator /(Int num1, Int num2) => new(num1.value / num2.value);
 
 		/// <inheritdoc/>
-		public static Int operator %(Int num1, Int num2) => new Int(num1.value % num2.value);
+		public static Int operator %(Int num1, Int num2) => new(num1.value % num2.value);
 
 		#endregion
 
 		#region Operadores Binarios Logicos
 
 		/// <inheritdoc/>
-		public static Int operator &(Int num1, Int num2) => new Int(num1.value & num2.value);
+		public static Int operator &(Int num1, Int num2) => new(num1.value & num2.value);
 
 		/// <inheritdoc/>
-		public static Int operator |(Int num1, Int num2) => new Int(num1.value | num2.value);
+		public static Int operator |(Int num1, Int num2) => new(num1.value | num2.value);
 
 		/// <inheritdoc/>
-		public static Int operator ^(Int num1, Int num2) => new Int(num1.value ^ num2.value);
+		public static Int operator ^(Int num1, Int num2) => new(num1.value ^ num2.value);
 
 		/// <inheritdoc/>
-		public static Int operator <<(Int num1, Int32 num2) => new Int(num1.value << num2);
+		public static Int operator <<(Int num1, Int32 num2) => new(num1.value << num2);
 
 		/// <inheritdoc/>
-		public static Int operator >>(Int num1, Int32 num2) => new Int(num1.value >> num2);
+		public static Int operator >>(Int num1, Int32 num2) => new(num1.value >> num2);
 
 		#endregion
 
@@ -136,19 +136,19 @@ namespace KYLib.MathFn
 
 		#region conversiones
 		/// <inheritdoc/>
-		public static implicit operator Int(int value) => new Int(value);
+		public static implicit operator Int(int value) => new(value);
 
 		/// <inheritdoc/>
 		public static implicit operator int(Int value) => value.value;
 
 		/// <inheritdoc/>
-		public static implicit operator Int(Small value) => new Int(value);
+		public static implicit operator Int(Small value) => new(value);
 
 		/// <inheritdoc/>
-		public static explicit operator Int(Float value) => new Int(((INumber)value).ToInt32(null));
+		public static explicit operator Int(Float value) => new(((INumber)value).ToInt32(null));
 
 		/// <inheritdoc/>
-		public static explicit operator Int(Real value) => new Int(((INumber)value).ToInt32(null));
+		public static explicit operator Int(Real value) => new(((INumber)value).ToInt32(null));
 
 		#endregion
 

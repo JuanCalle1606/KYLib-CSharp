@@ -135,7 +135,7 @@ namespace KYLib.Extensions
 		/// <inheritdoc/>
 		public static string ToString<T>(this IEnumerable<T> arr, char? separator, bool showindex, bool multiline)
 		{
-			StringBuilder stringBuilder = new StringBuilder();
+			StringBuilder stringBuilder = new();
 			Int i = 0;
 			foreach (T item in arr)
 			{

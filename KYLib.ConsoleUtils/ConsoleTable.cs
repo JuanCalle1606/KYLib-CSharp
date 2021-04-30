@@ -28,12 +28,12 @@ namespace KYLib.ConsoleUtils
 		/// <summary>
 		/// Guarda todo el contenido de la tabla.
 		/// </summary>
-		private List<List<string>> Dic = new List<List<string>>();
+		private readonly List<List<string>> Dic = new();
 
 		/// <summary>
 		/// Guarda los tamaños de cada columna.
 		/// </summary>
-		private List<Int> Widths = new List<Int>();
+		private readonly List<Int> Widths = new();
 
 		/// <summary>
 		/// Agregar columna interna
@@ -95,9 +95,9 @@ namespace KYLib.ConsoleUtils
 			Int totalWidth = CalculateWidth();
 			Separator = "-".Repeat(totalWidth);
 
-			List<string> lines = new List<string>();
+			List<string> lines = new();
 			String += Separator + Environment.NewLine;
-			Int count = 0;
+			Int count;
 			bool titles = true;
 			// primero rellenamos las lineas
 			for (Int item = 0; item < Dic.Count; item++)

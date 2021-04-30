@@ -64,11 +64,11 @@ namespace KYLib.ConsoleUtils
 		/// Crea un nuevo item que hara una accion dada.
 		/// </summary>
 		/// <param name="action">La acción que hara este item.</param>
-		public static implicit operator ConsoleItem(Action action) => new ConsoleItem(action);
+		public static implicit operator ConsoleItem(Action action) => new(action);
 		/// <summary>
 		/// Crea un nuevo item con un nombre especifico.
 		/// </summary>
 		/// <param name="name">Nombre del item.</param>
-		public static implicit operator ConsoleItem(string name) => new ConsoleItem(name);
+		public static implicit operator ConsoleItem(string name) => new(name);
 	}
 }

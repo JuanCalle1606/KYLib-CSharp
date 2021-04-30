@@ -9,9 +9,9 @@ namespace KYLib.Utils
 	/// </summary>
 	public static class TypeValidator
 	{
-		private static Dictionary<Type, object> ObjectDic = new Dictionary<Type, object>();
+		private static readonly Dictionary<Type, object> ObjectDic = new();
 
-		private static Type ThisType = typeof(InternalValidator<>);
+		private static readonly Type ThisType = typeof(InternalValidator<>);
 
 		/// <summary>
 		/// 

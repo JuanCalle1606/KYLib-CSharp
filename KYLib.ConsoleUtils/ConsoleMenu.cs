@@ -15,7 +15,7 @@ namespace KYLib.ConsoleUtils
 		/// <summary>
 		/// Guarda todos los items del menu.
 		/// </summary>
-		protected List<ConsoleItem> Items = new List<ConsoleItem>();
+		protected List<ConsoleItem> Items = new();
 
 		/// <summary>
 		/// Indica si el menu esta corriendo

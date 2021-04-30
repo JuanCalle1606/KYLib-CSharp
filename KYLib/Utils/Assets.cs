@@ -43,7 +43,7 @@ namespace KYLib.Utils
 		/// </summary>
 		/// <param name="path">Nombre de la ruta relativa.</param>
 		public Assets GetAssets(string path) =>
-			new Assets(this[path]);
+			new(this[path]);
 #if NS21
 		/// <summary>
 		/// Obtiene la ruta de <paramref name="filename"/> absoluta a <see cref="SearchPath"/>.

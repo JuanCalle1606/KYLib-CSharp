@@ -22,7 +22,7 @@ namespace KYLib.MathFn
 		public static T Percent<T>(INumber n1, INumber n2) where T : struct, INumber
 		{
 			Real div = n1.ToDouble(null) / n2.ToDouble(null);
-			T dev = new T();
+			T dev = new();
 			dev.UpdateValue(div);
 			return dev;
 		}
@@ -155,7 +155,7 @@ namespace KYLib.MathFn
 		where T : struct, INumber
 		where TOut : struct, INumber
 		{
-			TOut sum = default(TOut);
+			TOut sum = default;
 			foreach (var item in arr)
 				sum.Add(item);
 			return sum;
@@ -237,7 +237,7 @@ namespace KYLib.MathFn
 		public static string Mult2(string n)
 		{
 			List<char> chars = n.ToCharArray().ToList();
-			List<char> output = new List<char>();
+			List<char> output = new();
 			Int count = chars.Count - 1;
 			char res = '0';
 			for (Int i = count; i >= 0; i--)

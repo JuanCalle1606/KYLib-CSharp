@@ -32,7 +32,7 @@ namespace KYLib.ConsoleUtils
 		/// <summary>
 		/// Al solicitar un <see cref="bool"/> por consola cualquiera de estos valores puede ser ingresado para tomarlo como <c>true</c>.
 		/// </summary>
-		public static readonly List<string> AllowStrings = new List<string>(new string[] {
+		public static readonly List<string> AllowStrings = new(new string[] {
 			"y",
 			"s",
 			"yes",

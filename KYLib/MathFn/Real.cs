@@ -51,7 +51,7 @@ namespace KYLib.MathFn
 		/// </summary>
 		/// <param name="input">Cadena de entrada con formato numerico.</param>
 		/// <returns>El entero parseado.</returns>
-		public static Real Parse(string input) => new Real(double.Parse(input));
+		public static Real Parse(string input) => new(double.Parse(input));
 
 		#endregion
 
@@ -61,63 +61,63 @@ namespace KYLib.MathFn
 		public static Real operator +(Real num) => num;
 
 		/// <inheritdoc/>
-		public static Real operator -(Real num) => new Real(-num.value);
+		public static Real operator -(Real num) => new(-num.value);
 
 		/*/// <inheritdoc/>
-		public static Real operator ~(Real num) => new Real(~num.value);*/
+		public static Real operator ~(Real num) => new(~num.value);*/
 
 		/// <inheritdoc/>
-		public static Real operator ++(Real num) => new Real(num.value + 1);
+		public static Real operator ++(Real num) => new(num.value + 1);
 
 		/// <inheritdoc/>
-		public static Real operator --(Real num) => new Real(num.value - 1);
+		public static Real operator --(Real num) => new(num.value - 1);
 
 		#endregion
 
 		#region Operadores Binarios Aritmeticos
 
 		/// <inheritdoc/>
-		public static Real operator +(Real num1, Real num2) => new Real(num1.value + num2.value);
+		public static Real operator +(Real num1, Real num2) => new(num1.value + num2.value);
 
 		/// <inheritdoc/>
-		public static Real operator -(Real num1, Real num2) => new Real(num1.value - num2.value);
+		public static Real operator -(Real num1, Real num2) => new(num1.value - num2.value);
 
 		/// <inheritdoc/>
-		public static Real operator *(Real num1, Real num2) => new Real(num1.value * num2.value);
+		public static Real operator *(Real num1, Real num2) => new(num1.value * num2.value);
 
 		/// <inheritdoc/>
-		public static Real operator /(Real num1, Real num2) => new Real(num1.value / num2.value);
+		public static Real operator /(Real num1, Real num2) => new(num1.value / num2.value);
 
 		/// <inheritdoc/>
-		public static Real operator %(Real num1, Real num2) => new Real(num1.value % num2.value);
+		public static Real operator %(Real num1, Real num2) => new(num1.value % num2.value);
 
 		#endregion
 
 		#region Operadores Binarios Logicos, Estos no aplican al tipo Double
 
 		/*/// <inheritdoc/>
-		public static Real operator &(Real num1, Real num2) => new Real(num1.value & num2.value);
+		public static Real operator &(Real num1, Real num2) => new(num1.value & num2.value);
 
 		/// <inheritdoc/>
-		public static Real operator &(Real num1, INumber num2) => new Real(num1.value & num2.ToDouble(null));
+		public static Real operator &(Real num1, INumber num2) => new(num1.value & num2.ToDouble(null));
 
 		/// <inheritdoc/>
-		public static Real operator |(Real num1, Real num2) => new Real(num1.value | num2.value);
+		public static Real operator |(Real num1, Real num2) => new(num1.value | num2.value);
 
 		/// <inheritdoc/>
-		public static Real operator |(Real num1, INumber num2) => new Real(num1.value | num2.ToDouble(null));
+		public static Real operator |(Real num1, INumber num2) => new(num1.value | num2.ToDouble(null));
 
 		/// <inheritdoc/>
-		public static Real operator ^(Real num1, Real num2) => new Real(num1.value ^ num2.value);
+		public static Real operator ^(Real num1, Real num2) => new(num1.value ^ num2.value);
 
 		/// <inheritdoc/>
-		public static Real operator ^(Real num1, INumber num2) => new Real(num1.value ^ num2.ToDouble(null));
+		public static Real operator ^(Real num1, INumber num2) => new(num1.value ^ num2.ToDouble(null));
 
 		/// <inheritdoc/>
-		public static Real operator <<(Real num1, Int32 num2) => new Real(num1.value << num2);
+		public static Real operator <<(Real num1, Int32 num2) => new(num1.value << num2);
 
 		/// <inheritdoc/>
-		public static Real operator >>(Real num1, Int32 num2) => new Real(num1.value >> num2);*/
+		public static Real operator >>(Real num1, Int32 num2) => new(num1.value >> num2);*/
 
 		#endregion
 
@@ -145,19 +145,19 @@ namespace KYLib.MathFn
 
 		#region conversiones
 		/// <inheritdoc/>
-		public static implicit operator Real(double value) => new Real(value);
+		public static implicit operator Real(double value) => new(value);
 
 		/// <inheritdoc/>
 		public static implicit operator double(Real value) => value.value;
 
 		/// <inheritdoc/>
-		public static implicit operator Real(Int value) => new Real(value);
+		public static implicit operator Real(Int value) => new(value);
 
 		/// <inheritdoc/>
-		public static implicit operator Real(Float value) => new Real(value);
+		public static implicit operator Real(Float value) => new(value);
 
 		/// <inheritdoc/>
-		public static implicit operator Real(Small value) => new Real(value);
+		public static implicit operator Real(Small value) => new(value);
 
 		#endregion
 
@@ -215,7 +215,7 @@ namespace KYLib.MathFn
 
 		/// <inheritdoc/>
 		void INumber.Sub(INumber num) => value -= num.ToDouble(null);
-#endregion
+		#endregion
 
 		#region overrides
 

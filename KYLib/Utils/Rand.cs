@@ -13,7 +13,7 @@ namespace KYLib.Utils
 		/// <summary>
 		/// Objeto que se usa para la obtención al azar de datos.
 		/// </summary>
-		private static Random random = new Random();
+		private static readonly Random random = new();
 
 		/// <summary>
 		/// Obtiene un entero al azar.

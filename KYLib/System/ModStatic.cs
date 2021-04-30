@@ -12,17 +12,17 @@ namespace KYLib.System
 		/// <summary>
 		/// Obtiene el mod relacionado a <see cref="Assembly.GetExecutingAssembly"/>.
 		/// </summary>
-		public static readonly Mod Current = new Mod(Assembly.GetExecutingAssembly());
+		public static readonly Mod Current = new(Assembly.GetExecutingAssembly());
 
 		/// <summary>
 		/// Obtiene el mod relacionado a <see cref="Assembly.GetEntryAssembly"/>.
 		/// </summary>
-		public static readonly Mod Entry = new Mod(Assembly.GetEntryAssembly());
+		public static readonly Mod Entry = new(Assembly.GetEntryAssembly());
 
 		/// <summary>
 		/// Lista de todos los mods, en cuestión contiene lo mismo que <see cref="AppDomain.GetAssemblies"/> pero en una lista.
 		/// </summary>
-		private static List<Mod> AllMods = new List<Mod>();
+		private static readonly List<Mod> AllMods = new();
 
 		/// <summary>
 		/// Obtiene un mod que ha sido cargado.
