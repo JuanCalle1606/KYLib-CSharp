@@ -68,7 +68,11 @@ namespace KYLib.System
 		private static string GetRealPath(string path)
 		{
 			var posiblePaths = new List<string>();
+#if NS21
 			var abs = Path.IsPathFullyQualified(path);
+#else
+			var abs = Path.GetFullPath(path) == path;
+#endif
 			if (abs)
 			{
 				posiblePaths.Add($"{path}.dll");
