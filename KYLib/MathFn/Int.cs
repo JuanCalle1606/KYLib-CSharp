@@ -9,7 +9,14 @@ namespace KYLib.MathFn
 	/// Wrapper a la estructura <see cref="Int32"/>  implementando la interfaz <see cref="INumber"/>.
 	/// Esta clase provee sobrecargas a todos los operadores sobrecargables.
 	/// </summary>
-	public struct Int : INumber<int>
+	public
+#if NS20
+	partial
+#endif
+	struct Int
+#if NS21
+	: INumber<int>
+#endif
 	{
 
 		#region General
@@ -148,10 +155,10 @@ namespace KYLib.MathFn
 		#region Interfaces
 		/// <inheritdoc/>
 		int INumber<int>.Value { get => value; set => this.value = value; }
-
+#if NS21
 		/// <inheritdoc/>
 		int IConvertible.ToInt32(IFormatProvider provider) => value;
-
+#endif
 		/// <inheritdoc/>
 		void INumber.UpdateValue(INumber source) =>
 			value = source.ToInt32(null);

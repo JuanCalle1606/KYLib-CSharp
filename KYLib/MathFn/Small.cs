@@ -9,7 +9,14 @@ namespace KYLib.MathFn
 	/// Wrapper a la estructura <see cref="Byte"/>  implementando la interfaz <see cref="INumber"/>.
 	/// Esta clase provee sobrecargas a todos los operadores sobrecargables.
 	/// </summary>
-	public struct Small : INumber<byte>
+	public
+#if NS20
+	partial
+#endif
+	struct Small
+#if NS21
+	: INumber<byte>
+#endif
 	{
 
 		#region General
@@ -158,10 +165,10 @@ namespace KYLib.MathFn
 		#region Interfaces
 		/// <inheritdoc/>
 		byte INumber<byte>.Value { get => value; set => this.value = value; }
-
+#if NS21
 		/// <inheritdoc/>
 		byte IConvertible.ToByte(IFormatProvider provider) => value;
-
+#endif
 		/// <inheritdoc/>
 		void INumber.UpdateValue(INumber source) =>
 			value = source.ToByte(null);

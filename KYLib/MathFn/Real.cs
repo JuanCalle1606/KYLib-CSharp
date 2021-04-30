@@ -9,7 +9,14 @@ namespace KYLib.MathFn
 	/// Wrapper a la estructura <see cref="Double"/> implementando la interfaz <see cref="INumber"/>.
 	/// Esta clase provee sobrecargas a todos los operadores sobrecargables exceptuando los nos permitidos por <see cref="Double"/>.
 	/// </summary>
-	public struct Real : INumber<double>
+	public
+#if NS20
+	partial
+#endif
+	struct Real
+#if NS21
+	: INumber<double>
+#endif
 	{
 
 		#region General
@@ -157,10 +164,10 @@ namespace KYLib.MathFn
 		#region Interfaces
 		/// <inheritdoc/>
 		double INumber<double>.Value { get => value; set => this.value = value; }
-
+#if NS21
 		/// <inheritdoc/>
 		double IConvertible.ToDouble(IFormatProvider provider) => value;
-
+#endif
 		/// <inheritdoc/>
 		void INumber.UpdateValue(INumber source) =>
 			value = source.ToDouble(null);
@@ -208,7 +215,7 @@ namespace KYLib.MathFn
 
 		/// <inheritdoc/>
 		void INumber.Sub(INumber num) => value -= num.ToDouble(null);
-		#endregion
+#endregion
 
 		#region overrides
 

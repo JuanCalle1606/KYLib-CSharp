@@ -9,7 +9,14 @@ namespace KYLib.MathFn
 	/// Wrapper a la estructura <see cref="Single"/>  implementando la interfaz <see cref="INumber"/>.
 	/// Esta clase provee sobrecargas a todos los operadores sobrecargables.
 	/// </summary>
-	public struct Float : INumber<float>
+	public
+#if NS20
+	partial
+#endif
+	struct Float
+#if NS21
+	: INumber<float>
+#endif
 	{
 
 		#region General
@@ -148,10 +155,10 @@ namespace KYLib.MathFn
 		#region Interfaces
 		/// <inheritdoc/>
 		float INumber<float>.Value { get => value; set => this.value = value; }
-
+#if NS21
 		/// <inheritdoc/>
 		float IConvertible.ToSingle(IFormatProvider provider) => value;
-
+#endif
 		/// <inheritdoc/>
 		void INumber.UpdateValue(INumber source) =>
 			value = source.ToSingle(null);
