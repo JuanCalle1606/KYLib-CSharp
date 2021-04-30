@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 using KYLib.Interfaces;
 using Newtonsoft.Json;
 
@@ -15,7 +14,7 @@ namespace KYLib.Data.Converters
 		public override bool CanWrite => false;
 
 		/// <inheritdoc/>
-		public override INumber ReadJson(JsonReader reader, Type objectType, [AllowNull] INumber existingValue, bool hasExistingValue, JsonSerializer serializer)
+		public override INumber ReadJson(JsonReader reader, Type objectType, INumber existingValue, bool hasExistingValue, JsonSerializer serializer)
 		{
 			// Se obtiene el valor actual que por defecto es 0 en los tipos definidos INumber en las librerias
 			INumber ins = hasExistingValue ? existingValue : (INumber)Activator.CreateInstance(objectType);
@@ -28,7 +27,7 @@ namespace KYLib.Data.Converters
 		/// <summary>
 		/// Por defecto esta clase no serializa los <see cref="INumber"/> ya que la serialización por defecto de <see cref="JsonConvert"/> ya serializa como los tipos bases. Sin embargo en caso de crearse un tipo numerico que no es serializado por defecto entonces se debe heredar esta clase he implementar este metodo, si el tipo tipo numerico puede ser convertido  una cadena simple se puede usar <code>base.WriteJson([parametros])</code> en el tipo heredado.
 		/// </summary>
-		public override void WriteJson(JsonWriter writer, [AllowNull] INumber value, JsonSerializer serializer) =>
+		public override void WriteJson(JsonWriter writer, INumber value, JsonSerializer serializer) =>
 			writer.WriteValue(value.ToString());
 	}
 }

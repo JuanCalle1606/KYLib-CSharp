@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using Newtonsoft.Json;
 
@@ -11,7 +10,7 @@ namespace KYLib.Data.Converters
 	public class Base64Converter : JsonConverter<string>
 	{
 		/// <inheritdoc/>
-		public override string ReadJson(JsonReader reader, Type objectType, [AllowNull] string existingValue, bool hasExistingValue, JsonSerializer serializer)
+		public override string ReadJson(JsonReader reader, Type objectType, string existingValue, bool hasExistingValue, JsonSerializer serializer)
 		{
 			if (reader.TokenType != JsonToken.String)
 				throw new NotSupportedException("Base64Converter solo funciona con tipos string.");
@@ -30,7 +29,7 @@ namespace KYLib.Data.Converters
 		}
 
 		/// <inheritdoc/>
-		public override void WriteJson(JsonWriter writer, [AllowNull] string value, JsonSerializer serializer)
+		public override void WriteJson(JsonWriter writer, string value, JsonSerializer serializer)
 		{
 			var str = Convert.ToBase64String(Encoding.UTF8.GetBytes(value));
 			writer.WriteValue(str);
