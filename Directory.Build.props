@@ -1,7 +1,8 @@
 <Project>
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<TargetFramework>netstandard2.1</TargetFramework>
+		<TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+		<LangVersion>9.0</LangVersion>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Authors>Juan Pablo Calle</Authors>
 		<Company>Juan Pablo Calle Grafe</Company>
@@ -15,4 +16,11 @@
 		<Version>1.4.9</Version>
 		<NeutralLanguage>es</NeutralLanguage>
 	</PropertyGroup>
+
+	<PropertyGroup Condition="$(TargetFramework)=='netstandard2.0'">
+    	<DefineConstants>$(DefineConstants);NS20</DefineConstants>
+ 	</PropertyGroup>
+ 	<PropertyGroup Condition="$(TargetFramework)=='netstandard2.1'">
+    	<DefineConstants>$(DefineConstants);NS21</DefineConstants>
+ 	</PropertyGroup>
 </Project>
