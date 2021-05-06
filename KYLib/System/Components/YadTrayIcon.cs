@@ -110,17 +110,13 @@ namespace KYLib.System.Components
 
 		#region Comunicación con el proceso
 
-		Process process;
+		readonly Process process;
 
 		/// <summary>
 		/// Accion usada para enviar entradas
 		/// </summary>
-		Action<string> ToInput;
+		readonly Action<string> ToInput;
 
-		/// <summary>
-		/// Guarda la cadena del ultimo error que ocurrio.
-		/// </summary>
-		private string lastError;
 
 		/// <summary>
 		/// Recibe y guarda la cadena del ultimo error producido
@@ -128,7 +124,7 @@ namespace KYLib.System.Components
 		private void OnError(string str)
 		{
 			if (!string.IsNullOrWhiteSpace(str))
-				lastError = str;
+				throw new WarningException(str);
 		}
 
 		/// <summary>

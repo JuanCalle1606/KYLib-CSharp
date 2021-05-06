@@ -121,7 +121,7 @@ namespace KYLib.MathFn
 		/// Desplaza el numero <paramref name="amount"/> bits hacia la derecha.
 		/// </summary>
 		/// <param name="amount">La cantidad de bits que se va a desplazar este numero.</param>
-		public void unshift(int amount)
+		public void Unshift(int amount)
 		{
 			for (int i = 0; i < amount; i++)
 			{
