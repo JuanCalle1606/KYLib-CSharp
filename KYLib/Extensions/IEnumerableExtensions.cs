@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -84,6 +85,17 @@ namespace KYLib.Extensions
 		#endregion
 
 		#region Conversiones
+		/// <summary>
+		/// Convierte este <see cref="IEnumerable"/> en uno de tipo <see cref="IEnumerable{T}"/> casteando sus elementos con el tipo <see langword="dynamic"/>.
+		/// </summary>
+		/// <typeparam name="T">Tipo al cual se intentara convertir cada elemento original.</typeparam>
+		/// <param name="arr">Arreglo de origen.</param>
+		/// <returns>Devuelve un nuevo enumerable con todos sus elementos convertidos al tipo <typeparamref name="T"/>.</returns>
+		public static IEnumerable<T> To<T>(this IEnumerable arr)
+		{
+			return arr.Cast<dynamic>().ToArray(t => (T)t);
+		}
+
 		/// <summary>
 		/// Convierte un arreglo de tipo <typeparamref name="TInput"/> en un arreglo de tipo <typeparamref name="TOutput"/> usando un <see cref="Converter{TInput, TOutput}"/>.
 		/// </summary>
