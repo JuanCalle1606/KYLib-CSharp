@@ -93,7 +93,8 @@ namespace KYLib.Extensions
 		/// <returns>Devuelve un nuevo enumerable con todos sus elementos convertidos al tipo <typeparamref name="T"/>.</returns>
 		public static IEnumerable<T> To<T>(this IEnumerable arr)
 		{
-			return arr.Cast<dynamic>().ToArray(t => (T)t);
+			foreach (dynamic item in arr)
+				yield return (T)item;			
 		}
 
 		/// <summary>
