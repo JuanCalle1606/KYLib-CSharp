@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using KYLib.MathFn;
 using KYLib.System;
+using KYLib.Utils;
 
 namespace KYLib.Extensions
 {
@@ -18,7 +19,7 @@ namespace KYLib.Extensions
 		/// <returns>La cadena repetida <paramref name="amount"/> veces. </returns>
 		public static string Repeat(this string me, Int amount)
 		{
-			if (amount < 0) throw new ArgumentOutOfRangeException(nameof(amount), amount, "La cantidad de repeticiones no puede ser negativa.");
+			Ensure.NotLessThan<int>(amount, 0, nameof(amount));
 			if (amount == 0) return string.Empty;
 			if (amount == 1) return me;
 			//en caso de ser necesario repetir si se usa el string builder.

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using KYLib.Extensions;
 using KYLib.MathFn;
+using KYLib.Utils;
 
 namespace KYLib.ConsoleUtils
 {
@@ -127,9 +128,11 @@ namespace KYLib.ConsoleUtils
 		/// <param name="name">Indica si un nombre con el cual se mostrara el menu.</param>
 		/// <param name="instaOption">Indica si una ves se salga de ese menu se volvera inmediatamente a este o si se espera por una pulsación del usuario.</param>
 		/// <returns>Devuelve si se pudo agregar el submenu.</returns>
-		public bool AddMenu(ConsoleMenu menu, string name, bool instaOption) =>
-			AddItem(name, menu.Start, instaOption);
-
+		public bool AddMenu(ConsoleMenu menu, string name, bool instaOption)
+		{
+			Ensure.NotNull(menu, nameof(menu));
+			return AddItem(name, menu.Start, instaOption);
+		}
 
 		/// <summary>
 		/// Agrega un nuevo item al menu.
@@ -138,6 +141,7 @@ namespace KYLib.ConsoleUtils
 		/// <returns>Devuelve si el item se pudo agregar al menu.</returns>
 		public bool AddItem(ConsoleItem item)
 		{
+			Ensure.NotNull(item);
 			if (Items.FindByName(item.Name) == null)
 			{
 				if (AddAtEnd)

@@ -27,6 +27,7 @@ namespace KYLib.Extensions
 		/// <param name="comparison"><see cref="Comparison{T}"/> que se usara para ordena el arreglo.</param>
 		public static void Sort<T>(this T[] arr, Comparison<T> comparison) =>
 			Array.Sort(arr, comparison);
+
 		/// <summary>
 		/// Ordena el arreglo con el <see cref="IComparable"/> por defecto de ada elemento.
 		/// </summary>
@@ -40,6 +41,7 @@ namespace KYLib.Extensions
 		/// <param name="arr">Arreglo de origen.</param>
 		public static void SortAsc<T>(this T[] arr) where T : IComparable<T> =>
 			arr.Sort((T1, T2) => T1.CompareTo(T2));
+
 		/// <summary>
 		/// Ordena los elementos del arreglo de forma descendente.
 		/// </summary>
@@ -85,6 +87,7 @@ namespace KYLib.Extensions
 			dev = dev.TrimEnd(separator);
 			return dev;
 		}
+
 		/// <inheritdoc/>
 		public static string ToString<T>(this T[][] arr, char separator, bool multiline) =>
 			arr.ToString(separator, multiline, false);

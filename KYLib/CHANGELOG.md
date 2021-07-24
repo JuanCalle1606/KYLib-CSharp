@@ -3,7 +3,8 @@
 ## v1.6.0
 
 ### Agregado
-- Agregado el metodo To<T> a IEnumerableExtensions
+- Agregado el metodo To<T> a IEnumerableExtensions.
+- Creada la clase Ensure.
 
 ### Eliminado
-- Se ha removido la estructura BitArray
+- Se ha removido la estructura BitArray.
