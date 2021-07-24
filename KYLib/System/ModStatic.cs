@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using KYLib.Utils;
 
 namespace KYLib.System
@@ -30,7 +32,8 @@ namespace KYLib.System
 		/// <param name="identifier">Nombre simple del ensamblado con el que se quiere relacionar el mod.</param>
 		public static Mod GetMod(string identifier)
 		{
-			if (string.IsNullOrWhiteSpace(identifier)) return null;
+			if (string.IsNullOrWhiteSpace(identifier))
+				return null;
 			ValidateMods();
 			return AllMods.Find(A => A.DLL.GetName().Name.Equals(identifier));
 		}
@@ -90,7 +93,8 @@ namespace KYLib.System
 
 			var existing = posiblePaths.Find(P => File.Exists(P));
 
-			if (string.IsNullOrWhiteSpace(existing)) return path;
+			if (string.IsNullOrWhiteSpace(existing))
+				return path;
 			return existing;
 		}
 
@@ -174,15 +178,135 @@ namespace KYLib.System
 			}
 		}
 
+		private static bool autoloads = false;
+
 		/// <summary>
-		/// Metodo en blanco, usado solo para que se llame al contructor de la clase.
+		/// 
 		/// </summary>
-		public static void Init() { }
+		public static void EnableAutoLoads()
+		{
+			if (Ensure.SetValue(ref autoloads, true))
+				return;
+#if DEBUG
+			var sw = Stopwatch.StartNew();
+#endif
+			ValidateMods();
+			foreach (var mod in AllMods.ToArray())
+			{
+				var load = mod.DLL.GetCustomAttribute<AutoLoadAttribute>();
+				if (load != null)
+				{
+#if DEBUG
+					var sw1 = Stopwatch.StartNew();
+#endif
+					AutoLoad(mod.DLL);
+#if DEBUG
+					sw1.Stop();
+					Console.WriteLine($"Assembly {mod.DLL.GetName().Name} loaded in {sw1.ElapsedMilliseconds} ms");
+#endif
+				}
+			}
+#if DEBUG
+			sw.Stop();
+			Console.WriteLine($"Auto Loads Enabled in {sw.ElapsedMilliseconds} ms");
+#endif
+		}
+
+		private static void AutoLoad(Assembly assembly)
+		{
+			foreach (var module in assembly.GetModules())
+			{
+				var load = module.GetCustomAttribute<AutoLoadAttribute>();
+				if(load != null)
+				{
+#if DEBUG
+					var sw = Stopwatch.StartNew();
+#endif
+					AutoLoad(module);
+#if DEBUG
+					sw.Stop();
+					Console.WriteLine($"Module {module.Name} loaded in {sw.ElapsedMilliseconds} ms");
+#endif
+				}
+			}
+		}
+
+		private static void AutoLoad(Module module)
+		{
+			foreach (var type in module.GetTypes())
+			{
+				var load = type.GetCustomAttribute<AutoLoadAttribute>();
+				if (load != null)
+				{
+#if DEBUG
+					var sw = Stopwatch.StartNew();
+#endif
+					AutoLoad(type);
+#if DEBUG
+					sw.Stop();
+					Console.WriteLine($"Type {type.Name} loaded in {sw.ElapsedMilliseconds} ms");
+#endif
+				}
+			}
+		}
+
+		private static void AutoLoad(Type type)
+		{
+			//check static  contructor first
+			var staticconsFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly | BindingFlags.Static;
+			var cons = type.GetConstructor(staticconsFlags, null, Type.EmptyTypes, null);
+
+			if (cons?.GetCustomAttribute<AutoLoadAttribute>() != null)
+			{
+				RuntimeHelpers.RunClassConstructor(type.TypeHandle);
+				return;
+			}
+			// check normal constructor
+			var consFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly | BindingFlags.Instance;
+			cons = type.GetConstructor(consFlags, null, Type.EmptyTypes, null);
+			if (cons?.GetCustomAttribute<AutoLoadAttribute>() != null)
+			{
+				cons.Invoke(null);
+				return;
+			}
+
+			// check static methods
+			foreach (var staticmember in type.GetMethods(staticconsFlags))
+			{
+				if(staticmember?.GetCustomAttribute<AutoLoadAttribute>() != null && staticmember.GetParameters().Length == 0)
+				{
+					staticmember.Invoke(null, null);
+					return;
+				}
+			}
+
+			// check normal methods
+			foreach (var member in type.GetMethods(consFlags))
+			{
+				if (member?.GetCustomAttribute<AutoLoadAttribute>() != null && member.GetParameters().Length == 0)
+				{
+					member.Invoke(Activator.CreateInstance(type, true), null);
+					return;
+				}
+			}
+
+			// implicit try to load the class
+			RuntimeHelpers.RunClassConstructor(type.TypeHandle);
+		}
 
 		static Mod() =>
 			AppDomain.CurrentDomain.AssemblyLoad += (o, a) =>
 			{
+				if (autoloads && a.LoadedAssembly.GetCustomAttribute<AutoLoadAttribute>() != null)
 #if DEBUG
+				{
+					var sw = Stopwatch.StartNew();
+#endif
+					AutoLoad(a.LoadedAssembly);
+#if DEBUG
+					sw.Stop();
+					Console.WriteLine($"Assembly {a.LoadedAssembly.GetName().Name} loaded in {sw.ElapsedMilliseconds} ms");
+				}
 				Console.WriteLine($"Ensamblado {a.LoadedAssembly.GetName().Name} cargado");
 #endif
 				AllMods.Add(new Mod(a.LoadedAssembly));
