@@ -137,7 +137,7 @@ namespace KYLib.System
 				RedirectStandardError = error,
 				RedirectStandardInput = input,
 				UseShellExecute = false,
-				CreateNoWindow = true,
+				CreateNoWindow = false,
 				WorkingDirectory = string.IsNullOrWhiteSpace(runin) ? Environment.CurrentDirectory : runin
 			});
 

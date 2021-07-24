@@ -90,7 +90,7 @@ namespace KYLib.System
 		/// <param name="args">Argumentos opcionales para pasar al programa.</param>
 		/// <returns>Devuelve el codigo de salida del programa luego de que termina de ejecutarse. En caso de que el proceso no s epueda iniciar se devolvera -1.</returns>
 		public static Int RunCommand(string file, string args) =>
-			RunCommand(file, args);
+			RunCommand(file, args, null);
 
 		/// <summary>
 		/// Ejecuta un comando en consola y no intercepta ni su salida ni su entrada por lo que es interactivo y el usuario puede verlo en consola.
