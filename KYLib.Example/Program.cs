@@ -1,5 +1,9 @@
 ﻿using KYLib.ConsoleUtils;
 using KYLib.Example;
+using KYLib.System;
 
-Cons.Clear();
+
+Mod.EnableAutoLoads();
+
+MyApp.ClearConsole = false;
 Cons.Start<MyApp>();
