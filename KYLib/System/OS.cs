@@ -12,27 +12,30 @@ namespace KYLib.System
 		/// <summary>
 		/// Sistema operativo Windows.
 		/// </summary>
-		Windows = 0x100000,
+		Windows = 0b1,
 		/// <summary>
 		/// Sistema operativo Unix, todas las distribuciones no soportadas seran detectadas como unix.
 		/// </summary>
-		Unix = 1,
+		Unix = 0b10,
 		/// <summary>
 		/// Sistema operativo GNU/Linux.
 		/// </summary> 
-		Linux = 3,
+		Linux = 0b110,
+		/// <summary>
+		/// Systema operativo OSX.
+		/// </summary>
+		OSX = 0b1010,
 		/// <summary>
 		/// Sistema operativo Debian.
 		/// </summary> 
-		Debian = 7,
-		/*
+		Debian = 0b10110,
 		/// <summary>
 		/// Sistema operativo Ubuntu.
 		/// </summary> 
-		Ubuntu = 23,*/
+		Ubuntu = 0b100010110,
 		/// <summary>
 		/// Sistema operativo Parrot OS.
 		/// </summary>
-		Parrot = 39,
+		Parrot = 0b1000010110,
 	}
 }

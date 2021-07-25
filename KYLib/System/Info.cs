@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using KYLib.Extensions;
 
 namespace KYLib.System
@@ -72,11 +73,12 @@ namespace KYLib.System
 		/// </summary>
 		private static void DetectSystem()
 		{
-			var os = Environment.OSVersion;
-			if (os.Platform == PlatformID.Win32NT)
+			if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 			{ CurrentSystem = OS.Windows; return; }
-
 			else CurrentSystem = OS.Unix;
+
+			if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+			{ CurrentSystem = OS.OSX; return; }
 
 			string uname = Bash.GetCommand("uname -a").ToLower();
 			if (uname.Contains("linux")) CurrentSystem = OS.Linux;

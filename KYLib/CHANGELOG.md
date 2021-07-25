@@ -13,3 +13,6 @@
 
 ### Eliminado
 - Se ha removido la estructura BitArray.
+
+### Cambiado
+- Cambiada la forma de obtener información del sistema en Info.
