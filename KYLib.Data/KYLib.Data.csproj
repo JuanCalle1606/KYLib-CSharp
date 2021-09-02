@@ -1,11 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<Title>KYLib.Data</Title>
     <Description>Libreria sencilla de guardado y carga de datos en archivos, esta libreria esta pensada unicamente para uso personal</Description>
-    <PackageProjectUrl>https://github.com/JuanCalle1606/KYLib-CSharp/tree/main/KYLib.Data</PackageProjectUrl>
-    <PackageId>KYLib.Data</PackageId>
-    <DocumentationFile>$(ProjectDir)KYLib.Data.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

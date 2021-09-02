@@ -1,11 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Title>KYLib</Title>
     <Description>Libreria sencilla de clases y utilidades, esta libreria esta pensada unicamente para uso personal</Description>
-    <PackageProjectUrl>https://github.com/JuanCalle1606/KYLib-CSharp/tree/main/KYLib</PackageProjectUrl>
-    <PackageId>KYLib</PackageId>
-    <DocumentationFile>$(ProjectDir)KYLib.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup Condition="$(TargetFramework)=='netstandard2.0'">
