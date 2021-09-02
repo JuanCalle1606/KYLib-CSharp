@@ -4,7 +4,7 @@
 	</PropertyGroup>
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<LangVersion>9.0</LangVersion>
+		<LangVersion>10.0</LangVersion>
 		<TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Title>$(MSBuildProjectName)</Title>
@@ -34,11 +34,4 @@
 	<PropertyGroup Condition="$(Configuration) == 'Release'">
 		<DebugType>none</DebugType>
 	</PropertyGroup>
-
-	<PropertyGroup Condition="$(TargetFramework)=='netstandard2.0'">
-    	<DefineConstants>$(DefineConstants);NS20</DefineConstants>
- 	</PropertyGroup>
- 	<PropertyGroup Condition="$(TargetFramework)=='netstandard2.1'">
-    	<DefineConstants>$(DefineConstants);NS21</DefineConstants>
- 	</PropertyGroup>
 </Project>

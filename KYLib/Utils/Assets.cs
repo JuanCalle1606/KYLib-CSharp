@@ -1,5 +1,5 @@
 using System.IO;
-#if NS21
+#if NETSTANDARD2_1
 using KYLib.System;
 #endif
 
@@ -14,7 +14,7 @@ namespace KYLib.Utils
 		/// Directorio de busqueda de recursos.
 		/// </summary>
 		public string SearchPath { get; private set; }
-#if NS21
+#if NETSTANDARD2_1
 		/// <summary>
 		/// Indica si las rutas devueltas por el indexador son absolutas.
 		/// </summary>
@@ -30,7 +30,7 @@ namespace KYLib.Utils
 		/// </summary>
 		/// <param name="directory">Directorio relacionado a esta instancia.</param>
 		public Assets(string directory) => SearchPath = Path.GetFullPath(directory);
-#if NS21
+#if NETSTANDARD2_1
 		/// <summary>
 		/// Actualiza <see cref="SearchPath"/> con una ruta relativa al directorio de instalación.
 		/// </summary>
@@ -44,7 +44,7 @@ namespace KYLib.Utils
 		/// <param name="path">Nombre de la ruta relativa.</param>
 		public Assets GetAssets(string path) =>
 			new(this[path]);
-#if NS21
+#if NETSTANDARD2_1
 		/// <summary>
 		/// Obtiene la ruta de <paramref name="filename"/> absoluta a <see cref="SearchPath"/>.
 		/// </summary>
@@ -63,7 +63,7 @@ namespace KYLib.Utils
 		/// Obtiene un recurso relativo a esta instancia de <see cref="Assets"/>.
 		/// </summary>
 		public string this[string filename] =>
-#if NS21
+#if NETSTANDARD2_1
 			ResolveAbsolute ? GetPath(filename) : GetRelPath(filename);
 #else
 			Path.Combine(SearchPath, filename);

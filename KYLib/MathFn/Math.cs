@@ -20,7 +20,7 @@ namespace KYLib.MathFn
 			var dev = default(T);
 			double rnum = num.ToDouble(null), rbase = nbase.ToDouble(null), math;
 			if (rbase == 2) math = Math.Sqrt(rnum);
-#if NS21
+#if NETSTANDARD2_1
 			else if (rbase == 3) math = Math.Cbrt(rnum);
 #endif
 			else math = Math.Pow(rnum, 1 / rbase);

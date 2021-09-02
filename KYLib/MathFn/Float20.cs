@@ -1,4 +1,4 @@
-﻿#if NS20
+﻿#if NETSTANDARD2_0
 using KYLib.Helpers;
 using KYLib.Interfaces;
 using System;

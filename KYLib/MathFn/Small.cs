@@ -10,11 +10,11 @@ namespace KYLib.MathFn
 	/// Esta clase provee sobrecargas a todos los operadores sobrecargables.
 	/// </summary>
 	public
-#if NS20
+#if NETSTANDARD2_0
 	partial
 #endif
 	struct Small
-#if NS21
+#if NETSTANDARD2_1
 	: INumber<byte>
 #endif
 	{
@@ -160,7 +160,7 @@ namespace KYLib.MathFn
 		#region Interfaces
 		/// <inheritdoc/>
 		byte INumber<byte>.Value { get => value; set => this.value = value; }
-#if NS21
+#if NETSTANDARD2_1
 		/// <inheritdoc/>
 		byte IConvertible.ToByte(IFormatProvider provider) => value;
 #endif

@@ -10,11 +10,11 @@ namespace KYLib.MathFn
 	/// Esta clase provee sobrecargas a todos los operadores sobrecargables exceptuando los nos permitidos por <see cref="Double"/>.
 	/// </summary>
 	public
-#if NS20
+#if NETSTANDARD2_0
 	partial
 #endif
 	struct Real
-#if NS21
+#if NETSTANDARD2_1
 	: INumber<double>
 #endif
 	{
@@ -164,7 +164,7 @@ namespace KYLib.MathFn
 		#region Interfaces
 		/// <inheritdoc/>
 		double INumber<double>.Value { get => value; set => this.value = value; }
-#if NS21
+#if NETSTANDARD2_1
 		/// <inheritdoc/>
 		double IConvertible.ToDouble(IFormatProvider provider) => value;
 #endif

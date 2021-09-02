@@ -71,7 +71,7 @@ namespace KYLib.System
 		private static string GetRealPath(string path)
 		{
 			var posiblePaths = new List<string>();
-#if NS21
+#if NETSTANDARD2_1
 			var abs = Path.IsPathFullyQualified(path);
 #else
 			var abs = Path.GetFullPath(path) == path;
