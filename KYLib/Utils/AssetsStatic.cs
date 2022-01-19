@@ -1,4 +1,5 @@
 using System.IO;
+using KYLib.Modding;
 using KYLib.System;
 
 namespace KYLib.Utils
@@ -21,11 +22,23 @@ namespace KYLib.Utils
 		/// <summary>
 		/// Obtiene una instnacia de <see cref="Assets"/> relacionada a la ruta de <see cref="Info.InstallDir"/>.
 		/// </summary>
-		public static readonly Assets InstallDir = new(Info.InstallDir);
+		public static readonly Assets InstallDir = Info.InstallDir != null ? new(Info.InstallDir) : null;
 
 		/// <summary>
-		/// Ubicación desde la que se cargan mods con el metodo <see cref="Mod.Import(string)"/>.
+		/// Ubicación desde la que se cargan mods con el metodo <see cref="Mod.LoadMods"/>.
 		/// </summary>
 		public static readonly Assets ModsDir = new(Path.Combine(Info.BaseDir, "mods"));
+
+		/// <summary>
+		/// Convierte el objeto <see cref="Assets"/> en un  string, este valor es igual <see langword="abstract"/><see cref="Assets.SearchPath"/>.
+		/// </summary>
+		/// <param name="assets">Objecto <see cref="Assets"/> el cual se convierte.</param>
+		public static implicit operator string(Assets assets) => assets.SearchPath; 
+
+		/// <summary>
+		/// Convierte un directorio en un objecto <see cref="Assets"/>.
+		/// </summary>
+		/// <param name="path">Directorio que estara relacionado con el objecto <see cref="Assets"/>.</param>
+		public static implicit operator Assets(string path) => new Assets(path);
 	}
 }
