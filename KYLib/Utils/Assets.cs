@@ -30,9 +30,10 @@ namespace KYLib.Utils
 		/// </summary>
 		/// <param name="directory">Directorio relacionado a esta instancia.</param>
 		public Assets(string directory) => SearchPath = Path.GetFullPath(directory);
+
 #if NETSTANDARD2_1
 		/// <summary>
-		/// Actualiza <see cref="SearchPath"/> con una ruta relativa al directorio de instalación.
+		/// Actualiza <see cref="SearchPath"/> con una ruta relativa al directorio actual.
 		/// </summary>
 		/// <param name="path">Ruta relativa nueva</param>
 		public void UpdateRelPath(string path) =>
