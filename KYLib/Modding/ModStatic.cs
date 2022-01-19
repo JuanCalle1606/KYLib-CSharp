@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using KYLib.Utils;
 
-namespace KYLib.System
+namespace KYLib.Modding
 {
 	partial class Mod
 	{
@@ -24,7 +24,7 @@ namespace KYLib.System
 		/// <summary>
 		/// Lista de todos los mods, en cuestión contiene lo mismo que <see cref="AppDomain.GetAssemblies"/> pero en una lista.
 		/// </summary>
-		private static readonly List<Mod> AllMods = new();
+		public static readonly List<Mod> AllMods = new();
 
 		/// <summary>
 		/// Obtiene un mod que ha sido cargado.
@@ -36,6 +36,13 @@ namespace KYLib.System
 				return null;
 			ValidateMods();
 			return AllMods.Find(A => A.DLL.GetName().Name.Equals(identifier));
+		}
+
+		public static Mod GetMod(Assembly dll)
+		{
+			Ensure.NotNull(dll, nameof(dll));
+			ValidateMods();
+			return AllMods.Find(A => A.DLL.Equals(dll));
 		}
 
 #pragma warning disable CS1587
@@ -58,7 +65,7 @@ namespace KYLib.System
 			/// Si path es absoluto solo se valida en estas ubicaciones:
 			/// path.dll
 			/// path
-			var realpath = GetRealPath(path);
+			var realpath = File.Exists(path) ? path : GetRealPath(path);
 
 			string name = Assembly.LoadFrom(realpath)?.GetName().Name;
 
@@ -176,6 +183,16 @@ namespace KYLib.System
 				AllMods.Clear();
 				AllMods.AddRange(mods.Select(A => new Mod(A)));
 			}
+		}
+
+		public static List<Mod> LoadMods()
+		{
+			Directory.CreateDirectory(Assets.ModsDir);
+			var files = Directory.GetFiles(Assets.ModsDir, "*.dll");
+			var de = new List<Mod>();
+			foreach (var file in files)
+				de.Add(Import(file));
+			return de;
 		}
 
 		private static bool autoloads = false;

@@ -6,12 +6,12 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace KYLib.System
+namespace KYLib.Modding
 {
 	/// <summary>
 	/// 
 	/// </summary>
-	[global::System.AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Module | AttributeTargets.Class | AttributeTargets.Constructor | AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
+	[AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Module | AttributeTargets.Class | AttributeTargets.Constructor | AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
 	public sealed class AutoLoadAttribute : Attribute
 	{
 		/// <summary>
@@ -28,15 +28,15 @@ namespace KYLib.System
 		internal static void AutoLoad(Assembly mod)
 		{
 			var load = mod.GetCustomAttribute<AutoLoadAttribute>();
-			if(load != null)
+			if (load != null)
 				AutoLoad(mod, load);
 		}
 
 		private static void AutoLoad(Assembly mod, AutoLoadAttribute load)
 		{
-			if(load.Async)
+			if (load.Async)
 			{
-				AutoLoadAsync(mod);
+				_ = AutoLoadAsync(mod);
 				return;
 			}
 			AutoLoadSync(mod);
@@ -56,9 +56,9 @@ namespace KYLib.System
 		=> AutoLoad(mod.GetModules());
 #endif
 
-		private static async void AutoLoadAsync(Assembly mod) => 
+		private static async Task AutoLoadAsync(Assembly mod) =>
 			await Task.Run(() => AutoLoadSync(mod));
-#endregion
+		#endregion
 
 		#region Module
 		internal static void AutoLoad(Module[] assemblies)
@@ -78,7 +78,7 @@ namespace KYLib.System
 		{
 			if (load.Async)
 			{
-				AutoLoadAsync(mod);
+				_ = AutoLoadAsync(mod);
 				return;
 			}
 			AutoLoadSync(mod);
@@ -98,7 +98,7 @@ namespace KYLib.System
 		=> AutoLoad(mod.GetTypes());
 #endif
 
-		private static async void AutoLoadAsync(Module mod) =>
+		private static async Task AutoLoadAsync(Module mod) =>
 			await Task.Run(() => AutoLoadSync(mod));
 		#endregion
 
@@ -120,7 +120,7 @@ namespace KYLib.System
 		{
 			if (load.Async)
 			{
-				AutoLoadAsync(mod);
+				_ = AutoLoadAsync(mod);
 				return;
 			}
 			AutoLoadSync(mod);
@@ -128,6 +128,7 @@ namespace KYLib.System
 
 		private static void AutoLoadSync(Type type)
 		{
+			Mod.TypeAutoLoaded(Mod.GetMod(type.Assembly), type);
 #if DEBUG
 			var sw = Stopwatch.StartNew();
 #endif
@@ -197,7 +198,7 @@ namespace KYLib.System
 #endif
 		}
 
-		private static async void AutoLoadAsync(Type mod) =>
+		private static async Task AutoLoadAsync(Type mod) =>
 			await Task.Run(() => AutoLoadSync(mod));
 		#endregion
 	}

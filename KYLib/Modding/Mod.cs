@@ -1,7 +1,9 @@
+using KYLib.Interfaces;
+using KYLib.Utils;
 using System;
 using System.Reflection;
 
-namespace KYLib.System
+namespace KYLib.Modding
 {
 	/// <summary>
 	/// Representa un ensamblado y provee metodos para facilitar el manejo.
@@ -13,8 +15,14 @@ namespace KYLib.System
 		/// </summary>
 		public Assembly DLL { get; private set; }
 
+		public IModInfo? ModInfo { get; internal set; }
+
 		private Mod(Assembly assembly)
 		{
+			Ensure.NotNull(assembly, nameof(assembly));
+			var att = assembly.GetCustomAttribute<ModInfoAttribute>();
+			if (att != null)
+				ModInfo = (IModInfo)Activator.CreateInstance(att.Type);
 			DLL = assembly;
 		}
 
