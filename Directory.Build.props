@@ -6,7 +6,7 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<RepositoryUrl>https://github.com/JuanCalle1606/KYLib-CSharp</RepositoryUrl>
 		<Version>1.6.0</Version>
-		<RootNamespace>KYLib</RootNamespace>
+		<RootNamespace>$(MSBuildProjectName)</RootNamespace>
     	<DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
 	</PropertyGroup>
 

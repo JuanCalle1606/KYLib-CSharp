@@ -1,3 +1,4 @@
+using System;
 using KYLib.Modding;
 using KYLib.System;
 using System.IO;
@@ -7,7 +8,7 @@ namespace KYLib.Utils;
 /// <summary>
 /// Provee funciones para obtener recursos.
 /// </summary>
-partial class Assets
+partial class Assets: IEquatable<Assets?>
 {
 	/// <summary>
 	/// Obtiene una instnacia de <see cref="Assets"/> relacionada a la ruta de <see cref="Info.BaseDir"/>.
@@ -22,12 +23,12 @@ partial class Assets
 	/// <summary>
 	/// Obtiene una instnacia de <see cref="Assets"/> relacionada a la ruta de <see cref="Info.InstallDir"/>.
 	/// </summary>
-	public static readonly Assets InstallDir = Info.InstallDir != null ? new(Info.InstallDir) : null;
+	public static readonly Assets? InstallDir = Info.InstallDir != null ? new(Info.InstallDir) : null;
 
 	/// <summary>
 	/// Ubicación desde la que se cargan mods con el metodo <see cref="Mod.LoadMods"/>.
 	/// </summary>
-	public static readonly Assets ModsDir = new(Path.Combine(Info.BaseDir, "mods"));
+	public static readonly Assets ModsDir = BaseDir.GetAssets("mods");
 
 	/// <summary>
 	/// Convierte el objeto <see cref="Assets"/> en un  string, este valor es igual <see langword="abstract"/><see cref="Assets.SearchPath"/>.
@@ -41,13 +42,36 @@ partial class Assets
 	/// <param name="path">Directorio que estara relacionado con el objecto <see cref="Assets"/>.</param>
 	public static implicit operator Assets(string path) => new Assets(path);
 
-	public static bool operator ==(Assets a, Assets b)
+	public static bool operator ==(Assets? a, Assets? b)
 	{
-		return a.SearchPath == b.SearchPath;
+		if (a is null && b is null) return true;
+		if (a is not null) return a.Equals(b);
+		return b is not null && b.Equals(a);
 	}
 
-	public static bool operator !=(Assets a, Assets b)
+	public static bool operator !=(Assets? a, Assets? b)
 	{
 		return a.SearchPath != b.SearchPath;
+	}
+
+	/// <inheritdoc/>
+	public bool Equals(Assets? other)
+	{
+		if (other is null) return false;
+		return SearchPath == other.SearchPath;
+	}
+
+	/// <inheritdoc/>
+	public override bool Equals(object? obj)
+	{
+		var other = obj as Assets;
+		return Equals(other);
+	}
+
+	/// <inheritdoc/>
+	public override int GetHashCode()
+	{
+		// ReSharper disable once NonReadonlyMemberInGetHashCode
+		return SearchPath.GetHashCode();
 	}
 }

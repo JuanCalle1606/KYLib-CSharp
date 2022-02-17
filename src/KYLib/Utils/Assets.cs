@@ -19,10 +19,6 @@ public partial class Assets {
 	/// </summary>
 	public bool ResolveAbsolute = false;
 #endif
-	/// <summary>
-	/// Privatizamos el constructor sin parametros, esto no estara permitido.
-	/// </summary>
-	Assets() {}
 
 	/// <summary>
 	/// Crea una nueva instancia basada en un directorio.

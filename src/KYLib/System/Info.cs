@@ -26,7 +26,7 @@ namespace KYLib.System
 		/// <summary>
 		/// Obtiene la dirección del directorio en el que se encuentra el ejecutable.
 		/// </summary>
-		public static readonly string InstallDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+		public static readonly string? InstallDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
 		/// <summary>
 		/// Obtiene la ubicación desde la que se cargan ensamblados por defecto.
