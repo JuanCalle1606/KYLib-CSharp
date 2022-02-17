@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 
 namespace KYLib.Modding;
 
@@ -71,7 +72,7 @@ partial class Mod
 	/// <param name="name">Nombre del ensamblado.</param>
 	public static Mod Import(string name)
 	{
-		return Import(name, Resources.CurrentCulture);
+		return Import(name, Thread.CurrentThread.CurrentCulture);
 	}
 
 	public static Mod Import(string name, CultureInfo info)
