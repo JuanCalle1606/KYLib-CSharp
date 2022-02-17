@@ -34,13 +34,13 @@ namespace KYLib.MathFn
 		/// <summary>
 		/// Valor interno de este numero.
 		/// </summary>
-		private int value;
+		private int _value;
 
 		/// <summary>
 		/// Constructor interno.
 		/// </summary>
 		private Int(int origin) =>
-			value = origin;
+			_value = origin;
 
 		#endregion
 
@@ -61,76 +61,76 @@ namespace KYLib.MathFn
 		public static Int operator +(Int num) => num;
 
 		/// <inheritdoc/>
-		public static Int operator -(Int num) => new(-num.value);
+		public static Int operator -(Int num) => new(-num._value);
 
 		/// <inheritdoc/>
-		public static Int operator ~(Int num) => new(~num.value);
+		public static Int operator ~(Int num) => new(~num._value);
 
 		/// <inheritdoc/>
-		public static Int operator ++(Int num) => new(num.value + 1);
+		public static Int operator ++(Int num) => new(num._value + 1);
 
 		/// <inheritdoc/>
-		public static Int operator --(Int num) => new(num.value - 1);
+		public static Int operator --(Int num) => new(num._value - 1);
 
 		#endregion
 
 		#region Operadores Binarios Aritmeticos
 
 		/// <inheritdoc/>
-		public static Int operator +(Int num1, Int num2) => new(num1.value + num2.value);
+		public static Int operator +(Int num1, Int num2) => new(num1._value + num2._value);
 
 		/// <inheritdoc/>
-		public static Int operator -(Int num1, Int num2) => new(num1.value - num2.value);
+		public static Int operator -(Int num1, Int num2) => new(num1._value - num2._value);
 
 		/// <inheritdoc/>
-		public static Int operator *(Int num1, Int num2) => new(num1.value * num2.value);
+		public static Int operator *(Int num1, Int num2) => new(num1._value * num2._value);
 
 		/// <inheritdoc/>
-		public static Int operator /(Int num1, Int num2) => new(num1.value / num2.value);
+		public static Int operator /(Int num1, Int num2) => new(num1._value / num2._value);
 
 		/// <inheritdoc/>
-		public static Int operator %(Int num1, Int num2) => new(num1.value % num2.value);
+		public static Int operator %(Int num1, Int num2) => new(num1._value % num2._value);
 
 		#endregion
 
 		#region Operadores Binarios Logicos
 
 		/// <inheritdoc/>
-		public static Int operator &(Int num1, Int num2) => new(num1.value & num2.value);
+		public static Int operator &(Int num1, Int num2) => new(num1._value & num2._value);
 
 		/// <inheritdoc/>
-		public static Int operator |(Int num1, Int num2) => new(num1.value | num2.value);
+		public static Int operator |(Int num1, Int num2) => new(num1._value | num2._value);
 
 		/// <inheritdoc/>
-		public static Int operator ^(Int num1, Int num2) => new(num1.value ^ num2.value);
+		public static Int operator ^(Int num1, Int num2) => new(num1._value ^ num2._value);
 
 		/// <inheritdoc/>
-		public static Int operator <<(Int num1, Int32 num2) => new(num1.value << num2);
+		public static Int operator <<(Int num1, Int32 num2) => new(num1._value << num2);
 
 		/// <inheritdoc/>
-		public static Int operator >>(Int num1, Int32 num2) => new(num1.value >> num2);
+		public static Int operator >>(Int num1, Int32 num2) => new(num1._value >> num2);
 
 		#endregion
 
 		#region Operadores Binarios Comparativos
 
 		/// <inheritdoc/>
-		public static bool operator ==(Int num1, Int num2) => num1.value == num2.value;
+		public static bool operator ==(Int num1, Int num2) => num1._value == num2._value;
 
 		/// <inheritdoc/>
-		public static bool operator !=(Int num1, Int num2) => num1.value != num2.value;
+		public static bool operator !=(Int num1, Int num2) => num1._value != num2._value;
 
 		/// <inheritdoc/>
-		public static bool operator <(Int num1, Int num2) => num1.value < num2.value;
+		public static bool operator <(Int num1, Int num2) => num1._value < num2._value;
 
 		/// <inheritdoc/>
-		public static bool operator >(Int num1, Int num2) => num1.value > num2.value;
+		public static bool operator >(Int num1, Int num2) => num1._value > num2._value;
 
 		/// <inheritdoc/>
-		public static bool operator <=(Int num1, Int num2) => num1.value <= num2.value;
+		public static bool operator <=(Int num1, Int num2) => num1._value <= num2._value;
 
 		/// <inheritdoc/>
-		public static bool operator >=(Int num1, Int num2) => num1.value >= num2.value;
+		public static bool operator >=(Int num1, Int num2) => num1._value >= num2._value;
 
 		#endregion
 
@@ -139,7 +139,7 @@ namespace KYLib.MathFn
 		public static implicit operator Int(int value) => new(value);
 
 		/// <inheritdoc/>
-		public static implicit operator int(Int value) => value.value;
+		public static implicit operator int(Int value) => value._value;
 
 		/// <inheritdoc/>
 		public static implicit operator Int(Small value) => new(value);
@@ -154,14 +154,14 @@ namespace KYLib.MathFn
 
 		#region Interfaces
 		/// <inheritdoc/>
-		int INumber<int>.Value { get => value; set => this.value = value; }
+		int INumber<int>.Value { get => _value; set => this._value = value; }
 #if NETSTANDARD2_1
 		/// <inheritdoc/>
-		int IConvertible.ToInt32(IFormatProvider provider) => value;
+		int IConvertible.ToInt32(IFormatProvider provider) => _value;
 #endif
 		/// <inheritdoc/>
 		void INumber.UpdateValue(INumber source) =>
-			value = source.ToInt32(null);
+			_value = source.ToInt32(null);
 
 		/// <inheritdoc/>
 		void INumber.UpdateValue(object source)
@@ -170,7 +170,7 @@ namespace KYLib.MathFn
 			var n = (IConvertible)source;
 			if (n != null)
 			{
-				value = ConvertHelper.ToInt32(n);
+				_value = ConvertHelper.ToInt32(n);
 				return;
 			}
 			//si llegamos aqui es porque no se pudo leer el numero, en ese caso se produce una exepción
@@ -178,46 +178,46 @@ namespace KYLib.MathFn
 		}
 
 		/// <inheritdoc/>
-		void INumber.Add(INumber num) => value += num.ToInt32(null);
+		void INumber.Add(INumber num) => _value += num.ToInt32(null);
 
 		/// <inheritdoc/>
-		public int CompareTo(object obj) => value.CompareTo(obj);
+		public int CompareTo(object obj) => _value.CompareTo(obj);
 
 		/// <inheritdoc/>
-		public int CompareTo(INumber other) => value.CompareTo(other.ToInt32(null));
+		public int CompareTo(INumber other) => _value.CompareTo(other.ToInt32(null));
 
 		/// <inheritdoc/>
-		void INumber.Div(INumber num) => value /= num.ToInt32(null);
+		void INumber.Div(INumber num) => _value /= num.ToInt32(null);
 
 		/// <inheritdoc/>
-		public bool Equals(INumber other) => value.Equals(other.ToInt32(null));
+		public bool Equals(INumber other) => _value.Equals(other.ToInt32(null));
 
 		/// <inheritdoc/>
-		public bool Equals(Int other) => value.Equals(other.value);
+		public bool Equals(Int other) => _value.Equals(other._value);
 
 		/// <inheritdoc/>
-		public TypeCode GetTypeCode() => value.GetTypeCode();
+		public TypeCode GetTypeCode() => _value.GetTypeCode();
 
 		/// <inheritdoc/>
-		void INumber.Mul(INumber num) => value *= num.ToInt32(null);
+		void INumber.Mul(INumber num) => _value *= num.ToInt32(null);
 
 		/// <inheritdoc/>
-		void INumber.Rest(INumber num) => value %= num.ToInt32(null);
+		void INumber.Rest(INumber num) => _value %= num.ToInt32(null);
 
 		/// <inheritdoc/>
-		void INumber.Sub(INumber num) => value -= num.ToInt32(null);
+		void INumber.Sub(INumber num) => _value -= num.ToInt32(null);
 		#endregion
 
 		#region overrides
 
 		/// <inheritdoc/>
-		public override string ToString() => value.ToString();
+		public override string ToString() => _value.ToString();
 
 		/// <inheritdoc/>
-		public override int GetHashCode() => value.GetHashCode();
+		public override int GetHashCode() => _value.GetHashCode();
 
 		/// <inheritdoc/>
-		public override bool Equals(object obj) => value.Equals(obj);
+		public override bool Equals(object obj) => _value.Equals(obj);
 
 		#endregion
 	}

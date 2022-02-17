@@ -41,7 +41,7 @@ namespace KYLib.System
 		/// <summary>
 		/// Obtiene el sistema operativo actual.
 		/// </summary>
-		public static OS CurrentSystem { get; private set; }
+		public static Os CurrentSystem { get; private set; }
 
 
 		/// <summary>
@@ -74,16 +74,16 @@ namespace KYLib.System
 		private static void DetectSystem()
 		{
 			if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-			{ CurrentSystem = OS.Windows; return; }
-			else CurrentSystem = OS.Unix;
+			{ CurrentSystem = Os.Windows; return; }
+			else CurrentSystem = Os.Unix;
 
 			if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-			{ CurrentSystem = OS.OSX; return; }
+			{ CurrentSystem = Os.Osx; return; }
 
 			var uname = Bash.GetCommand("uname -a").ToLower();
-			if (uname.Contains("linux")) CurrentSystem = OS.Linux;
-			if (uname.Contains("debian")) CurrentSystem = OS.Debian;
-			if (uname.Contains("parrot")) CurrentSystem = OS.Parrot;
+			if (uname.Contains("linux")) CurrentSystem = Os.Linux;
+			if (uname.Contains("debian")) CurrentSystem = Os.Debian;
+			if (uname.Contains("parrot")) CurrentSystem = Os.Parrot;
 		}
 
 		/// <summary>
@@ -92,17 +92,17 @@ namespace KYLib.System
 		/// <param name="distro">Sistema de origen.</param>
 		/// <param name="based">Sistema padre.</param>
 		/// <returns><c>true</c> si <paramref name="distro"/> es un sistema que esta basado en <paramref name="based"/> o <c>false</c> si no lo es.</returns>
-		public static bool IsOSBased(OS distro, OS based) => (distro & based) == based;
+		public static bool IsOsBased(Os distro, Os based) => (distro & based) == based;
 
 		/// <summary>
 		/// Obtiene la ruta al comando que se usa para ejecutar ordenes de consola en el sistema operativo dado.
 		/// </summary>
 		/// <param name="os">Sistema operativo para saber la ruta.</param>
 		/// <returns>La ruta o comando que se sua para ejecutar ordenes de consola.</returns>
-		public static string GetTerminalPath(OS os)
+		public static string GetTerminalPath(Os os)
 		{
-			if (IsOSBased(os, OS.Windows)) return "cmd.exe /c";
-			if (IsOSBased(os, OS.Unix)) return "/bin/bash -c";
+			if (IsOsBased(os, Os.Windows)) return "cmd.exe /c";
+			if (IsOsBased(os, Os.Unix)) return "/bin/bash -c";
 			return string.Empty;
 		}
 	}

@@ -13,39 +13,39 @@ namespace KYLib.ConsoleUtils
 		/// <summary>
 		/// Guarda la representación en cadena de esta tabla.
 		/// </summary>
-		private string String = null;
+		private string _string = null;
 
 		/// <summary>
 		/// Indica sie s necesario actualziar la cadena.
 		/// </summary>
-		private bool RequireUpdate = true;
+		private bool _requireUpdate = true;
 
 		/// <summary>
 		/// Guarda las cadenas para separar filas.
 		/// </summary>
-		private string Separator = null;
+		private string _separator = null;
 
 		/// <summary>
 		/// Guarda todo el contenido de la tabla.
 		/// </summary>
-		private readonly List<List<string>> Dic = new();
+		private readonly List<List<string>> _dic = new();
 
 		/// <summary>
 		/// Guarda los tamaños de cada columna.
 		/// </summary>
-		private readonly List<Int> Widths = new();
+		private readonly List<Int> _widths = new();
 
 		/// <summary>
 		/// Agregar columna interna
 		/// </summary>
 		private void AddColumn(string title, bool calc)
 		{
-			Int count = Dic.Count;
-			Dic.Add(new List<string>());
-			Dic[count].Add(title);
+			Int count = _dic.Count;
+			_dic.Add(new List<string>());
+			_dic[count].Add(title);
 			if (calc)
 				CalculateColumnsWidth();
-			RequireUpdate = true;
+			_requireUpdate = true;
 		}
 
 		/// <summary>
@@ -71,19 +71,19 @@ namespace KYLib.ConsoleUtils
 		/// <param name="content">Lista de objetos que seran ingresados en cada columna, si se pasan mas objetos que la cantidad de columnas entonces seran ignorados los pasados y si se pasan menos entonces los que falten seran añadidos como cadenas vacias.</param>
 		public void AddRow(params object[] content)
 		{
-			for (Int i = 0; i < Dic.Count; i++)
+			for (Int i = 0; i < _dic.Count; i++)
 			{
 				try
 				{
-					Dic[i].Add(content?[i]?.ToString());
+					_dic[i].Add(content?[i]?.ToString());
 				}
 				catch (Exception)
 				{
-					Dic[i].Add(string.Empty);
+					_dic[i].Add(string.Empty);
 				}
 			}
 			CalculateColumnsWidth();
-			RequireUpdate = true;
+			_requireUpdate = true;
 		}
 
 		/// <summary>
@@ -91,19 +91,19 @@ namespace KYLib.ConsoleUtils
 		/// </summary>
 		private void UpdateString()
 		{
-			String = string.Empty;
+			_string = string.Empty;
 			var totalWidth = CalculateWidth();
-			Separator = "-".Repeat(totalWidth);
+			_separator = "-".Repeat(totalWidth);
 
 			List<string> lines = new();
-			String += Separator + Environment.NewLine;
+			_string += _separator + Environment.NewLine;
 			Int count;
 			var titles = true;
 			// primero rellenamos las lineas
-			for (Int item = 0; item < Dic.Count; item++)
+			for (Int item = 0; item < _dic.Count; item++)
 			{
 				count = 0;
-				foreach (var row in Dic[item])
+				foreach (var row in _dic[item])
 				{
 					if (titles)
 						lines.Add($"| {Fill(row, item)} |");
@@ -113,10 +113,10 @@ namespace KYLib.ConsoleUtils
 				}
 				titles = false;
 			}
-			lines.Insert(1, Separator);
+			lines.Insert(1, _separator);
 			//agregamos las lineas
-			String += lines.ToString(false, true) + Environment.NewLine;
-			String += Separator;
+			_string += lines.ToString(false, true) + Environment.NewLine;
+			_string += _separator;
 		}
 
 		/// <summary>
@@ -125,7 +125,7 @@ namespace KYLib.ConsoleUtils
 		private string Fill(string row, Int index)
 		{
 			var dev = row;
-			dev += " ".Repeat(Widths[index] - dev.Length);
+			dev += " ".Repeat(_widths[index] - dev.Length);
 			return dev;
 		}
 
@@ -134,8 +134,8 @@ namespace KYLib.ConsoleUtils
 		/// </summary>
 		private void CalculateColumnsWidth()
 		{
-			Widths.Clear();
-			foreach (var item in Dic)
+			_widths.Clear();
+			foreach (var item in _dic)
 			{
 				Int maxwidth = 0;
 				item.ForEach(i =>
@@ -143,7 +143,7 @@ namespace KYLib.ConsoleUtils
 					if (i.Length > maxwidth)
 						maxwidth = i.Length;
 				});
-				Widths.Add(maxwidth);
+				_widths.Add(maxwidth);
 			}
 		}
 
@@ -153,7 +153,7 @@ namespace KYLib.ConsoleUtils
 		private Int CalculateWidth()
 		{
 			Int dev = 1;
-			foreach (var item in Widths)
+			foreach (var item in _widths)
 				dev += item + 3;
 			return dev;
 		}
@@ -161,9 +161,9 @@ namespace KYLib.ConsoleUtils
 		/// <inheritdoc/>
 		public override string ToString()
 		{
-			if (RequireUpdate) UpdateString();
-			RequireUpdate = false;
-			return String;
+			if (_requireUpdate) UpdateString();
+			_requireUpdate = false;
+			return _string;
 		}
 	}
 }

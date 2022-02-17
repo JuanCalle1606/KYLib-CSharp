@@ -3,7 +3,7 @@ namespace KYLib.System
 	/// <summary>
 	/// Enumeración de sistemas operativos soportados por la libreria.
 	/// </summary>
-	public enum OS
+	public enum Os
 	{
 		/// <summary>
 		/// Indica que el programa no ha reconocido el sistema operativo actual.
@@ -24,7 +24,7 @@ namespace KYLib.System
 		/// <summary>
 		/// Systema operativo OSX.
 		/// </summary>
-		OSX = 0b1010,
+		Osx = 0b1010,
 		/// <summary>
 		/// Sistema operativo Debian.
 		/// </summary> 

@@ -241,13 +241,13 @@ namespace KYLib.MathFn
 			Int count = chars.Count - 1;
 			var res = '0';
 			for (var i = count; i >= 0; i--)
-				output.Insert(0, Mult2core(chars[i], res, out res));
+				output.Insert(0, Mult2Core(chars[i], res, out res));
 			if (res == '1')
 				output.Insert(0, res);
 			return new string(output.ToArray());
 		}
 
-		private static char Mult2core(char n, char res, out char outRes)
+		private static char Mult2Core(char n, char res, out char outRes)
 		{
 			var nr = byte.Parse($"{n}");
 			byte temp;

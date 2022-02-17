@@ -19,7 +19,7 @@ namespace KYLib.MathFn
 		public static readonly Bit Zero = 0;
 
 		// El valor del bit
-		readonly bool Value;
+		readonly bool _value;
 
 		/// <summary>
 		/// Indica si en la ultima operación que se realizo con este bit sobro(para suma) o falto(para resta) otro <c>bit</c>.
@@ -49,7 +49,7 @@ namespace KYLib.MathFn
 		/// <param name="value">Es <c>true</c> si el bit debe vale 1 o <c>false</c> si debe valer 0.</param>
 		Bit(bool value)
 		{
-			Value = value;
+			_value = value;
 			Rest = false;
 		}
 		/// <summary>
@@ -59,7 +59,7 @@ namespace KYLib.MathFn
 		/// <param name="rest">Es <c>true</c> si el bit tiene resto o <c>false</c> si debe no.</param>
 		Bit(bool value, bool rest)
 		{
-			Value = value;
+			_value = value;
 			Rest = rest;
 		}
 
@@ -73,16 +73,16 @@ namespace KYLib.MathFn
 		/// <returns>La suma de los bits, si la suma tiene resto el bit resultante tendra la propiedad <c>Rest</c> en <c>true</c>.</returns>
 		public static Bit Add(Bit val1, Bit val2, bool res)
 		{
-			var OutR =
+			var outR =
 				(val2 && res) ||
 				(val1 && res) ||
 				(val1 && val2);
-			var Out =
+			var @out =
 				(!val1 && !val2 && res) ||
 				(!val1 && val2 && !res) ||
 				(val1 && !val2 && !res) ||
 				(val1 && val2 && res);
-			return new Bit(Out, OutR);
+			return new Bit(@out, outR);
 		}
 
 		/// <summary>
@@ -102,16 +102,16 @@ namespace KYLib.MathFn
 		/// <returns>El resultado de la resta.</returns>
 		public static Bit Subtract(Bit val1, Bit val2, bool res)
 		{
-			var OutR =
+			var outR =
 				(!val1 && res) ||
 				(!val1 && val2) ||
 				(val2 && res);
-			var Out =
+			var @out =
 				(!val1 && !val2 && res) ||
 				(!val1 && val2 && !res) ||
 				(val1 && !val2 && !res) ||
 				(val1 && val2 && res);
-			return new Bit(Out, OutR);
+			return new Bit(@out, outR);
 		}
 
 		/// <summary>
@@ -132,18 +132,18 @@ namespace KYLib.MathFn
 
 		#region Boolean Operators
 		/// <inheritdoc/>
-		public static bool operator true(Bit value) => value.Value;
+		public static bool operator true(Bit value) => value._value;
 		/// <inheritdoc/>
-		public static bool operator false(Bit value) => !value.Value;
+		public static bool operator false(Bit value) => !value._value;
 
 		/// <summary>
 		/// Compara si dos bis son iguales.
 		/// </summary>
-		public static bool operator ==(Bit val1, Bit val2) => val1.Value == val2.Value;
+		public static bool operator ==(Bit val1, Bit val2) => val1._value == val2._value;
 		/// <summary>
 		/// Compara si dos bits son diferentes.
 		/// </summary>
-		public static bool operator !=(Bit val1, Bit val2) => val1.Value != val2.Value;
+		public static bool operator !=(Bit val1, Bit val2) => val1._value != val2._value;
 		/// <summary>
 		/// Compara si un bit es mayor que otro.
 		/// </summary>
@@ -181,7 +181,7 @@ namespace KYLib.MathFn
 		public static implicit operator Bit(bool value) => new(value);
 		#endregion
 		#region To Numbers
-		int Toint() => Value ? 1 : 0;
+		int Toint() => _value ? 1 : 0;
 
 		/// <inheritdoc/>
 		public static implicit operator byte(Bit value) => (byte)value.Toint();
@@ -198,15 +198,15 @@ namespace KYLib.MathFn
 		/// <inheritdoc/>
 		public static implicit operator double(Bit value) => value.Toint();
 		/// <inheritdoc/>
-		public static implicit operator bool(Bit value) => value.Value;
+		public static implicit operator bool(Bit value) => value._value;
 		#endregion
 
 		/// <inheritdoc/>
 		public override string ToString() =>
-			Value ? "1" : "0";
+			_value ? "1" : "0";
 
 		/// <inheritdoc/>
-		public override bool Equals(object obj) => obj.Equals(Value) || obj.ToString().Equals(this.ToString());
+		public override bool Equals(object obj) => obj.Equals(_value) || obj.ToString().Equals(this.ToString());
 
 		/// <inheritdoc/>
 		public bool Equals(Bit other) => this == other;

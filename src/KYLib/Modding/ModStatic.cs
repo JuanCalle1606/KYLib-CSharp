@@ -24,7 +24,7 @@ partial class Mod
 	public static readonly Mod Entry = new(Assembly.GetEntryAssembly());
 
 	
-	static readonly List<Mod> allmods = new();
+	static readonly List<Mod> _Allmods = new();
 
 	/// <summary>
 	/// Lista de todos los mods, en cuestión contiene lo mismo que <see cref="AppDomain.GetAssemblies"/> pero en una lista.
@@ -34,7 +34,7 @@ partial class Mod
 		get
 		{
 			ValidateMods(); 
-			return allmods.ToArray();
+			return _Allmods.ToArray();
 		}
 	}
 
@@ -47,21 +47,21 @@ partial class Mod
 		if (string.IsNullOrWhiteSpace(identifier))
 			return null;
 		ValidateMods();
-		return allmods.Find(A => A.Dll.GetName().Name == identifier);
+		return _Allmods.Find(a => a.Dll.GetName().Name == identifier);
 	}
 
 	public static Mod GetMod(Assembly assembly)
 	{
 		Ensure.NotNull(assembly, nameof(assembly));
 		ValidateMods();
-		return allmods.Find(M => M.Dll == assembly);
+		return _Allmods.Find(m => m.Dll == assembly);
 	}
 
 	public static Mod GetMod(AssemblyName name)
 	{
 		Ensure.NotNull(name, nameof(name));
 		ValidateMods();
-		return allmods.Find(M => M.Dll.GetName() == name);
+		return _Allmods.Find(m => m.Dll.GetName() == name);
 	}
 
 #pragma warning disable CS1587
@@ -128,7 +128,7 @@ partial class Mod
 			}
 		}
 
-		var existing = posiblePaths.Find(P => File.Exists(P));
+		var existing = posiblePaths.Find(p => File.Exists(p));
 
 		return string.IsNullOrWhiteSpace(existing) ? path : existing;
 	}
@@ -195,20 +195,20 @@ partial class Mod
 	public static bool IsLoaded(string identifier)
 	{
 		ValidateMods();
-		var mod = allmods.Find(A => A.Dll.GetName().Name == identifier);
+		var mod = _Allmods.Find(a => a.Dll.GetName().Name == identifier);
 		return mod != null;
 	}
 
 	/// <summary>
-	/// Valida que <see cref="allmods"/> contenga todos los ensamblados.
+	/// Valida que <see cref="_Allmods"/> contenga todos los ensamblados.
 	/// </summary>
 	private static void ValidateMods()
 	{
 		var mods = AppDomain.CurrentDomain.GetAssemblies();
-		if (mods.Length != allmods.Count)
+		if (mods.Length != _Allmods.Count)
 		{
-			allmods.Clear();
-			allmods.AddRange(mods.Select(A => new Mod(A)));
+			_Allmods.Clear();
+			_Allmods.AddRange(mods.Select(a => new Mod(a)));
 		}
 	}
 
@@ -222,20 +222,20 @@ partial class Mod
 		return de;
 	}
 
-	private static bool autoloads = false;
+	private static bool _autoloads = false;
 
 	/// <summary>
 	/// 
 	/// </summary>
 	public static void EnableAutoLoads()
 	{
-		if (Ensure.SetValue(ref autoloads, true))
+		if (Ensure.SetValue(ref _autoloads, true))
 			return;
 #if DEBUG
 		var sw = Stopwatch.StartNew();
 #endif
 		ValidateMods();
-		AutoLoadAttribute.AutoLoad(allmods.Select(m => m.Dll).ToArray());
+		AutoLoadAttribute.AutoLoad(_Allmods.Select(m => m.Dll).ToArray());
 #if DEBUG
 		sw.Stop();
 		Console.WriteLine($"Auto Loads Enabled in {sw.ElapsedMilliseconds} ms");
@@ -245,11 +245,11 @@ partial class Mod
 	static Mod() =>
 		AppDomain.CurrentDomain.AssemblyLoad += (o, a) =>
 		{
-			if (autoloads && a.LoadedAssembly.GetCustomAttribute<AutoLoadAttribute>() != null)
+			if (_autoloads && a.LoadedAssembly.GetCustomAttribute<AutoLoadAttribute>() != null)
 				AutoLoadAttribute.AutoLoad(a.LoadedAssembly);
 #if DEBUG
 			Console.WriteLine($"Ensamblado {a.LoadedAssembly.GetName().Name} cargado");
 #endif
-			allmods.Add(new Mod(a.LoadedAssembly));
+			_Allmods.Add(new Mod(a.LoadedAssembly));
 		};
 }

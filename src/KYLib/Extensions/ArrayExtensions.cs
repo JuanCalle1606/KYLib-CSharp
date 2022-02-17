@@ -40,7 +40,7 @@ namespace KYLib.Extensions
 		/// <typeparam name="T">Un tipo que implemente <see cref="IComparable{T}"/>.</typeparam>
 		/// <param name="arr">Arreglo de origen.</param>
 		public static void SortAsc<T>(this T[] arr) where T : IComparable<T> =>
-			arr.Sort((T1, T2) => T1.CompareTo(T2));
+			arr.Sort((t1, t2) => t1.CompareTo(t2));
 
 		/// <summary>
 		/// Ordena los elementos del arreglo de forma descendente.
@@ -48,7 +48,7 @@ namespace KYLib.Extensions
 		/// <typeparam name="T">Un tipo que implemente <see cref="IComparable{T}"/>.</typeparam>
 		/// <param name="arr">Arreglo de origen.</param>
 		public static void SortDesc<T>(this T[] arr) where T : IComparable<T> =>
-			arr.Sort((T1, T2) => T2.CompareTo(T1));
+			arr.Sort((t1, t2) => t2.CompareTo(t1));
 		#endregion
 
 		#region Conversiones

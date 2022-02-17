@@ -8,57 +8,57 @@ namespace KYLib.MathFn
 	partial struct Real : INumber<double>
 	{
 		/// <inheritdoc/>
-		bool IConvertible.ToBoolean(IFormatProvider provider) => ((IConvertible)value).ToBoolean(provider);
+		bool IConvertible.ToBoolean(IFormatProvider provider) => ((IConvertible)_value).ToBoolean(provider);
 
 		/// <inheritdoc/>
-		byte IConvertible.ToByte(IFormatProvider provider) => ConvertHelper.ToByte(value);
+		byte IConvertible.ToByte(IFormatProvider provider) => ConvertHelper.ToByte(_value);
 
 		/// <inheritdoc/>
-		char IConvertible.ToChar(IFormatProvider provider) => ((IConvertible)value).ToChar(provider);
+		char IConvertible.ToChar(IFormatProvider provider) => ((IConvertible)_value).ToChar(provider);
 
 		/// <inheritdoc/>
-		DateTime IConvertible.ToDateTime(IFormatProvider provider) => ((IConvertible)value).ToDateTime(provider);
+		DateTime IConvertible.ToDateTime(IFormatProvider provider) => ((IConvertible)_value).ToDateTime(provider);
 
 		/// <inheritdoc/>
-		decimal IConvertible.ToDecimal(IFormatProvider provider) => ((IConvertible)value).ToDecimal(provider);
+		decimal IConvertible.ToDecimal(IFormatProvider provider) => ((IConvertible)_value).ToDecimal(provider);
 
 		/// <inheritdoc/>
-		double IConvertible.ToDouble(IFormatProvider provider) => value;
+		double IConvertible.ToDouble(IFormatProvider provider) => _value;
 
 		/// <inheritdoc/>
-		short IConvertible.ToInt16(IFormatProvider provider) => ((IConvertible)value).ToInt16(provider);
+		short IConvertible.ToInt16(IFormatProvider provider) => ((IConvertible)_value).ToInt16(provider);
 
 		/// <inheritdoc/>
-		int IConvertible.ToInt32(IFormatProvider provider) => ConvertHelper.ToInt32(value);
+		int IConvertible.ToInt32(IFormatProvider provider) => ConvertHelper.ToInt32(_value);
 
 		/// <inheritdoc/>
-		long IConvertible.ToInt64(IFormatProvider provider) => ((IConvertible)value).ToInt64(provider);
+		long IConvertible.ToInt64(IFormatProvider provider) => ((IConvertible)_value).ToInt64(provider);
 
 		/// <inheritdoc/>
-		sbyte IConvertible.ToSByte(IFormatProvider provider) => ((IConvertible)value).ToSByte(provider);
+		sbyte IConvertible.ToSByte(IFormatProvider provider) => ((IConvertible)_value).ToSByte(provider);
 
 		/// <inheritdoc/>
-		float IConvertible.ToSingle(IFormatProvider provider) => ConvertHelper.ToSingle(value);
+		float IConvertible.ToSingle(IFormatProvider provider) => ConvertHelper.ToSingle(_value);
 
 		/// <inheritdoc/>
-		string IConvertible.ToString(IFormatProvider provider) => value.ToString();
+		string IConvertible.ToString(IFormatProvider provider) => _value.ToString();
 
 		/// <inheritdoc/>
 		string IFormattable.ToString(string format, IFormatProvider formatProvider) =>
-			value.ToString(format, formatProvider);
+			_value.ToString(format, formatProvider);
 
 		/// <inheritdoc/>
 		object IConvertible.ToType(Type conversionType, IFormatProvider provider) =>
-		((IConvertible)value).ToType(conversionType, provider);
+		((IConvertible)_value).ToType(conversionType, provider);
 
 		/// <inheritdoc/>
-		ushort IConvertible.ToUInt16(IFormatProvider provider) => ((IConvertible)value).ToUInt16(provider);
+		ushort IConvertible.ToUInt16(IFormatProvider provider) => ((IConvertible)_value).ToUInt16(provider);
 
 		/// <inheritdoc/>
-		uint IConvertible.ToUInt32(IFormatProvider provider) => ((IConvertible)value).ToUInt32(provider);
+		uint IConvertible.ToUInt32(IFormatProvider provider) => ((IConvertible)_value).ToUInt32(provider);
 
 		/// <inheritdoc/>
-		ulong IConvertible.ToUInt64(IFormatProvider provider) => ((IConvertible)value).ToUInt64(provider);
+		ulong IConvertible.ToUInt64(IFormatProvider provider) => ((IConvertible)_value).ToUInt64(provider);
 	}
 }
 #endif

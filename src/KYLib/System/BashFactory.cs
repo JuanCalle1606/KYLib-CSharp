@@ -60,7 +60,7 @@ namespace KYLib.System
 		/// <exception cref="PlatformNotSupportedException">Se produce cuando no se conoce el sistema operativo.</exception>
 		public static Process CreateBashProcess(string bash, string runin, bool output, bool error, bool input)
 		{
-			if (Info.CurrentSystem == OS.Unknow)
+			if (Info.CurrentSystem == Os.Unknow)
 				throw new PlatformNotSupportedException("El sistema operativo actual no es conocido por lo tanto no se pueden ejecutar ordenes por medio de bash, intente ejecutar el archivo directamente.");
 			var path = Info.TerminalPath.Split(' ');
 			var file = path[0];

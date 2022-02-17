@@ -47,12 +47,12 @@ namespace KYLib.ConsoleUtils
 		/// <summary>
 		/// Tipo de color de fondo de consola.
 		/// </summary>
-		private static readonly Type BColor = typeof(BackgroundColor);
+		private static readonly Type _BColor = typeof(BackgroundColor);
 
 		/// <summary>
 		/// Tipo de color de letra de consola.
 		/// </summary>
-		private static readonly Type FColor = typeof(ForegroundColor);
+		private static readonly Type _FColor = typeof(ForegroundColor);
 
 		#endregion
 
@@ -321,13 +321,13 @@ namespace KYLib.ConsoleUtils
 			var colorchanged = false;
 			foreach (var item in obj)
 			{
-				if (item.GetType().IsEquivalentTo(FColor))
+				if (item.GetType().IsEquivalentTo(_FColor))
 				{
 					Console.ForegroundColor = (ConsoleColor)item;
 					colorchanged = true;
 					continue;
 				}
-				else if (item.GetType().IsEquivalentTo(BColor))
+				else if (item.GetType().IsEquivalentTo(_BColor))
 				{
 					Console.BackgroundColor = (ConsoleColor)item;
 					colorchanged = true;

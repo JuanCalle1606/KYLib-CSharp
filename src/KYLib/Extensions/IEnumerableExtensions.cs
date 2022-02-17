@@ -12,7 +12,7 @@ namespace KYLib.Extensions
 	/// <summary>
 	/// Extensiones generales para elementos que implementen IEnumerable.
 	/// </summary>
-	public static class IEnumerableExtensions
+	public static class EnumerableExtensions
 	{
 		#region Retorno nuevo
 		/// <summary>
@@ -61,27 +61,27 @@ namespace KYLib.Extensions
 
 		#region Listas
 		/// <summary>
-		/// Rellena el inicio de una lista con <paramref name="content"/> hasta que tenga longitud <paramref name="EndIn"/>.
+		/// Rellena el inicio de una lista con <paramref name="content"/> hasta que tenga longitud <paramref name="endIn"/>.
 		/// </summary>
 		/// <typeparam name="T">Cualquier tipo.</typeparam>
 		/// <param name="arr">Lista de origen.</param>
-		/// <param name="EndIn">Longitud que debe tener la lista para dejar de insertarle <paramref name="content"/>.</param>
+		/// <param name="endIn">Longitud que debe tener la lista para dejar de insertarle <paramref name="content"/>.</param>
 		/// <param name="content">Contenido con el que queremos llenar la lista.</param>
-		public static void FillStart<T>(this List<T> arr, Int EndIn, T content)
+		public static void FillStart<T>(this List<T> arr, Int endIn, T content)
 		{
-			while (arr.Count < EndIn) arr.Insert(0, content);
+			while (arr.Count < endIn) arr.Insert(0, content);
 		}
 
 		/// <summary>
-		/// Rellena el final de una lista con <paramref name="content"/> hasta que tenga longitud <paramref name="EndIn"/>.
+		/// Rellena el final de una lista con <paramref name="content"/> hasta que tenga longitud <paramref name="endIn"/>.
 		/// </summary>
 		/// <typeparam name="T">Cualquier tipo.</typeparam>
 		/// <param name="arr">Lista de origen.</param>
-		/// <param name="EndIn">Longitud que debe tener la lista para dejar de insertarle <paramref name="content"/>.</param>
+		/// <param name="endIn">Longitud que debe tener la lista para dejar de insertarle <paramref name="content"/>.</param>
 		/// <param name="content">Contenido con el que queremos llenar la lista.</param>
-		public static void FillEnd<T>(this List<T> arr, Int EndIn, T content)
+		public static void FillEnd<T>(this List<T> arr, Int endIn, T content)
 		{
-			while (arr.Count < EndIn) arr.Add(content);
+			while (arr.Count < endIn) arr.Add(content);
 		}
 		#endregion
 

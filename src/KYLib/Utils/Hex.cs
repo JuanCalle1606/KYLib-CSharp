@@ -9,7 +9,7 @@ namespace KYLib.Utils
 	/// </summary>
 	public static class Hex
 	{
-		private static readonly uint[] HexDict = Enumerable.Range(0, 256).Select(i =>
+		private static readonly uint[] _HexDict = Enumerable.Range(0, 256).Select(i =>
 		{
 			var s = i.ToString("X2");
 			return s[0] + ((uint)s[1] << 16);
@@ -25,7 +25,7 @@ namespace KYLib.Utils
 			var dev = new char[arr.Length * 2];
 			for (Int i = 0; i < arr.Length; i++)
 			{
-				var val = HexDict[arr[i]];
+				var val = _HexDict[arr[i]];
 				dev[2 * i] = (char)val;
 				dev[2 * i + 1] = (char)(val >> 16);
 			}
@@ -47,7 +47,7 @@ namespace KYLib.Utils
 			{
 				for (Int i = 0; i < arr.Length; i++)
 				{
-					var val = HexDict[arr[i]];
+					var val = _HexDict[arr[i]];
 					dev[2 * i] = (char)val;
 					dev[2 * i + 1] = (char)(val >> 16);
 				}

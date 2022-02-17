@@ -21,7 +21,7 @@ namespace KYLib.ConsoleUtils
 		/// <summary>
 		/// Indica si el menu esta corriendo
 		/// </summary>
-		private bool running = true;
+		private bool _running = true;
 
 		/// <summary>
 		/// Optiene el titulo del menu.
@@ -178,14 +178,14 @@ namespace KYLib.ConsoleUtils
 		/// <summary>
 		/// Detiene la ejecución del menu en su proxima iteración.
 		/// </summary>
-		public void Stop() => running = false;
+		public void Stop() => _running = false;
 
 		/// <summary>
 		/// Inicia la iteración del menu.
 		/// </summary>
 		public void Start()
 		{
-			running = true;
+			_running = true;
 			Run();
 		}
 
@@ -196,7 +196,7 @@ namespace KYLib.ConsoleUtils
 		{
 			Int option;
 			//bucle principal del menu.
-			while (running)
+			while (_running)
 			{
 				Update();
 
