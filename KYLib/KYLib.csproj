@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <Description>Libreria sencilla de clases y utilidades, esta libreria esta pensada unicamente para uso personal</Description>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup Condition="$(TargetFramework)=='netstandard2.0'">

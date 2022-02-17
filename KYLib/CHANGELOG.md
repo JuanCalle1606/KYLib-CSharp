@@ -12,6 +12,7 @@
 - Agregado el metodo To<T> a IEnumerableExtensions.
 - Creada la clase Ensure.
 - Agregados operadores implicitos a la clase Assets.
+- Agregadas mas sobrecargas a la clase Runner.
 
 ### Eliminado
 - Se ha removido la estructura BitArray.
