@@ -11,7 +11,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<PackageProjectUrl>$(RepositoryUrl)/tree/$(RepositoryBranch)/$(MSBuildProjectName)</PackageProjectUrl>
+		<PackageProjectUrl>$(RepositoryUrl)/tree/$(RepositoryBranch)/src/$(MSBuildProjectName)</PackageProjectUrl>
 	</PropertyGroup>
 	
 </Project>
