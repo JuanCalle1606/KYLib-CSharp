@@ -1,5 +1,5 @@
 <Project>
-	<Import Project="$(MSBuildThisFileDirectory)JuanCalle1606/code/csharp/Directory.Build.props"/>
+	<Import Project="$(MSBuildThisFileDirectory)external/JuanCalle1606/code/csharp/Directory.Build.props"/>
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
 		<TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>

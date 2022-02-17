@@ -1,3 +1,3 @@
-[submodule "JuanCalle1606"]
-	path = JuanCalle1606
+[submodule "external/JuanCalle1606"]
+	path = external/JuanCalle1606
 	url = git@github.com:JuanCalle1606/JuanCalle1606.git
