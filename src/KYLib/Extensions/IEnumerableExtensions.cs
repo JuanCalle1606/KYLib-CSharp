@@ -23,7 +23,7 @@ namespace KYLib.Extensions
 		/// <returns>Devuelve los datos desordenados al azar.</returns>
 		public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source)
 		{
-			T[] elements = source.ToArray();
+			var elements = source.ToArray();
 			for (Int i = elements.Length - 1; i > 0; i--)
 			{
 				Int swapIndex = Rand.GetInt(i + 1);
@@ -153,7 +153,7 @@ namespace KYLib.Extensions
 		{
 			StringBuilder stringBuilder = new();
 			Int i = 0;
-			foreach (T item in arr)
+			foreach (var item in arr)
 			{
 				if (multiline && i > 0)
 					stringBuilder.Append("\n");

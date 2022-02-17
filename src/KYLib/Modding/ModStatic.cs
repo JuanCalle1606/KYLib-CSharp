@@ -79,7 +79,7 @@ partial class Mod
 	{
 		var realpath = GetRealPath(name, info.Name + "/", info.Parent.Name + "/");
 
-		string rname = Assembly.LoadFrom(realpath)?.GetName().Name;
+		var rname = Assembly.LoadFrom(realpath)?.GetName().Name;
 
 		return GetMod(rname);
 	}

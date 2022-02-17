@@ -63,8 +63,8 @@ namespace KYLib.System
 			if (Info.CurrentSystem == OS.Unknow)
 				throw new PlatformNotSupportedException("El sistema operativo actual no es conocido por lo tanto no se pueden ejecutar ordenes por medio de bash, intente ejecutar el archivo directamente.");
 			var path = Info.TerminalPath.Split(' ');
-			string file = path[0];
-			string args = $"{path[1]} \"{bash}\"";
+			var file = path[0];
+			var args = $"{path[1]} \"{bash}\"";
 			return CreateProcess(file, args, runin, output, error, input);
 		}
 

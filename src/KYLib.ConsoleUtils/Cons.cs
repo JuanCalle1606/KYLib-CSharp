@@ -101,7 +101,7 @@ namespace KYLib.ConsoleUtils
 		/// </summary>
 		public static string GetSecretString()
 		{
-			string dev = "";
+			var dev = "";
 			ConsoleKeyInfo key = default;
 			while (true)
 			{
@@ -318,7 +318,7 @@ namespace KYLib.ConsoleUtils
 		/// <param name="obj">Lista de objetos a mostrar.</param>
 		public static void Trace(params object[] obj)
 		{
-			bool colorchanged = false;
+			var colorchanged = false;
 			foreach (var item in obj)
 			{
 				if (item.GetType().IsEquivalentTo(FColor))

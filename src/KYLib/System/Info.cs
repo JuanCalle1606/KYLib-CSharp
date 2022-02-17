@@ -80,7 +80,7 @@ namespace KYLib.System
 			if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
 			{ CurrentSystem = OS.OSX; return; }
 
-			string uname = Bash.GetCommand("uname -a").ToLower();
+			var uname = Bash.GetCommand("uname -a").ToLower();
 			if (uname.Contains("linux")) CurrentSystem = OS.Linux;
 			if (uname.Contains("debian")) CurrentSystem = OS.Debian;
 			if (uname.Contains("parrot")) CurrentSystem = OS.Parrot;

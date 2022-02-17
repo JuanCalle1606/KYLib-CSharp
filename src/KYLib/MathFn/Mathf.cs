@@ -45,7 +45,7 @@ namespace KYLib.MathFn
 		public static T MeanOf<T>(IEnumerable<INumber> nums) where T : struct, INumber
 		{
 			Int count = nums.Count();
-			T sum = SumOf<T>(nums);
+			var sum = SumOf<T>(nums);
 			sum.Div(count);
 			return sum;
 		}
@@ -70,7 +70,7 @@ namespace KYLib.MathFn
 		where TOut : struct, INumber
 		{
 			Int count = nums.Count();
-			TOut sum = SumOf<T, TOut>(nums);
+			var sum = SumOf<T, TOut>(nums);
 			sum.Div(count);
 			return sum;
 		}
@@ -219,7 +219,7 @@ namespace KYLib.MathFn
 		{
 			if (power < 0)
 				throw new ArgumentOutOfRangeException(nameof(power), power, "La potencia no puede ser negativa en esta función");
-			string dev = "1";
+			var dev = "1";
 
 			for (Int i = 0; i < power; i++)
 				dev = Mult2(dev);
@@ -236,11 +236,11 @@ namespace KYLib.MathFn
 		/// <returns>El numero <paramref name="n"/> multiplicado por dos.</returns>
 		public static string Mult2(string n)
 		{
-			List<char> chars = n.ToCharArray().ToList();
+			var chars = n.ToCharArray().ToList();
 			List<char> output = new();
 			Int count = chars.Count - 1;
-			char res = '0';
-			for (Int i = count; i >= 0; i--)
+			var res = '0';
+			for (var i = count; i >= 0; i--)
 				output.Insert(0, Mult2core(chars[i], res, out res));
 			if (res == '1')
 				output.Insert(0, res);
@@ -249,7 +249,7 @@ namespace KYLib.MathFn
 
 		private static char Mult2core(char n, char res, out char outRes)
 		{
-			byte nr = byte.Parse($"{n}");
+			var nr = byte.Parse($"{n}");
 			byte temp;
 			if (nr == 0 || nr == 5)
 				temp = 0;

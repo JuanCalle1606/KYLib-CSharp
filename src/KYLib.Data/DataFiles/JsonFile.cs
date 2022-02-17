@@ -47,16 +47,16 @@ namespace KYLib.Data.DataFiles
 		/// <inheritdoc/>
 		public object Load(string path)
 		{
-			string realpath = ValidatePath(path);
-			string content = File.ReadAllText(realpath);
+			var realpath = ValidatePath(path);
+			var content = File.ReadAllText(realpath);
 			return JsonConvert.DeserializeObject(content, Settings);
 		}
 
 		/// <inheritdoc/>
 		public T Load<T>(string path)
 		{
-			string realpath = ValidatePath(path);
-			string content = File.ReadAllText(realpath);
+			var realpath = ValidatePath(path);
+			var content = File.ReadAllText(realpath);
 			return JsonConvert.DeserializeObject<T>(content, Settings);
 		}
 
@@ -81,8 +81,8 @@ namespace KYLib.Data.DataFiles
 		/// <inheritdoc/>
 		public void Save(object source, string path)
 		{
-			using StreamWriter file = File.CreateText(path);
-			JsonSerializer serializer = JsonSerializer.CreateDefault(Settings);
+			using var file = File.CreateText(path);
+			var serializer = JsonSerializer.CreateDefault(Settings);
 			serializer.Serialize(file, source);
 		}
 

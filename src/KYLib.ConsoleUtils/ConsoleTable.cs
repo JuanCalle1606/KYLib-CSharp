@@ -92,13 +92,13 @@ namespace KYLib.ConsoleUtils
 		private void UpdateString()
 		{
 			String = string.Empty;
-			Int totalWidth = CalculateWidth();
+			var totalWidth = CalculateWidth();
 			Separator = "-".Repeat(totalWidth);
 
 			List<string> lines = new();
 			String += Separator + Environment.NewLine;
 			Int count;
-			bool titles = true;
+			var titles = true;
 			// primero rellenamos las lineas
 			for (Int item = 0; item < Dic.Count; item++)
 			{
@@ -124,7 +124,7 @@ namespace KYLib.ConsoleUtils
 		/// </summary>
 		private string Fill(string row, Int index)
 		{
-			string dev = row;
+			var dev = row;
 			dev += " ".Repeat(Widths[index] - dev.Length);
 			return dev;
 		}

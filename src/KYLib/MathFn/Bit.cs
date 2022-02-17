@@ -38,7 +38,7 @@ namespace KYLib.MathFn
 		{
 			get
 			{
-				bool tmp = Rest;
+				var tmp = Rest;
 				Rest = false;
 				return tmp;
 			}
@@ -73,11 +73,11 @@ namespace KYLib.MathFn
 		/// <returns>La suma de los bits, si la suma tiene resto el bit resultante tendra la propiedad <c>Rest</c> en <c>true</c>.</returns>
 		public static Bit Add(Bit val1, Bit val2, bool res)
 		{
-			bool OutR =
+			var OutR =
 				(val2 && res) ||
 				(val1 && res) ||
 				(val1 && val2);
-			bool Out =
+			var Out =
 				(!val1 && !val2 && res) ||
 				(!val1 && val2 && !res) ||
 				(val1 && !val2 && !res) ||
@@ -102,11 +102,11 @@ namespace KYLib.MathFn
 		/// <returns>El resultado de la resta.</returns>
 		public static Bit Subtract(Bit val1, Bit val2, bool res)
 		{
-			bool OutR =
+			var OutR =
 				(!val1 && res) ||
 				(!val1 && val2) ||
 				(val2 && res);
-			bool Out =
+			var Out =
 				(!val1 && !val2 && res) ||
 				(!val1 && val2 && !res) ||
 				(val1 && !val2 && !res) ||

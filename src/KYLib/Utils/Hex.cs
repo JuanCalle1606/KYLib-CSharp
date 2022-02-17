@@ -11,7 +11,7 @@ namespace KYLib.Utils
 	{
 		private static readonly uint[] HexDict = Enumerable.Range(0, 256).Select(i =>
 		{
-			string s = i.ToString("X2");
+			var s = i.ToString("X2");
 			return s[0] + ((uint)s[1] << 16);
 		}).ToArray();
 
@@ -22,10 +22,10 @@ namespace KYLib.Utils
 		/// <returns>La representacion hexadecimal del arreglo de bytes.</returns>
 		public static string ConvertToHex(byte[] arr)
 		{
-			char[] dev = new char[arr.Length * 2];
+			var dev = new char[arr.Length * 2];
 			for (Int i = 0; i < arr.Length; i++)
 			{
-				uint val = HexDict[arr[i]];
+				var val = HexDict[arr[i]];
 				dev[2 * i] = (char)val;
 				dev[2 * i + 1] = (char)(val >> 16);
 			}
@@ -42,12 +42,12 @@ namespace KYLib.Utils
 		/// <returns>La representacion hexadecimal del arreglo de bytes.</returns>
 		public static async Task<string> ConvertToHexAsync(byte[] arr)
 		{
-			char[] dev = new char[arr.Length * 2];
+			var dev = new char[arr.Length * 2];
 			await Task.Run(() =>
 			{
 				for (Int i = 0; i < arr.Length; i++)
 				{
-					uint val = HexDict[arr[i]];
+					var val = HexDict[arr[i]];
 					dev[2 * i] = (char)val;
 					dev[2 * i + 1] = (char)(val >> 16);
 				}

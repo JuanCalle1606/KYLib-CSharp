@@ -17,7 +17,7 @@ namespace KYLib.Extensions
 		public static T[][] ToArray<T>(this T[,] mat)
 		{
 			(Int row, Int col) = (mat.GetLength(0), mat.GetLength(1));
-			T[][] dev = new T[row][];
+			var dev = new T[row][];
 			for (Int i = 0; i < row; i++)
 			{
 				dev[i] = new T[col];
@@ -30,7 +30,7 @@ namespace KYLib.Extensions
 		/// <inheritdoc/>
 		public static string ToString<T>(this T[,] arr, char separator, bool multiline, bool showindex)
 		{
-			string dev = "";
+			var dev = "";
 			for (Int i = 0; i < arr.GetLength(0); i++)
 			{
 				if (showindex)

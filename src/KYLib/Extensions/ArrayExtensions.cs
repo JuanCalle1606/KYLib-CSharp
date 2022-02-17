@@ -64,7 +64,7 @@ namespace KYLib.Extensions
 			Int rows = arr[0].Length;
 			if (!arr.TrueForAll(t => t.Length == rows))
 				throw new ArgumentException("Todos lo arreglos internos deben tener la misma longitud");
-			T[,] dev = new T[cols, rows];
+			var dev = new T[cols, rows];
 			for (Int i = 0; i < cols; i++)
 				for (Int j = 0; j < rows; j++)
 					dev[i, j] = arr[i][j];
@@ -75,7 +75,7 @@ namespace KYLib.Extensions
 		/// <inheritdoc/>
 		public static string ToString<T>(this T[][] arr, char separator, bool multiline, bool showindex)
 		{
-			string dev = "";
+			var dev = "";
 			for (Int i = 0; i < arr.Length; i++)
 			{
 				if (showindex)
