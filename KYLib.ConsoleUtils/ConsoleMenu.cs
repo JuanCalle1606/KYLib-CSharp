@@ -198,10 +198,7 @@ namespace KYLib.ConsoleUtils
 			//bucle principal del menu.
 			while (running)
 			{
-				Cons.Line = Title;
-				BeforeRender?.Invoke();
-				Cons.Line = String();
-				AfterRender?.Invoke();
+				Update();
 
 				option = Cons.GetInt(0, Items.Count,
 					OptionText ?? DefaultOptionText,
@@ -216,6 +213,16 @@ namespace KYLib.ConsoleUtils
 				if (ClearConsole) Cons.Clear();
 			}
 		}
+
+		public void Update()
+		{
+			if (ClearConsole) Cons.Clear();
+			Cons.Line = Title;
+			BeforeRender?.Invoke();
+			Cons.Line = String();
+			AfterRender?.Invoke();
+		}
+
 		#endregion
 
 		#region Secundario
