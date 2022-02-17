@@ -1,37 +1,17 @@
 <Project>
-	<PropertyGroup Condition="$(SolutionDir) == ''">
-		<SolutionDir>../</SolutionDir>
-	</PropertyGroup>
+	<Import Project="$(MSBuildThisFileDirectory)JuanCalle1606/code/csharp/Directory.Build.props"/>
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<LangVersion>10.0</LangVersion>
 		<TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Title>$(MSBuildProjectName)</Title>
-		<PackageId>$(MSBuildProjectName)</PackageId>
-		<Authors>Juan Pablo Calle</Authors>
-		<Company>Juan Pablo Calle Grafe</Company>
-		<Copyright>Copyrigth © 2021 Juan Pablo Calle</Copyright>
 		<RepositoryUrl>https://github.com/JuanCalle1606/KYLib-CSharp</RepositoryUrl>
-		<RepositoryType>git</RepositoryType>
-		<RepositoryBranch>main</RepositoryBranch>
-		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Version>1.6.0</Version>
-		<NeutralLanguage>es</NeutralLanguage>
 		<RootNamespace>KYLib</RootNamespace>
-    	<NoWin32Manifest>true</NoWin32Manifest>
-    	<Nullable>annotations</Nullable>
-    	<BaseIntermediateOutputPath>$(SolutionDir).build\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
-   		<BaseOutputPath>$(SolutionDir).build\bin\$(MSBuildProjectName)</BaseOutputPath>
     	<DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<PackageProjectUrl>$(RepositoryUrl)/tree/main/$(MSBuildProjectName)</PackageProjectUrl>
+		<PackageProjectUrl>$(RepositoryUrl)/tree/$(RepositoryBranch)/$(MSBuildProjectName)</PackageProjectUrl>
 	</PropertyGroup>
-
-	<PropertyGroup Condition="$(Configuration) == 'Release'">
-		<DebugType>none</DebugType>
-	</PropertyGroup>
+	
 </Project>
