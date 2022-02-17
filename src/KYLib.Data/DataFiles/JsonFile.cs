@@ -63,7 +63,7 @@ namespace KYLib.Data.DataFiles
 		/// <summary>
 		/// Usamos esta función para ver si existe el archivo solicitado.
 		/// </summary>
-		private string ValidatePath(string path)
+		string ValidatePath(string path)
 		{
 			string realpath;
 			//primero vemos si el archivo especificado existe, esto se hace por si el nombre pasado no tiene la extension del archivo

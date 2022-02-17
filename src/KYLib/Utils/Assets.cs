@@ -22,7 +22,7 @@ public partial class Assets {
 	/// <summary>
 	/// Privatizamos el constructor sin parametros, esto no estara permitido.
 	/// </summary>
-	private Assets() {}
+	Assets() {}
 
 	/// <summary>
 	/// Crea una nueva instancia basada en un directorio.

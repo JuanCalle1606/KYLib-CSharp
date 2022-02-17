@@ -19,7 +19,7 @@ public partial class Mod : IEquatable<Mod> {
 	/// </summary>
 	public readonly IModInfo? ModInfo;
 
-	private Mod(Assembly assembly)
+	Mod(Assembly assembly)
 	{
 		Ensure.NotNull(assembly, nameof(assembly));
 		var att = assembly.GetCustomAttribute<ModInfoAttribute>();

@@ -34,17 +34,17 @@ namespace KYLib.MathFn
 		/// <summary>
 		/// Guarda el valor 1 en tipo <see cref="Small"/>.
 		/// </summary>
-		private static readonly Small _One = 1;
+		static readonly Small _One = 1;
 
 		/// <summary>
 		/// Valor interno de este numero.
 		/// </summary>
-		private byte _value;
+		byte _value;
 
 		/// <summary>
 		/// Constructor interno.
 		/// </summary>
-		private Small(byte origin) =>
+		Small(byte origin) =>
 			_value = origin;
 
 		#endregion

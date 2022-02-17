@@ -71,7 +71,7 @@ namespace KYLib.System
 		/// <summary>
 		/// Usamos esta función internamente para detectar el sistema operativo.
 		/// </summary>
-		private static void DetectSystem()
+		static void DetectSystem()
 		{
 			if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 			{ CurrentSystem = Os.Windows; return; }

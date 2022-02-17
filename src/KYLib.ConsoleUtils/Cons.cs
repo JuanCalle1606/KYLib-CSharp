@@ -47,12 +47,12 @@ namespace KYLib.ConsoleUtils
 		/// <summary>
 		/// Tipo de color de fondo de consola.
 		/// </summary>
-		private static readonly Type _BColor = typeof(BackgroundColor);
+		static readonly Type _BColor = typeof(BackgroundColor);
 
 		/// <summary>
 		/// Tipo de color de letra de consola.
 		/// </summary>
-		private static readonly Type _FColor = typeof(ForegroundColor);
+		static readonly Type _FColor = typeof(ForegroundColor);
 
 		#endregion
 

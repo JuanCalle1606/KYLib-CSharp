@@ -9,7 +9,7 @@ namespace KYLib.Utils
 	/// </summary>
 	public static class Hex
 	{
-		private static readonly uint[] _HexDict = Enumerable.Range(0, 256).Select(i =>
+		static readonly uint[] _HexDict = Enumerable.Range(0, 256).Select(i =>
 		{
 			var s = i.ToString("X2");
 			return s[0] + ((uint)s[1] << 16);

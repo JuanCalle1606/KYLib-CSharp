@@ -20,7 +20,7 @@ namespace KYLib.Helpers
 		/// <summary>
 		/// Convierte el valor.
 		/// </summary>
-		private static T ConvertValue<T>(
+		static T ConvertValue<T>(
 			IConvertible n,
 			Converter<object, T> converter,
 			Converter<IConvertible, T> onfail)

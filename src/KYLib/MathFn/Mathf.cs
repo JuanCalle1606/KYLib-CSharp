@@ -247,7 +247,7 @@ namespace KYLib.MathFn
 			return new string(output.ToArray());
 		}
 
-		private static char Mult2Core(char n, char res, out char outRes)
+		static char Mult2Core(char n, char res, out char outRes)
 		{
 			var nr = byte.Parse($"{n}");
 			byte temp;

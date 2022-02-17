@@ -13,32 +13,32 @@ namespace KYLib.ConsoleUtils
 		/// <summary>
 		/// Guarda la representación en cadena de esta tabla.
 		/// </summary>
-		private string _string = null;
+		string _string = null;
 
 		/// <summary>
 		/// Indica sie s necesario actualziar la cadena.
 		/// </summary>
-		private bool _requireUpdate = true;
+		bool _requireUpdate = true;
 
 		/// <summary>
 		/// Guarda las cadenas para separar filas.
 		/// </summary>
-		private string _separator = null;
+		string _separator = null;
 
 		/// <summary>
 		/// Guarda todo el contenido de la tabla.
 		/// </summary>
-		private readonly List<List<string>> _dic = new();
+		readonly List<List<string>> _dic = new();
 
 		/// <summary>
 		/// Guarda los tamaños de cada columna.
 		/// </summary>
-		private readonly List<Int> _widths = new();
+		readonly List<Int> _widths = new();
 
 		/// <summary>
 		/// Agregar columna interna
 		/// </summary>
-		private void AddColumn(string title, bool calc)
+		void AddColumn(string title, bool calc)
 		{
 			Int count = _dic.Count;
 			_dic.Add(new List<string>());
@@ -89,7 +89,7 @@ namespace KYLib.ConsoleUtils
 		/// <summary>
 		/// Actualiza la representación en cadena de la tabla.
 		/// </summary>
-		private void UpdateString()
+		void UpdateString()
 		{
 			_string = string.Empty;
 			var totalWidth = CalculateWidth();
@@ -122,7 +122,7 @@ namespace KYLib.ConsoleUtils
 		/// <summary>
 		/// Rellena los contenidos d elas filas con espacios
 		/// </summary>
-		private string Fill(string row, Int index)
+		string Fill(string row, Int index)
 		{
 			var dev = row;
 			dev += " ".Repeat(_widths[index] - dev.Length);
@@ -132,7 +132,7 @@ namespace KYLib.ConsoleUtils
 		/// <summary>
 		/// Calcula el tamaño maximo de cada columna.
 		/// </summary>
-		private void CalculateColumnsWidth()
+		void CalculateColumnsWidth()
 		{
 			_widths.Clear();
 			foreach (var item in _dic)
@@ -150,7 +150,7 @@ namespace KYLib.ConsoleUtils
 		/// <summary>
 		/// Calcula el tamaño de toda la tabla.
 		/// </summary>
-		private Int CalculateWidth()
+		Int CalculateWidth()
 		{
 			Int dev = 1;
 			foreach (var item in _widths)

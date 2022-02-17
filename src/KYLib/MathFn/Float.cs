@@ -34,12 +34,12 @@ namespace KYLib.MathFn
 		/// <summary>
 		/// Valor interno de este numero.
 		/// </summary>
-		private float _value;
+		float _value;
 
 		/// <summary>
 		/// Constructor interno.
 		/// </summary>
-		private Float(float origin) =>
+		Float(float origin) =>
 			_value = origin;
 
 		#endregion

@@ -87,7 +87,7 @@ partial class Mod
 	/// <summary>
 	/// Busca entre los posibles archivos de ensamblado cual existe.
 	/// </summary>
-	private static string GetRealPath(string path, string cci, string ncci)
+	static string GetRealPath(string path, string cci, string ncci)
 	{
 		var posiblePaths = new List<string>();
 #if NETSTANDARD2_1
@@ -202,7 +202,7 @@ partial class Mod
 	/// <summary>
 	/// Valida que <see cref="_Allmods"/> contenga todos los ensamblados.
 	/// </summary>
-	private static void ValidateMods()
+	static void ValidateMods()
 	{
 		var mods = AppDomain.CurrentDomain.GetAssemblies();
 		if (mods.Length != _Allmods.Count)
@@ -222,7 +222,7 @@ partial class Mod
 		return de;
 	}
 
-	private static bool _autoloads = false;
+	static bool _autoloads = false;
 
 	/// <summary>
 	/// 

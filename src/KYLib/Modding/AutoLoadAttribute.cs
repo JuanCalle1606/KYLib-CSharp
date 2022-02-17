@@ -32,7 +32,7 @@ namespace KYLib.Modding
 				AutoLoad(mod, load);
 		}
 
-		private static void AutoLoad(Assembly mod, AutoLoadAttribute load)
+		static void AutoLoad(Assembly mod, AutoLoadAttribute load)
 		{
 			if (load.Async)
 			{
@@ -42,7 +42,7 @@ namespace KYLib.Modding
 			AutoLoadSync(mod);
 		}
 
-		private static void AutoLoadSync(Assembly mod)
+		static void AutoLoadSync(Assembly mod)
 #if DEBUG
 		{
 			var sw = Stopwatch.StartNew();
@@ -56,7 +56,7 @@ namespace KYLib.Modding
 		=> AutoLoad(mod.GetModules());
 #endif
 
-		private static async Task AutoLoadAsync(Assembly mod) =>
+		static async Task AutoLoadAsync(Assembly mod) =>
 			await Task.Run(() => AutoLoadSync(mod));
 		#endregion
 
@@ -74,7 +74,7 @@ namespace KYLib.Modding
 				AutoLoad(mod, load);
 		}
 
-		private static void AutoLoad(Module mod, AutoLoadAttribute load)
+		static void AutoLoad(Module mod, AutoLoadAttribute load)
 		{
 			if (load.Async)
 			{
@@ -84,7 +84,7 @@ namespace KYLib.Modding
 			AutoLoadSync(mod);
 		}
 
-		private static void AutoLoadSync(Module mod)
+		static void AutoLoadSync(Module mod)
 #if DEBUG
 		{
 			var sw = Stopwatch.StartNew();
@@ -98,7 +98,7 @@ namespace KYLib.Modding
 		=> AutoLoad(mod.GetTypes());
 #endif
 
-		private static async Task AutoLoadAsync(Module mod) =>
+		static async Task AutoLoadAsync(Module mod) =>
 			await Task.Run(() => AutoLoadSync(mod));
 		#endregion
 
@@ -116,7 +116,7 @@ namespace KYLib.Modding
 				AutoLoad(mod, load);
 		}
 
-		private static void AutoLoad(Type mod, AutoLoadAttribute load)
+		static void AutoLoad(Type mod, AutoLoadAttribute load)
 		{
 			if (load.Async)
 			{
@@ -126,7 +126,7 @@ namespace KYLib.Modding
 			AutoLoadSync(mod);
 		}
 
-		private static void AutoLoadSync(Type type)
+		static void AutoLoadSync(Type type)
 		{
 			Mod.TypeAutoLoaded(Mod.GetMod(type.Assembly), type);
 #if DEBUG
@@ -198,7 +198,7 @@ namespace KYLib.Modding
 #endif
 		}
 
-		private static async Task AutoLoadAsync(Type mod) =>
+		static async Task AutoLoadAsync(Type mod) =>
 			await Task.Run(() => AutoLoadSync(mod));
 		#endregion
 	}

@@ -155,7 +155,8 @@ namespace KYLib.MathFn
 		#endregion
 
 		#region From Numbers
-		private static Bit FromDouble(double value)
+
+		static Bit FromDouble(double value)
 		{
 			/*
 			if (value != 0 && value != 1)

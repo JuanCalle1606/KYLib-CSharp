@@ -21,7 +21,7 @@ namespace KYLib.ConsoleUtils
 		/// <summary>
 		/// Indica si el menu esta corriendo
 		/// </summary>
-		private bool _running = true;
+		bool _running = true;
 
 		/// <summary>
 		/// Optiene el titulo del menu.
@@ -192,7 +192,7 @@ namespace KYLib.ConsoleUtils
 		/// <summary>
 		/// Es el bucle principal del menu.
 		/// </summary>
-		private void Run()
+		void Run()
 		{
 			Int option;
 			//bucle principal del menu.

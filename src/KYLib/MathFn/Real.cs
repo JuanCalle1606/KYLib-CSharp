@@ -34,12 +34,12 @@ namespace KYLib.MathFn
 		/// <summary>
 		/// Valor interno de este numero.
 		/// </summary>
-		private double _value;
+		double _value;
 
 		/// <summary>
 		/// Constructor interno.
 		/// </summary>
-		private Real(double origin) =>
+		Real(double origin) =>
 			_value = origin;
 
 		#endregion
