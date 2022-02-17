@@ -13,6 +13,7 @@
 - Creada la clase Ensure.
 - Agregados operadores implicitos a la clase Assets.
 - Agregadas mas sobrecargas a la clase Runner.
+- Agregada la clase ObjectWrapper.
 
 ### Eliminado
 - Se ha removido la estructura BitArray.
@@ -21,4 +22,3 @@
 ### Cambiado
 - Cambiada la forma de obtener información del sistema en Info.
 - Todo lo relacionado con la clase Mod se ha movido a un namespace propio (Modding).
-- 
