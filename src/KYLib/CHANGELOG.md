@@ -22,3 +22,4 @@
 ### Cambiado
 - Cambiada la forma de obtener información del sistema en Info.
 - Todo lo relacionado con la clase Mod se ha movido a un namespace propio (Modding).
+- Rand vuelve a trabajar solo con tipos nativos y no los de KYLib.
