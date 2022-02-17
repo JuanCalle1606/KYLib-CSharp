@@ -15,6 +15,7 @@
 
 ### Eliminado
 - Se ha removido la estructura BitArray.
+- Removidas las clases TypeValidator, TrayIcon y YadTrayIcon.
 
 ### Cambiado
 - Cambiada la forma de obtener información del sistema en Info.
