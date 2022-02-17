@@ -1,229 +1,254 @@
+using KYLib.System;
+using KYLib.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using KYLib.Utils;
 
-namespace KYLib.Modding
+namespace KYLib.Modding;
+
+partial class Mod
 {
-	partial class Mod
+	/// <summary>
+	/// Obtiene el mod relacionado a <see cref="Assembly.GetExecutingAssembly"/>.
+	/// </summary>
+	public static readonly Mod Current = new(Assembly.GetExecutingAssembly());
+
+	/// <summary>
+	/// Obtiene el mod relacionado a <see cref="Assembly.GetEntryAssembly"/>.
+	/// </summary>
+	public static readonly Mod Entry = new(Assembly.GetEntryAssembly());
+
+	
+	static readonly List<Mod> allmods = new();
+
+	/// <summary>
+	/// Lista de todos los mods, en cuestión contiene lo mismo que <see cref="AppDomain.GetAssemblies"/> pero en una lista.
+	/// </summary>
+	public static Mod[] AllMods
 	{
-		/// <summary>
-		/// Obtiene el mod relacionado a <see cref="Assembly.GetExecutingAssembly"/>.
-		/// </summary>
-		public static readonly Mod Current = new(Assembly.GetExecutingAssembly());
-
-		/// <summary>
-		/// Obtiene el mod relacionado a <see cref="Assembly.GetEntryAssembly"/>.
-		/// </summary>
-		public static readonly Mod Entry = new(Assembly.GetEntryAssembly());
-
-		/// <summary>
-		/// Lista de todos los mods, en cuestión contiene lo mismo que <see cref="AppDomain.GetAssemblies"/> pero en una lista.
-		/// </summary>
-		public static readonly List<Mod> AllMods = new();
-
-		/// <summary>
-		/// Obtiene un mod que ha sido cargado.
-		/// </summary>
-		/// <param name="identifier">Nombre simple del ensamblado con el que se quiere relacionar el mod.</param>
-		public static Mod GetMod(string identifier)
+		get
 		{
-			if (string.IsNullOrWhiteSpace(identifier))
-				return null;
-			ValidateMods();
-			return AllMods.Find(A => A.DLL.GetName().Name.Equals(identifier));
+			ValidateMods(); 
+			return allmods.ToArray();
 		}
+	}
 
-		public static Mod GetMod(Assembly dll)
-		{
-			Ensure.NotNull(dll, nameof(dll));
-			ValidateMods();
-			return AllMods.Find(A => A.DLL.Equals(dll));
-		}
+	/// <summary>
+	/// Obtiene un mod que ha sido cargado.
+	/// </summary>
+	/// <param name="identifier">Nombre simple del ensamblado con el que se quiere relacionar el mod.</param>
+	public static Mod GetMod(string identifier)
+	{
+		if (string.IsNullOrWhiteSpace(identifier))
+			return null;
+		ValidateMods();
+		return allmods.Find(A => A.Dll.GetName().Name == identifier);
+	}
+
+	public static Mod GetMod(Assembly assembly)
+	{
+		Ensure.NotNull(assembly, nameof(assembly));
+		ValidateMods();
+		return allmods.Find(M => M.Dll == assembly);
+	}
+
+	public static Mod GetMod(AssemblyName name)
+	{
+		Ensure.NotNull(name, nameof(name));
+		ValidateMods();
+		return allmods.Find(M => M.Dll.GetName() == name);
+	}
 
 #pragma warning disable CS1587
 
-		/// <summary>
-		/// Carga un mod desde un ensamblado de una ubicación arbitraria.
-		/// </summary>
-		/// <param name="path">Ubicación del ensamblado.</param>
-		public static Mod Import(string path)
-		{
-			/// Al intentar cargar un assembly sera buscado en distintos directorios, dependiendo de si el argumento pasado es relativo o absoluto.
-			/// Se intenta cargar desde estas rutas si path es relativo:
-			/// Assets.BaseDir/path.dll
-			/// Assets.BaseDir/path
-			/// Assets.ModsDir/path.dll
-			/// Assets.ModsDir/path
-			/// path.dll
-			/// path
-			/// 
-			/// Si path es absoluto solo se valida en estas ubicaciones:
-			/// path.dll
-			/// path
-			var realpath = File.Exists(path) ? path : GetRealPath(path);
+	/// <summary>
+	/// Carga un mod desde un ensamblado de una ubicación arbitraria.
+	/// </summary>
+	/// <param name="name">Nombre del ensamblado.</param>
+	public static Mod Import(string name)
+	{
+		return Import(name, Resources.CurrentCulture);
+	}
 
-			string name = Assembly.LoadFrom(realpath)?.GetName().Name;
+	public static Mod Import(string name, CultureInfo info)
+	{
+		var realpath = GetRealPath(name, info.Name + "/", info.Parent.Name + "/");
 
-			return GetMod(name);
-		}
+		string rname = Assembly.LoadFrom(realpath)?.GetName().Name;
 
-		/// <summary>
-		/// Busca entre los posibles archivos de ensamblado cual existe.
-		/// </summary>
-		private static string GetRealPath(string path)
-		{
-			var posiblePaths = new List<string>();
+		return GetMod(rname);
+	}
+
+	/// <summary>
+	/// Busca entre los posibles archivos de ensamblado cual existe.
+	/// </summary>
+	private static string GetRealPath(string path, string cci, string ncci)
+	{
+		var posiblePaths = new List<string>();
 #if NETSTANDARD2_1
-			var abs = Path.IsPathFullyQualified(path);
+		var abs = Path.IsPathFullyQualified(path);
 #else
 			var abs = Path.GetFullPath(path) == path;
 #endif
-			if (abs)
-			{
-				posiblePaths.Add($"{path}.dll");
-				posiblePaths.Add(path);
-			}
-			else
-			{
-				posiblePaths.Add($"{Assets.BaseDir[path]}.dll");
-				posiblePaths.Add(Assets.BaseDir[path]);
-				posiblePaths.Add($"{Assets.ModsDir[path]}.dll");
-				posiblePaths.Add(Assets.ModsDir[path]);
-				posiblePaths.Add($"{path}.dll");
-				posiblePaths.Add(path);
-			}
-
-			var existing = posiblePaths.Find(P => File.Exists(P));
-
-			if (string.IsNullOrWhiteSpace(existing))
-				return path;
-			return existing;
+		if (abs)
+		{
+			posiblePaths.Add($"{path}.dll");
+			posiblePaths.Add(path);
 		}
+		else
+		{
+			// direct base dir
+			posiblePaths.Add($"{Assets.BaseDir[path]}.dll");
+			posiblePaths.Add(Assets.BaseDir[path]);
+			posiblePaths.Add($"{Assets.BaseDir[cci + path]}.dll");
+			posiblePaths.Add(Assets.BaseDir[cci + path]);
+			posiblePaths.Add($"{Assets.BaseDir[ncci + path]}.dll");
+			posiblePaths.Add(Assets.BaseDir[ncci + path]);
+			// check in mods dir
+			posiblePaths.Add($"{Assets.ModsDir[path]}.dll");
+			posiblePaths.Add(Assets.ModsDir[path]);
+			posiblePaths.Add($"{Assets.ModsDir[cci + path]}.dll");
+			posiblePaths.Add(Assets.ModsDir[cci + path]);
+			posiblePaths.Add($"{Assets.ModsDir[ncci + path]}.dll");
+			posiblePaths.Add(Assets.ModsDir[ncci + path]);
+			if (Assets.CurrentDir != Assets.BaseDir)
+			{
+				// directorio actual de ultimo
+				posiblePaths.Add($"{path}.dll");
+				posiblePaths.Add(path);
+				posiblePaths.Add($"{cci + path}.dll");
+				posiblePaths.Add(cci + path);
+				posiblePaths.Add($"{ncci + path}.dll");
+				posiblePaths.Add(ncci + path);
+			}
+		}
+
+		var existing = posiblePaths.Find(P => File.Exists(P));
+
+		return string.IsNullOrWhiteSpace(existing) ? path : existing;
+	}
 
 #pragma warning restore CS1587
 
-		/// <summary>
-		/// Intenta cargar un mod con <see cref="Import(string)"/>.
-		/// </summary>
-		/// <param name="path">Ubicación del ensamblado.</param>
-		/// <param name="mod">Mod que ha sido cargado.</param>
-		/// <returns>Devuelve si el mod se ha cargado o no.</returns>
-		public static bool TryImport(string path, out Mod mod)
+	/// <summary>
+	/// Intenta cargar un mod con <see cref="Import(string)"/>.
+	/// </summary>
+	/// <param name="path">Ubicación del ensamblado.</param>
+	/// <param name="mod">Mod que ha sido cargado.</param>
+	/// <returns>Devuelve si el mod se ha cargado o no.</returns>
+	public static bool TryImport(string path, out Mod mod)
+	{
+		try
 		{
-			try
-			{
-				mod = Import(path);
-				return mod != null;
-			}
-			catch (Exception)
-			{
-				mod = null;
-				return false;
-			}
-		}
-
-		/// <summary>
-		/// Carga un mod desde un ensamblado cuyo nombre simple es <paramref name="identifier"/>.
-		/// </summary>
-		/// <remarks>
-		/// Es mejor usa este metodo en lugar de <see cref="Import(string)"/> a no ser que el ensambaldo se encuentre en una ubicación que no es por defecto.
-		/// </remarks>
-		/// <param name="identifier">Nombre simple del ensamblado a cargar.</param>
-		public static Mod Load(string identifier)
-		{
-			Assembly.Load(identifier);
-			return GetMod(identifier);
-		}
-
-		/// <summary>
-		/// Intenta cargar un mod usando <see cref="Load(string)"/>.
-		/// </summary>
-		/// <param name="identifier">Nombre simple del ensamblado a cargar.</param>
-		/// <param name="mod">Mod que ha sido cargado.</param>
-		/// <returns>Devuelve si el mod se ha cargado o no.</returns>
-		public static bool TryLoad(string identifier, out Mod mod)
-		{
-			try
-			{
-				mod = Load(identifier);
-				return mod != null;
-			}
-			catch (Exception)
-			{
-				mod = null;
-				return false;
-			}
-		}
-
-		/// <summary>
-		/// Indica si un mod cargado contiene un ensamblado llamado <paramref name="identifier"/>.
-		/// </summary>
-		/// <param name="identifier">Nombre simple del ensamblado a buscar.</param>
-		/// <returns>Devuelve si el mod se ha cargado o no.</returns>
-		public static bool IsLoaded(string identifier)
-		{
-			ValidateMods();
-			var mod = AllMods.Find(A => A.DLL.GetName().Name.Equals(identifier));
+			mod = Import(path);
 			return mod != null;
 		}
-
-		/// <summary>
-		/// Valida que <see cref="AllMods"/> contenga todos los ensamblados.
-		/// </summary>
-		private static void ValidateMods()
+		catch (Exception)
 		{
-			var mods = AppDomain.CurrentDomain.GetAssemblies();
-			if (mods.Length != AllMods.Count)
-			{
-				AllMods.Clear();
-				AllMods.AddRange(mods.Select(A => new Mod(A)));
-			}
+			mod = null;
+			return false;
 		}
-
-		public static List<Mod> LoadMods()
-		{
-			Directory.CreateDirectory(Assets.ModsDir);
-			var files = Directory.GetFiles(Assets.ModsDir, "*.dll");
-			var de = new List<Mod>();
-			foreach (var file in files)
-				de.Add(Import(file));
-			return de;
-		}
-
-		private static bool autoloads = false;
-
-		/// <summary>
-		/// 
-		/// </summary>
-		public static void EnableAutoLoads()
-		{
-			if (Ensure.SetValue(ref autoloads, true))
-				return;
-#if DEBUG
-			var sw = Stopwatch.StartNew();
-#endif
-			ValidateMods();
-			AutoLoadAttribute.AutoLoad(AllMods.Select(m=>m.DLL).ToArray());
-#if DEBUG
-			sw.Stop();
-			Console.WriteLine($"Auto Loads Enabled in {sw.ElapsedMilliseconds} ms");
-#endif
-		}
-
-		static Mod() =>
-			AppDomain.CurrentDomain.AssemblyLoad += (o, a) =>
-			{
-				if (autoloads && a.LoadedAssembly.GetCustomAttribute<AutoLoadAttribute>() != null)
-					AutoLoadAttribute.AutoLoad(a.LoadedAssembly);
-#if DEBUG
-				Console.WriteLine($"Ensamblado {a.LoadedAssembly.GetName().Name} cargado");
-#endif
-				AllMods.Add(new Mod(a.LoadedAssembly));
-			};
 	}
+
+	/// <summary>
+	/// Carga un mod desde un ensamblado cuyo nombre simple es <paramref name="identifier"/>.
+	/// </summary>
+	/// <remarks>
+	/// Es mejor usa este metodo en lugar de <see cref="Import(string)"/> a no ser que el ensambaldo se encuentre en una ubicación que no es por defecto.
+	/// </remarks>
+	/// <param name="identifier">Nombre simple del ensamblado a cargar.</param>
+	public static Mod Load(string identifier)
+	{
+		return GetMod(Assembly.Load(identifier));
+	}
+
+	/// <summary>
+	/// Intenta cargar un mod usando <see cref="Load(string)"/>.
+	/// </summary>
+	/// <param name="identifier">Nombre simple del ensamblado a cargar.</param>
+	/// <param name="mod">Mod que ha sido cargado.</param>
+	/// <returns>Devuelve si el mod se ha cargado o no.</returns>
+	public static bool TryLoad(string identifier, out Mod mod)
+	{
+		try
+		{
+			mod = Load(identifier);
+			return mod != null;
+		}
+		catch (Exception)
+		{
+			mod = null;
+			return false;
+		}
+	}
+
+	/// <summary>
+	/// Indica si un mod cargado contiene un ensamblado llamado <paramref name="identifier"/>.
+	/// </summary>
+	/// <param name="identifier">Nombre simple del ensamblado a buscar.</param>
+	/// <returns>Devuelve si el mod se ha cargado o no.</returns>
+	public static bool IsLoaded(string identifier)
+	{
+		ValidateMods();
+		var mod = allmods.Find(A => A.Dll.GetName().Name == identifier);
+		return mod != null;
+	}
+
+	/// <summary>
+	/// Valida que <see cref="allmods"/> contenga todos los ensamblados.
+	/// </summary>
+	private static void ValidateMods()
+	{
+		var mods = AppDomain.CurrentDomain.GetAssemblies();
+		if (mods.Length != allmods.Count)
+		{
+			allmods.Clear();
+			allmods.AddRange(mods.Select(A => new Mod(A)));
+		}
+	}
+
+	public static List<Mod> LoadMods()
+	{
+		Directory.CreateDirectory(Assets.ModsDir);
+		var files = Directory.GetFiles(Assets.ModsDir, "*.dll");
+		var de = new List<Mod>();
+		foreach (var file in files)
+			de.Add(Import(file));
+		return de;
+	}
+
+	private static bool autoloads = false;
+
+	/// <summary>
+	/// 
+	/// </summary>
+	public static void EnableAutoLoads()
+	{
+		if (Ensure.SetValue(ref autoloads, true))
+			return;
+#if DEBUG
+		var sw = Stopwatch.StartNew();
+#endif
+		ValidateMods();
+		AutoLoadAttribute.AutoLoad(allmods.Select(m => m.Dll).ToArray());
+#if DEBUG
+		sw.Stop();
+		Console.WriteLine($"Auto Loads Enabled in {sw.ElapsedMilliseconds} ms");
+#endif
+	}
+
+	static Mod() =>
+		AppDomain.CurrentDomain.AssemblyLoad += (o, a) =>
+		{
+			if (autoloads && a.LoadedAssembly.GetCustomAttribute<AutoLoadAttribute>() != null)
+				AutoLoadAttribute.AutoLoad(a.LoadedAssembly);
+#if DEBUG
+			Console.WriteLine($"Ensamblado {a.LoadedAssembly.GetName().Name} cargado");
+#endif
+			allmods.Add(new Mod(a.LoadedAssembly));
+		};
 }

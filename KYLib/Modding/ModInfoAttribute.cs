@@ -3,7 +3,7 @@ using System;
 
 namespace KYLib.Modding;
 
-[AttributeUsage(AttributeTargets.Assembly, AllowMultiple = false, Inherited = false)]
+[AttributeUsage(AttributeTargets.Assembly)]
 public class ModInfoAttribute : Attribute
 {
 	public Type Type { get; private set; }
