@@ -32,7 +32,7 @@ namespace KYLib.System
 		/// <param name="stdin">Este metodo crea una acción que devuelve por medio de este parametro, llame a esta acción cada ves que quiera escribir algo en la entrada estandar del programa, en caso de ignorar esta acción aun puede administrar la entrada estandar por dmdio del objeto de proceso devuelto.</param>
 		/// <returns>Devuelve un objeto de proceso que representa al programa invocado corriendo.</returns>
 		public static Process Start(string file, Action<string> stdout, Action<string> stderr, out Action<string> stdin) =>
-			Start(file, string.Empty, null, stdout, stderr, out stdin);
+			Start(file, string.Empty, null!, stdout, stderr, out stdin);
 
 		/// <summary>
 		/// Inicia un proceso de un programa y lo controla.
@@ -47,7 +47,7 @@ namespace KYLib.System
 		/// <param name="stdin">Este metodo crea una acción que devuelve por medio de este parametro, llame a esta acción cada ves que quiera escribir algo en la entrada estandar del programa, en caso de ignorar esta acción aun puede administrar la entrada estandar por dmdio del objeto de proceso devuelto.</param>
 		/// <returns>Devuelve un objeto de proceso que representa al programa invocado corriendo.</returns>
 		public static Process Start(string file, string args, Action<string> stdout, Action<string> stderr, out Action<string> stdin) =>
-			Start(file, args, null, stdout, stderr, out stdin);
+			Start(file, args, null!, stdout, stderr, out stdin);
 
 
 		/// <summary>
