@@ -66,10 +66,10 @@ namespace KYLib.MathFn
 		public static Small operator +(Small num) => num;
 
 		/// <inheritdoc/>
-		public static Small operator -(Small num) => new((byte)(-num._value));
+		public static Small operator -(Small num) => new((byte)-num._value);
 
 		/// <inheritdoc/>
-		public static Small operator ~(Small num) => new((byte)(~num._value));
+		public static Small operator ~(Small num) => new((byte)~num._value);
 
 		/// <inheritdoc/>
 		public static Small operator ++(Small num) => new(num._value + _One);

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-// ReSharper disable UnusedMember.Global
-// ReSharper disable MemberCanBePrivate.Global
 
 namespace KYLib.Utils;
 
@@ -77,7 +75,7 @@ public static class Rand
 	/// </summary>
 	/// <param name="max">Valor maximo excluyente que puede tener el numero.</param>
 	/// <param name="min">Valor minimo que puede tener el numero.</param>
-	public static float Get(float min, float max) => (Get() * (max - min)) + min;
+	public static float Get(float min, float max) => Get() * (max - min) + min;
 
 	/// <summary>
 	/// Obtiene un conjunto de <paramref name="amount"/> numeros flotantes al azar mayores o iguales que <paramref name="min"/> y menores que <paramref name="max"/>.

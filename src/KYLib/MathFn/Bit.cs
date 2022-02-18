@@ -74,14 +74,14 @@ namespace KYLib.MathFn
 		public static Bit Add(Bit val1, Bit val2, bool res)
 		{
 			var outR =
-				(val2 && res) ||
-				(val1 && res) ||
-				(val1 && val2);
+				val2 && res ||
+				val1 && res ||
+				val1 && val2;
 			var @out =
-				(!val1 && !val2 && res) ||
-				(!val1 && val2 && !res) ||
-				(val1 && !val2 && !res) ||
-				(val1 && val2 && res);
+				!val1 && !val2 && res ||
+				!val1 && val2 && !res ||
+				val1 && !val2 && !res ||
+				val1 && val2 && res;
 			return new Bit(@out, outR);
 		}
 
@@ -103,14 +103,14 @@ namespace KYLib.MathFn
 		public static Bit Subtract(Bit val1, Bit val2, bool res)
 		{
 			var outR =
-				(!val1 && res) ||
-				(!val1 && val2) ||
-				(val2 && res);
+				!val1 && res ||
+				!val1 && val2 ||
+				val2 && res;
 			var @out =
-				(!val1 && !val2 && res) ||
-				(!val1 && val2 && !res) ||
-				(val1 && !val2 && !res) ||
-				(val1 && val2 && res);
+				!val1 && !val2 && res ||
+				!val1 && val2 && !res ||
+				val1 && !val2 && !res ||
+				val1 && val2 && res;
 			return new Bit(@out, outR);
 		}
 
