@@ -142,13 +142,13 @@ public static class Cons
 	/// <param name="text">Texto a mostrar al solicitar el numero.</param>
 	/// <param name="errorText">Texto a mostrar al ingresar un validor invalido.</param>
 	/// <returns>Devuelve el flotante ingresado por el usuario.</returns>
-	public static kfloat GetFloat(string? text, string? errorText)
+	public static kfloat? GetFloat(string? text, string? errorText)
 	{
 		try
 		{
 			if (!string.IsNullOrWhiteSpace(text))
 				Line = text;
-			return Line != null ? kfloat.Parse(Line) : kfloat.NaN;
+			return Line != null ? kfloat.Parse(Line) : null;
 		}
 		catch (Exception)
 		{
@@ -167,7 +167,7 @@ public static class Cons
 	/// <value>
 	/// Su valor es un un numero entero dado por el usuario.
 	/// </value>
-	public static kint Int => GetInt(ParseText, ParseErrorText);
+	public static kint? Int => GetInt(ParseText, ParseErrorText);
 
 	/// <summary>
 	/// Obtiene un numero entero de la entrada del usuario.
@@ -178,13 +178,13 @@ public static class Cons
 	/// <param name="text">Texto que se le mostrara al usuario para que ingrese una opción.</param>
 	/// <param name="errorText">Texto que se le mostrara al usuaro cuando no se pueda parsear el texto.</param>
 	/// <returns>Un valor entero ingresado por el usuario.</returns>
-	public static kint GetInt(string? text, string? errorText)
+	public static kint? GetInt(string? text, string? errorText)
 	{
 		try
 		{
 			if (!string.IsNullOrWhiteSpace(text))
 				Line = text;
-			return kint.Parse(Line);
+			return Line != null ? kint.Parse(Line) : null;
 		}
 		catch (Exception)
 		{
@@ -199,7 +199,7 @@ public static class Cons
 	/// <param name="min">Valor minimo que puede tener el numero.</param>
 	/// <param name="max">Valor maximo excluyente que puede tener el numero.</param>
 	/// <returns>Un valor entero ingresado por el usuario.</returns>
-	public static kint GetInt(kint min, kint max) =>
+	public static kint? GetInt(kint min, kint max) =>
 		GetInt(min, max, ParseText, ParseErrorText);
 
 	/// <summary>
@@ -210,15 +210,15 @@ public static class Cons
 	/// <param name="text">Texto que se le mostrara al usuario para que ingrese una opción.</param>
 	/// <param name="errorText">Texto que se le mostrara al usuaro cuando no se pueda parsear el texto.</param>
 	/// <returns>Un valor entero ingresado por el usuario.</returns>
-	public static kint GetInt(kint min, kint max, string text, string errorText)
+	public static kint? GetInt(kint min, kint max, string text, string errorText)
 	{
-		kint dev = GetInt(text, errorText);
+		kint? dev = GetInt(text, errorText);
+		if (dev is null) return dev;
 		while (dev < min || dev >= max)
 			dev = GetInt(errorText, errorText);
 		return dev;
 	}
-
-
+	
 	/// <summary>
 	/// Solicita por la entrada del usuario un indice para escoger un elemento de <paramref name="arr"/>.
 	/// </summary>
@@ -228,12 +228,15 @@ public static class Cons
 	/// <param name="errorText">Indica el texto que se muestra al ingresar un texto no valido.</param>
 	/// <typeparam name="T">Cualquier tipo.</typeparam>
 	/// <returns>Devuelve el elemento escogido.</returns>
-	public static T Choose<T>(IEnumerable<T> arr, bool print, string text, string errorText)
+	public static T? Choose<T>(IEnumerable<T> arr, bool print, string text, string errorText)
 	{
 		Line = text;
+		var enumerable = arr as T[] ?? arr.ToArray();
 		if (print)
-			Line = arr.ToString(true, true);
-		return arr.ElementAt(GetInt(0, arr.Count(), ParseText, errorText));
+			Line = enumerable.ToString(true, true);
+		var index = GetInt(0, enumerable.Count(), ParseText, errorText);
+		
+		return index.HasValue ? enumerable.ElementAt(index.Value) : default;
 	}
 
 	/// <summary>
