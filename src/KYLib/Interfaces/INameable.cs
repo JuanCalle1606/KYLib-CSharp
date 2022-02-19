@@ -1,14 +1,13 @@
 ﻿
-namespace KYLib.Interfaces
+namespace KYLib.Interfaces;
+
+/// <summary>
+/// Representa un objeto que tiene un nombre.
+/// </summary>
+public interface INameable
 {
 	/// <summary>
-	/// Representa un objeto que tiene un nombre.
+	/// Nombre de la instancia.
 	/// </summary>
-	public interface INameable
-	{
-		/// <summary>
-		/// Nombre de la instancia.
-		/// </summary>
-		string Name { get; }
-	}
+	string Name { get; }
 }
