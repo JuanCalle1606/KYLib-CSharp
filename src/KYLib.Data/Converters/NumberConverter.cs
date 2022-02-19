@@ -25,7 +25,7 @@ public class NumberConverter : JsonConverter<INumber>
 	}
 
 	/// <summary>
-	/// Por defecto esta clase no serializa los <see cref="INumber"/> ya que la serialización por defecto de <see cref="JsonConvert"/> ya serializa como los tipos bases. Sin embargo en caso de crearse un tipo numerico que no es serializado por defecto entonces se debe heredar esta clase he implementar este metodo, si el tipo tipo numerico puede ser convertido  una cadena simple se puede usar <code>base.WriteJson([parametros])</code> en el tipo heredado.
+	/// Por defecto esta clase no serializa los <see cref="INumber"/> ya que la serialización por defecto de <see cref="JsonConvert"/> ya serializa como los tipos bases. Sin embargo en caso de crearse un tipo numerico que no es serializado por defecto entonces se debe heredar esta clase he implementar este metodo, si el tipo numerico puede ser convertido a una cadena simple se puede usar <code>base.WriteJson([parametros])</code> en el tipo heredado.
 	/// </summary>
 	public override void WriteJson(JsonWriter writer, INumber value, JsonSerializer serializer) =>
 		writer.WriteValue(value.ToString());

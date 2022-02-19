@@ -22,7 +22,7 @@ partial class Bash
 	/// <param name="runin">Directorio en el cual se ejecutara el proceso.</param>
 	/// <returns>Devuelve el proceso generado.</returns>
 	/// <exception cref="PlatformNotSupportedException">Se produce cuando no se conoce el sistema operativo.</exception>
-	public static Process CreateBashProcess(string bash, string runin) =>
+	public static Process CreateBashProcess(string bash, string? runin) =>
 		CreateBashProcess(bash, runin, false);
 
 	/// <summary>
@@ -33,7 +33,7 @@ partial class Bash
 	/// <param name="redirect">Indica si deben redirigir las entradas y salida estandar del proceso.</param>
 	/// <returns>Devuelve el proceso generado.</returns>
 	/// <exception cref="PlatformNotSupportedException">Se produce cuando no se conoce el sistema operativo.</exception>
-	public static Process CreateBashProcess(string bash, string runin, bool redirect) =>
+	public static Process CreateBashProcess(string bash, string? runin, bool redirect) =>
 		CreateBashProcess(bash, runin, redirect, redirect);
 
 	/// <summary>
@@ -45,7 +45,7 @@ partial class Bash
 	/// <param name="errorandinput">Indica si debe redirigir la salida de error y la entrada estandar del proceso.</param>
 	/// <returns>Devuelve el proceso generado.</returns>
 	/// <exception cref="PlatformNotSupportedException">Se produce cuando no se conoce el sistema operativo.</exception>
-	public static Process CreateBashProcess(string bash, string runin, bool output, bool errorandinput) =>
+	public static Process CreateBashProcess(string bash, string? runin, bool output, bool errorandinput) =>
 		CreateBashProcess(bash, runin, output, errorandinput, errorandinput);
 
 	/// <summary>
@@ -58,7 +58,7 @@ partial class Bash
 	/// <param name="input">Indica si debe redirigir la entrada estandar del proceso.</param>
 	/// <returns>Devuelve el proceso generado.</returns>
 	/// <exception cref="PlatformNotSupportedException">Se produce cuando no se conoce el sistema operativo.</exception>
-	public static Process CreateBashProcess(string bash, string runin, bool output, bool error, bool input)
+	public static Process CreateBashProcess(string bash, string? runin, bool output, bool error, bool input)
 	{
 		if (Info.CurrentSystem == Os.Unknow)
 			throw new PlatformNotSupportedException("El sistema operativo actual no es conocido por lo tanto no se pueden ejecutar ordenes por medio de bash, intente ejecutar el archivo directamente.");
@@ -92,7 +92,7 @@ partial class Bash
 	/// <param name="args">Argumentos que se le pasaran al programa.</param>
 	/// <param name="runin">Directorio en el cual se ejecutara el proceso.</param>
 	/// <returns>Devuelve el proceso generado.</returns>
-	public static Process CreateProcess(string file, string args, string runin) =>
+	public static Process CreateProcess(string file, string args, string? runin) =>
 		CreateProcess(file, args, runin, false);
 
 	/// <summary>
@@ -103,7 +103,7 @@ partial class Bash
 	/// <param name="runin">Directorio en el cual se ejecutara el proceso.</param>
 	/// <param name="redirect">Indica si deben redirigir las entradas y salida estandar del proceso.</param>
 	/// <returns>Devuelve el proceso generado.</returns>
-	public static Process CreateProcess(string file, string args, string runin, bool redirect) =>
+	public static Process CreateProcess(string file, string args, string? runin, bool redirect) =>
 		CreateProcess(file, args, runin, redirect, redirect);
 
 	/// <summary>
@@ -115,7 +115,7 @@ partial class Bash
 	/// <param name="output">Indica si debe redirigir la salida estandar del proceso.</param>
 	/// <param name="errorandinput">Indica si debe redirigir la salida de error y la entrada estandar del proceso.</param>
 	/// <returns>Devuelve el proceso generado.</returns>
-	public static Process CreateProcess(string file, string args, string runin, bool output, bool errorandinput) =>
+	public static Process CreateProcess(string file, string args, string? runin, bool output, bool errorandinput) =>
 		CreateProcess(file, args, runin, output, errorandinput, errorandinput);
 
 	/// <summary>
@@ -128,7 +128,7 @@ partial class Bash
 	/// <param name="error">Indica si debe redirigir la salida de error estandar del proceso.</param>
 	/// <param name="input">Indica si debe redirigir la entrada estandar del proceso.</param>
 	/// <returns>Devuelve el proceso generado.</returns>
-	public static Process CreateProcess(string file, string args, string runin, bool output, bool error, bool input) =>
+	public static Process CreateProcess(string file, string args, string? runin, bool output, bool error, bool input) =>
 		CreateProcess(new ProcessStartInfo
 		{
 			FileName = file,

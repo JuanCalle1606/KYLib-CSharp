@@ -2,6 +2,7 @@
 using KYLib.Helpers;
 using KYLib.Interfaces;
 using System;
+using System.Globalization;
 
 namespace KYLib.MathFn
 {
@@ -41,7 +42,7 @@ namespace KYLib.MathFn
 		float IConvertible.ToSingle(IFormatProvider provider) => ConvertHelper.ToSingle(_value);
 
 		/// <inheritdoc/>
-		string IConvertible.ToString(IFormatProvider provider) => _value.ToString();
+		string IConvertible.ToString(IFormatProvider provider) => _value.ToString(CultureInfo.CurrentCulture);
 
 		/// <inheritdoc/>
 		string IFormattable.ToString(string format, IFormatProvider formatProvider) =>

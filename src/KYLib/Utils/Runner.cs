@@ -35,7 +35,7 @@ public static class Runner {
 	/// <param name="task">Tarea a ejecutar repetidamente.</param>
 	/// <param name="delay">Tiempo de cada cuanto se ejecutara la función.</param>
 	/// <param name="repeats">Numero de veces que ejecutaremos <paramref name="task"/>.</param>
-	public static async Task Every(Action task, TimeSpan delay, int repeats) =>
+	public static async Task Every(Action task, TimeSpan delay, kint repeats) =>
 		await Every(Wrap(task), delay, repeats);
 
 	/// <summary>
@@ -44,9 +44,9 @@ public static class Runner {
 	/// <param name="task">Tarea a ejecutar repetidamente.</param>
 	/// <param name="delay">Tiempo de cada cuanto se ejecutara la función.</param>
 	/// <param name="repeats">Numero de veces que ejecutaremos <paramref name="task"/>.</param>
-	public static async Task Every(Func<Task> task, TimeSpan delay, int repeats)
+	public static async Task Every(Func<Task> task, TimeSpan delay, kint repeats)
 	{
-		var exes = 0;
+		kint exes = 0;
 		while (exes++ < repeats)
 		{
 			await task();
@@ -141,7 +141,7 @@ public static class Runner {
 	/// Define el tiempo en ms por defecto de espera entre interacciones del metodo <see cref="WaitWhile(Predicate)"/>.
 	/// </summary>
 	// ReSharper disable once AutoPropertyCanBeMadeGetOnly.Global
-	public static int DefaulWaitWhileInterval { get; set; } = 25;
+	public static kint DefaulWaitWhileInterval { get; set; } = 25;
 
 	/// <summary>
 	/// Detiene el ciclo actual y hasta que <paramref name="predicate"/> no evalue <c>false</c> no devuelve el control.

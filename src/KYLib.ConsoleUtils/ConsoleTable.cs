@@ -40,7 +40,7 @@ public sealed class ConsoleTable
 	/// </summary>
 	void AddColumn(string title, bool calc)
 	{
-		Int count = _dic.Count;
+		kint count = _dic.Count;
 		_dic.Add(new List<string>());
 		_dic[count].Add(title);
 		if (calc)
@@ -71,7 +71,7 @@ public sealed class ConsoleTable
 	/// <param name="content">Lista de objetos que seran ingresados en cada columna, si se pasan mas objetos que la cantidad de columnas entonces seran ignorados los pasados y si se pasan menos entonces los que falten seran añadidos como cadenas vacias.</param>
 	public void AddRow(params object[] content)
 	{
-		for (Int i = 0; i < _dic.Count; i++)
+		for (kint i = 0; i < _dic.Count; i++)
 		{
 			try
 			{
@@ -97,10 +97,10 @@ public sealed class ConsoleTable
 
 		List<string> lines = new();
 		_string += _separator + Environment.NewLine;
-		Int count;
+		kint count;
 		var titles = true;
 		// primero rellenamos las lineas
-		for (Int item = 0; item < _dic.Count; item++)
+		for (kint item = 0; item < _dic.Count; item++)
 		{
 			count = 0;
 			foreach (var row in _dic[item])
@@ -137,7 +137,7 @@ public sealed class ConsoleTable
 		_widths.Clear();
 		foreach (var item in _dic)
 		{
-			Int maxwidth = 0;
+			kint maxwidth = 0;
 			item.ForEach(i =>
 			{
 				if (i.Length > maxwidth)
@@ -150,9 +150,9 @@ public sealed class ConsoleTable
 	/// <summary>
 	/// Calcula el tamaño de toda la tabla.
 	/// </summary>
-	Int CalculateWidth()
+	kint CalculateWidth()
 	{
-		Int dev = 1;
+		kint dev = 1;
 		foreach (var item in _widths)
 			dev += item + 3;
 		return dev;

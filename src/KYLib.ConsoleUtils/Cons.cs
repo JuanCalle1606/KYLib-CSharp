@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using KYLib.Extensions;
-using kint = KYLib.MathFn.Int;
 
 namespace KYLib.ConsoleUtils;
 
@@ -32,7 +31,7 @@ public static class Cons
 	/// <summary>
 	/// Al solicitar un <see cref="bool"/> por consola cualquiera de estos valores puede ser ingresado para tomarlo como <c>true</c>.
 	/// </summary>
-	public static readonly List<string> AllowStrings = new(new string[] {
+	public static readonly List<string> AllowStrings = new(new[] {
 		"y",
 		"s",
 		"yes",
@@ -69,7 +68,7 @@ public static class Cons
 	/// <value>
 	/// Su valor es cualquiera ingresado por el usuario.
 	/// </value>
-	public static string Line
+	public static string? Line
 	{ get => Console.ReadLine(); set => Trace(value); }
 
 	/// <summary>
@@ -78,7 +77,7 @@ public static class Cons
 	/// <value>
 	/// Su valor es cualquiera ingresado por el usuario.
 	/// </value>
-	public static string Inline { get => Console.ReadLine(); set => Console.Write(value); }
+	public static string? Inline { get => Console.ReadLine(); set => Console.Write(value); }
 
 	/// <summary>
 	/// Obtiene una linea escrita por consola o escribe una en la salida estandar si se establece.
@@ -86,7 +85,7 @@ public static class Cons
 	/// <value>
 	/// Su valor es cualquiera ingresado por el usuario.
 	/// </value>
-	public static string Error { get => Console.ReadLine(); set => TraceError(value); }
+	public static string? Error { get => Console.ReadLine(); set => TraceError(value); }
 
 	/// <summary>
 	/// Esta propiedad se usa para obtener una key ingresada por el usuario, usea el desecho "_" o  establezcala en null para detener la consola hasta que el usuario pulse una tecla.
@@ -94,7 +93,7 @@ public static class Cons
 	/// <value>
 	/// Su valor es cualquier tecla que el usuario pulse en consola.
 	/// </value>
-	public static ConsoleKeyInfo? Key { get => Console.ReadKey(); set => Console.ReadKey(); }
+	public static ConsoleKeyInfo Key => Console.ReadKey();
 
 	/// <summary>
 	/// Obtiene una cadena de la entrada del usuario sin mostrarle al usuario lo que ingresa.
@@ -102,19 +101,17 @@ public static class Cons
 	public static string GetSecretString()
 	{
 		var dev = "";
-		ConsoleKeyInfo key = default;
 		while (true)
 		{
-			key = Console.ReadKey(true);
+			var key = Console.ReadKey(true);
 			if (key.Key == ConsoleKey.Enter)
 				break;
 			if (key.Key == ConsoleKey.Backspace)
 			{
-				if (dev.Length > 0)
-				{
-					dev = dev[0..^1];
-					Inline = "\b \b";
-				}
+				if (dev.Length <= 0)
+					continue;
+				dev = dev[0..^1];
+				Inline = "\b \b";
 			}
 			else
 			{
@@ -132,10 +129,11 @@ public static class Cons
 	/// </summary>
 	/// <param name="text">Mensaje a mostrar al usario al solicitar una entrada.</param>
 	/// <returns>Devuelve <c>true</c> si la cadena ingresada por el usuario se encuentra en el arreglo <see cref="AllowStrings"/> o <c>false</c> si no se encuentra.</returns>
-	public static bool GetBool(string text)
+	public static bool GetBool(string? text)
 	{
-		Inline = text;
-		return AllowStrings.Contains(Line.ToLower());
+		if (!string.IsNullOrWhiteSpace(text))
+			Inline = text;
+		return AllowStrings.Contains(Line?.ToLower()!);
 	}
 
 	/// <summary>
@@ -144,17 +142,18 @@ public static class Cons
 	/// <param name="text">Texto a mostrar al solicitar el numero.</param>
 	/// <param name="errorText">Texto a mostrar al ingresar un validor invalido.</param>
 	/// <returns>Devuelve el flotante ingresado por el usuario.</returns>
-	public static float GetFloat(string text, string errorText)
+	public static kfloat GetFloat(string? text, string? errorText)
 	{
 		try
 		{
 			if (!string.IsNullOrWhiteSpace(text))
 				Line = text;
-			return float.Parse(Line);
+			return Line != null ? kfloat.Parse(Line) : kfloat.NaN;
 		}
 		catch (Exception)
 		{
-			Line = errorText;
+			if(!string.IsNullOrWhiteSpace(errorText))
+				Line = errorText;
 			return GetFloat(null, errorText);
 		}
 	}
@@ -179,7 +178,7 @@ public static class Cons
 	/// <param name="text">Texto que se le mostrara al usuario para que ingrese una opción.</param>
 	/// <param name="errorText">Texto que se le mostrara al usuaro cuando no se pueda parsear el texto.</param>
 	/// <returns>Un valor entero ingresado por el usuario.</returns>
-	public static kint GetInt(string text, string errorText)
+	public static kint GetInt(string? text, string? errorText)
 	{
 		try
 		{
@@ -213,7 +212,7 @@ public static class Cons
 	/// <returns>Un valor entero ingresado por el usuario.</returns>
 	public static kint GetInt(kint min, kint max, string text, string errorText)
 	{
-		int dev = GetInt(text, errorText);
+		kint dev = GetInt(text, errorText);
 		while (dev < min || dev >= max)
 			dev = GetInt(errorText, errorText);
 		return dev;
@@ -231,9 +230,9 @@ public static class Cons
 	/// <returns>Devuelve el elemento escogido.</returns>
 	public static T Choose<T>(IEnumerable<T> arr, bool print, string text, string errorText)
 	{
-		Cons.Line = text;
+		Line = text;
 		if (print)
-			Cons.Line = arr.ToString(true, true);
+			Line = arr.ToString(true, true);
 		return arr.ElementAt(GetInt(0, arr.Count(), ParseText, errorText));
 	}
 
@@ -272,14 +271,14 @@ public static class Cons
 	/// Para poder mostrar los objetos en consola se llama a <c><paramref name="obj"/>.ToString()</c>.
 	/// </remarks>
 	/// <param name="obj">Cualquier objeto a mostrar.</param>
-	public static void Trace(object obj) => Console.WriteLine(obj);
+	public static void Trace(object? obj) => Console.WriteLine(obj);
 
 	/// <summary>
 	/// Muestra un objeto por consola y añade un salto de linea.
 	/// </summary>
 	/// <param name="fontColor">Color de la letra a mostrar.</param>
 	/// <param name="obj">Cualquier objeto a mostrar.</param>
-	public static void Trace(object obj, ForegroundColor fontColor)
+	public static void Trace(object? obj, ForegroundColor fontColor)
 	{
 		Console.ForegroundColor = fontColor.ToConsoleColor();
 		Trace(obj);
@@ -291,7 +290,7 @@ public static class Cons
 	/// </summary>
 	/// <param name="backColor">Color del fondo a mostrar.</param>
 	/// <param name="obj">Cualquier objeto a mostrar.</param>
-	public static void Trace(object obj, BackgroundColor backColor)
+	public static void Trace(object? obj, BackgroundColor backColor)
 	{
 		Console.BackgroundColor = backColor.ToConsoleColor();
 		Trace(obj);
@@ -304,7 +303,7 @@ public static class Cons
 	/// <param name="fontColor">Color de la letra a mostrar.</param>
 	/// <param name="obj">Cualquier objeto a mostrar.</param>
 	/// <param name="backColor">Color del fondo a mostrar.</param>
-	public static void Trace(object obj, ForegroundColor fontColor, BackgroundColor backColor)
+	public static void Trace(object? obj, ForegroundColor fontColor, BackgroundColor backColor)
 	{
 		Console.ForegroundColor = fontColor.ToConsoleColor();
 		Console.BackgroundColor = backColor.ToConsoleColor();
@@ -356,7 +355,7 @@ public static class Cons
 	/// Para poder mostrar los objetos en consola se llama a <c><paramref name="obj"/>.ToString()</c>.
 	/// </remarks>
 	/// <param name="obj">Cualquier objeto.</param>
-	public static void TraceError(object obj)
+	public static void TraceError(object? obj)
 	{
 		Console.ForegroundColor = ConsoleColor.Red;
 		Console.Error.WriteLine(obj);

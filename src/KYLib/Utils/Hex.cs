@@ -19,10 +19,10 @@ public static class Hex
 	/// </summary>
 	/// <param name="arr">El arreglo que queremos converteir a hexadecimal.</param>
 	/// <returns>La representacion hexadecimal del arreglo de bytes.</returns>
-	public static string ConvertToHex(byte[] arr)
+	public static string ConvertToHex(kbyte[] arr)
 	{
 		var dev = new char[arr.Length * 2];
-		for (var i = 0; i < arr.Length; i++)
+		for (kint i = 0; i < arr.Length; i++)
 		{
 			var val = _HexDict[arr[i]];
 			dev[2 * i] = (char)val;
@@ -37,14 +37,14 @@ public static class Hex
 	/// <remarks>
 	/// Use esta función cuando este trabajando dentro de un metodo asincronico y <paramref name="arr"/> sea muy grande.
 	/// </remarks>
-	/// <param name="arr">El arreglo que queremos converteir a hexadecimal.</param>
+	/// <param name="arr">El arreglo que queremos convertir a hexadecimal.</param>
 	/// <returns>La representacion hexadecimal del arreglo de bytes.</returns>
-	public static async Task<string> ConvertToHexAsync(byte[] arr)
+	public static async Task<string> ConvertToHexAsync(kbyte[] arr)
 	{
 		var dev = new char[arr.Length * 2];
 		await Task.Run(() =>
 		{
-			for (var i = 0; i < arr.Length; i++)
+			for (kint i = 0; i < arr.Length; i++)
 			{
 				var val = _HexDict[arr[i]];
 				dev[2 * i] = (char)val;

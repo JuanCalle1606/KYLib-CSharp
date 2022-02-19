@@ -10,7 +10,7 @@ public static class ObjectExtensions
 	/// <summary>
 	/// Crea un contenedor que encapcula al objeto dado.
 	/// </summary>
-	public static ObjectWrapper Wrap(this object? obj) => new(obj);
+	public static ObjectWrapper Wrap(this object obj) => new(obj);
 
 }
 

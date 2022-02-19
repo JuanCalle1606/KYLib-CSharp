@@ -16,12 +16,12 @@ public static class MatrizExtensions
 	/// <returns></returns>
 	public static T[][] ToArray<T>(this T[,] mat)
 	{
-		(Int row, Int col) = (mat.GetLength(0), mat.GetLength(1));
+		(kint row, kint col) = (mat.GetLength(0), mat.GetLength(1));
 		var dev = new T[row][];
-		for (Int i = 0; i < row; i++)
+		for (kint i = 0; i < row; i++)
 		{
 			dev[i] = new T[col];
-			for (Int j = 0; j < col; j++)
+			for (kint j = 0; j < col; j++)
 				dev[i][j] = mat[i, j];
 		}
 		return dev;
@@ -31,11 +31,11 @@ public static class MatrizExtensions
 	public static string ToString<T>(this T[,] arr, char separator, bool multiline, bool showindex)
 	{
 		var dev = "";
-		for (Int i = 0; i < arr.GetLength(0); i++)
+		for (kint i = 0; i < arr.GetLength(0); i++)
 		{
 			if (showindex)
 				dev += $"{i}: ";
-			for (Int j = 0; j < arr.GetLength(1); j++)
+			for (kint j = 0; j < arr.GetLength(1); j++)
 				dev += arr[i, j] + ",";
 			if (multiline)
 			{

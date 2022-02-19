@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+// ReSharper disable SuggestVarOrType_BuiltInTypes
 
 namespace KYLib.Utils;
 
@@ -17,20 +18,20 @@ public static class Rand
 	/// <summary>
 	/// Obtiene un entero al azar.
 	/// </summary>
-	public static int GetInt() => _Random.Next();
+	public static kint GetInt() => _Random.Next();
 
 	/// <summary>
 	/// Obtiene un entero al azar mayor o igual que <paramref name="min"/> y menor que <paramref name="max"/>.
 	/// </summary>
 	/// <param name="min">Valor minimo que puede tener el numero.</param>
 	/// <param name="max">Valor maximo excluyente que puede tener el numero.</param>
-	public static int GetInt(int min, int max) => _Random.Next(min, max);
+	public static kint GetInt(kint min, kint max) => _Random.Next(min, max);
 
 	/// <summary>
 	/// Obtiene un entero mayor o igual a 0 y menor que <paramref name="max"/>. 
 	/// </summary>
 	/// <param name="max">Valor maximo excluyente que puede tener el numero.</param>
-	public static int GetInt(int max) => _Random.Next(max);
+	public static kint GetInt(kint max) => _Random.Next(max);
 
 	/// <summary>
 	/// Obtiene un conjunto de <paramref name="amount"/> enteros al azar mayores o iguales que <paramref name="min"/> y menores que <paramref name="max"/>.
@@ -38,12 +39,12 @@ public static class Rand
 	/// <param name="min">Valor minimo que puede tener el numero.</param>
 	/// <param name="max">Valor maximo excluyente que puede tener el numero.</param>
 	/// <param name="amount">Cantidad de numeros a generar.</param>
-	public static int[] GetInt(int min, int max, int amount)
+	public static kint[] GetInt(kint min, kint max, kint amount)
 	{
 		if (!(amount > 0))
 			throw new ArgumentException("No se puede generar un numero negativo de numeros.", nameof(amount));
-		var dev = new int[amount];
-		for (var i = 0; i < amount; i++)
+		var dev = new kint[amount];
+		for (kint i = 0; i < amount; i++)
 			dev[i] = GetInt(min, max);
 		return dev;
 	}
@@ -56,26 +57,26 @@ public static class Rand
 	/// <param name="minAmount">Cantidad minima de numeros que pueden ser generados.</param>
 	/// <param name="maxAmout">Cantidad maxima excluyente de numeros que pueden ser generados.</param>
 	/// <returns>Un arreglo cuya longitud es mayor o igual que <paramref name="minAmount"/> y menor que <paramref name="maxAmout"/> de numeros enteros al azar.</returns>
-	public static int[] GetInt(int min, int max, int minAmount, int maxAmout) =>
+	public static kint[] GetInt(kint min, kint max, kint minAmount, kint maxAmout) =>
 		GetInt(min, max, GetInt(minAmount, maxAmout));
 
 	/// <summary>
 	/// Obtiene un numero flotante al azar mayor o igual a 0 y menor a 1.
 	/// </summary>
-	public static float Get() => Convert.ToSingle(_Random.NextDouble());
+	public static kfloat Get() => Convert.ToSingle(_Random.NextDouble());
 
 	/// <summary>
 	/// Obtiene un numero flotante al azar mayor o igual que 0 y menor que <paramref name="max"/>.
 	/// </summary>
 	/// <param name="max">Valor maximo excluyente que puede tener el numero.</param>
-	public static float Get(float max) => Get() * max;
+	public static kfloat Get(kfloat max) => Get() * max;
 
 	/// <summary>
 	/// Obtiene un numero flotante al azar mayor o igual que <paramref name="min"/> y menor que <paramref name="max"/>.
 	/// </summary>
 	/// <param name="max">Valor maximo excluyente que puede tener el numero.</param>
 	/// <param name="min">Valor minimo que puede tener el numero.</param>
-	public static float Get(float min, float max) => Get() * (max - min) + min;
+	public static kfloat Get(kfloat min, kfloat max) => Get() * (max - min) + min;
 
 	/// <summary>
 	/// Obtiene un conjunto de <paramref name="amount"/> numeros flotantes al azar mayores o iguales que <paramref name="min"/> y menores que <paramref name="max"/>.
@@ -83,12 +84,12 @@ public static class Rand
 	/// <param name="min">Valor minimo que puede tener el numero.</param>
 	/// <param name="max">Valor maximo excluyente que puede tener el numero.</param>
 	/// <param name="amount">Cantidad de numeros a generar.</param>
-	public static float[] Get(float min, float max, int amount)
+	public static kfloat[] Get(kfloat min, kfloat max, kint amount)
 	{
 		if (!(amount > 0))
 			throw new ArgumentException();
-		var dev = new float[amount];
-		for (var i = 0; i < amount; i++)
+		var dev = new kfloat[amount];
+		for (kint i = 0; i < amount; i++)
 			dev[i] = Get(min, max);
 		return dev;
 	}
@@ -101,32 +102,32 @@ public static class Rand
 	/// <param name="minAmount">Cantidad minima de numeros que pueden ser generados.</param>
 	/// <param name="maxAmout">Cantidad maxima excluyente de numeros que pueden ser generados.</param>
 	/// <returns>Un arreglo cuya longitud es mayor o igual que <paramref name="minAmount"/> y menor que <paramref name="maxAmout"/> de numeros enteros al azar.</returns>
-	public static float[] Get(float min, float max, int minAmount, int maxAmout) =>
+	public static kfloat[] Get(kfloat min, kfloat max, kint minAmount, kint maxAmout) =>
 		Get(min, max, GetInt(minAmount, maxAmout));
 	/*
-	public static float GetFixed(Int decimals) => Fix(Get(), decimals);
+	public static kfloat GetFixed(Int decimals) => Fix(Get(), decimals);
 
-	public static float GetFixed(Int decimals, float max) => Fix(Get() * max, decimals);
+	public static kfloat GetFixed(Int decimals, kfloat max) => Fix(Get() * max, decimals);
 
-	public static float GetFixed(Int decimals, float min, float max) => Fix((Get() * (max - min)) + min, decimals);
+	public static kfloat GetFixed(Int decimals, kfloat min, kfloat max) => Fix((Get() * (max - min)) + min, decimals);
 
-	public static float[] GetFixed(Int decimals, float min, float max, Int amount)
+	public static kfloat[] GetFixed(Int decimals, kfloat min, kfloat max, Int amount)
 	{
 		if (!(amount > 0))
 			throw new ArgumentException();
-		float[] dev = new float[amount];
+		kfloat[] dev = new kfloat[amount];
 		for (Int i = 0; i < amount; i++)
 			dev[i] = GetFixed(decimals, min, max);
 		return dev;
 	}
 
-	public static float[] GetFixed(Int decimals, float min, float max, Int minAmount, Int maxAmout) =>
+	public static kfloat[] GetFixed(Int decimals, kfloat min, kfloat max, Int minAmount, Int maxAmout) =>
 		GetFixed(decimals, min, max, GetInt(minAmount, maxAmout + 1));
 	*/
 	/// <summary>
 	/// Obtiene un numero de doble presición mayor o igual que 0 y menor que 1.
 	/// </summary>
-	public static double GetDouble() => _Random.NextDouble();
+	public static kdouble GetDouble() => _Random.NextDouble();
 
 	/// <summary>
 	/// Escoge un elemento al azar de un enumerable de objetos.
@@ -141,6 +142,6 @@ public static class Rand
 		return enumerable.ElementAt(GetInt(enumerable.Length));
 	}
 
-	//public static float Fix(float number, Int decimals) =>
+	//public static kfloat Fix(kfloat number, Int decimals) =>
 	//	Convert.ToSingle(Math.Round(number, decimals));
 }

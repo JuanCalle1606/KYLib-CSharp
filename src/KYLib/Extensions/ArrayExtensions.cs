@@ -16,7 +16,7 @@ public static class ArrayExtensions
 	/// <param name="arr">Arreglo de origen.</param>
 	/// <param name="target">Elemento a buscar dentro del arreglo.</param>
 	/// <returns>Devuelve el indice en el que se encuentra <paramref name="target"/>, -1 si no se encuentra.</returns>
-	public static int IndexOf<T>(this T[] arr, T target) =>
+	public static kint IndexOf<T>(this T[] arr, T target) =>
 		Array.IndexOf(arr, target);
 
 	/// <summary>
@@ -60,13 +60,13 @@ public static class ArrayExtensions
 	/// <returns>Una matriz bidimensional de <typeparamref name="T"/>.</returns>
 	public static T[,] ToMatriz<T>(this T[][] arr)
 	{
-		Int cols = arr.Length;
-		Int rows = arr[0].Length;
+		kint cols = arr.Length;
+		kint rows = arr[0].Length;
 		if (!arr.TrueForAll(t => t.Length == rows))
 			throw new ArgumentException("Todos lo arreglos internos deben tener la misma longitud");
 		var dev = new T[cols, rows];
-		for (Int i = 0; i < cols; i++)
-			for (Int j = 0; j < rows; j++)
+		for (kint i = 0; i < cols; i++)
+			for (kint j = 0; j < rows; j++)
 				dev[i, j] = arr[i][j];
 
 		return dev;
@@ -76,7 +76,7 @@ public static class ArrayExtensions
 	public static string ToString<T>(this T[][] arr, char separator, bool multiline, bool showindex)
 	{
 		var dev = "";
-		for (Int i = 0; i < arr.Length; i++)
+		for (kint i = 0; i < arr.Length; i++)
 		{
 			if (showindex)
 				dev += $"{i}: ";

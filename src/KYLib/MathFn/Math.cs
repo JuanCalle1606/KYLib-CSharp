@@ -18,7 +18,7 @@ partial class Mathf
 	public static T Root<T>(INumber num, INumber nbase) where T : struct, INumber
 	{
 		var dev = default(T);
-		double rnum = num.ToDouble(null), rbase = nbase.ToDouble(null), math;
+		kdouble rnum = num.ToDouble(null), rbase = nbase.ToDouble(null), math;
 		if (rbase == 2) math = Math.Sqrt(rnum);
 #if NETSTANDARD2_1
 		else if (rbase == 3) math = Math.Cbrt(rnum);
@@ -75,7 +75,7 @@ partial class Mathf
 	public static T Pow<T>(INumber num, INumber nbase) where T : struct, INumber
 	{
 		var dev = default(T);
-		double rnum = num.ToDouble(null), rbase = nbase.ToDouble(null);
+		kdouble rnum = num.ToDouble(null), rbase = nbase.ToDouble(null);
 
 		var math = Math.Pow(rnum, rbase);
 

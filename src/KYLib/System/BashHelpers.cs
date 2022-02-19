@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using KYLib.MathFn;
 
 namespace KYLib.System;
 
@@ -18,14 +17,10 @@ partial class Bash
 	/// <exception cref="PlatformNotSupportedException">Se produce cuando no se conoce el sistema operativo.</exception>
 	public static string GetCommand(string bash)
 	{
-		string dev;
-		using (var process = CreateBashProcess(bash, null, true, false))
-		{
-			process.Start();
-			process.WaitForExit();
-			dev = process.StandardOutput.ReadToEnd();
-		}
-		return dev;
+		using var process = CreateBashProcess(bash, null, true, false);
+		process.Start();
+		process.WaitForExit();
+		return process.StandardOutput.ReadToEnd();
 	}
 
 	/// <summary>
@@ -40,13 +35,10 @@ partial class Bash
 	public static async Task<string> GetCommandAsync(string bash) =>
 		await Task.Run(async () =>
 		{
-			string dev = null;
-			using (var process = CreateBashProcess(bash, null, true, false))
-			{
-				process.Start();
-				process.WaitForExit();
-				dev = await process.StandardOutput.ReadToEndAsync();
-			}
+			using var process = CreateBashProcess(bash, null, true, false);
+			process.Start();
+			process.WaitForExit();
+			var dev = await process.StandardOutput.ReadToEndAsync();
 			return dev;
 		});
 
@@ -77,7 +69,7 @@ partial class Bash
 	/// </remarks>
 	/// <param name="file">Programa a ejecutar.</param>
 	/// <returns>Devuelve el codigo de salida del programa luego de que termina de ejecutarse. En caso de que el proceso no s epueda iniciar se devolvera -1.</returns>
-	public static Int RunCommand(string file) =>
+	public static kint RunCommand(string file) =>
 		RunCommand(file, string.Empty);
 
 	/// <summary>
@@ -89,7 +81,7 @@ partial class Bash
 	/// <param name="file">Programa a ejecutar.</param>
 	/// <param name="args">Argumentos opcionales para pasar al programa.</param>
 	/// <returns>Devuelve el codigo de salida del programa luego de que termina de ejecutarse. En caso de que el proceso no s epueda iniciar se devolvera -1.</returns>
-	public static Int RunCommand(string file, string args) =>
+	public static kint RunCommand(string file, string args) =>
 		RunCommand(file, args, null);
 
 	/// <summary>
@@ -102,19 +94,19 @@ partial class Bash
 	/// <param name="args">Argumentos opcionales para pasar al programa.</param>
 	/// <param name="runin">Directorio en el cual se ejecutara el proceso</param>
 	/// <returns>Devuelve el codigo de salida del programa luego de que termina de ejecutarse. En caso de que el proceso no se pueda iniciar se devolvera -1.</returns>
-	public static Int RunCommand(string file, string args, string runin)
+	public static kint RunCommand(string file, string args, string? runin)
 	{
-		Int dev;
+		kint dev;
+		using var process = CreateProcess(file, args, runin);
 		try
 		{
-			using var process = CreateProcess(file, args, runin);
 			process.Start();
 			process.WaitForExit();
-			dev = process.ExitCode;
 		}
-		catch (Exception)
+		catch (Exception) { /* ignored */ }
+		finally
 		{
-			dev = -1;
+			dev = process.ExitCode;
 		}
 		return dev;
 	}

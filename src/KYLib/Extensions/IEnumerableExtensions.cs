@@ -24,9 +24,9 @@ public static class EnumerableExtensions
 	public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source)
 	{
 		var elements = source.ToArray();
-		for (Int i = elements.Length - 1; i > 0; i--)
+		for (kint i = elements.Length - 1; i > 0; i--)
 		{
-			Int swapIndex = Rand.GetInt(i + 1);
+			kint swapIndex = Rand.GetInt(i + 1);
 			yield return elements[swapIndex];
 			elements[swapIndex] = elements[i];
 		}
@@ -67,7 +67,7 @@ public static class EnumerableExtensions
 	/// <param name="arr">Lista de origen.</param>
 	/// <param name="endIn">Longitud que debe tener la lista para dejar de insertarle <paramref name="content"/>.</param>
 	/// <param name="content">Contenido con el que queremos llenar la lista.</param>
-	public static void FillStart<T>(this List<T> arr, Int endIn, T content)
+	public static void FillStart<T>(this List<T> arr, kint endIn, T content)
 	{
 		while (arr.Count < endIn) arr.Insert(0, content);
 	}
@@ -79,7 +79,7 @@ public static class EnumerableExtensions
 	/// <param name="arr">Lista de origen.</param>
 	/// <param name="endIn">Longitud que debe tener la lista para dejar de insertarle <paramref name="content"/>.</param>
 	/// <param name="content">Contenido con el que queremos llenar la lista.</param>
-	public static void FillEnd<T>(this List<T> arr, Int endIn, T content)
+	public static void FillEnd<T>(this List<T> arr, kint endIn, T content)
 	{
 		while (arr.Count < endIn) arr.Add(content);
 	}
@@ -152,7 +152,7 @@ public static class EnumerableExtensions
 	public static string ToString<T>(this IEnumerable<T> arr, char? separator, bool showindex, bool multiline)
 	{
 		StringBuilder stringBuilder = new();
-		Int i = 0;
+		kint i = 0;
 		foreach (var item in arr)
 		{
 			if (multiline && i > 0)

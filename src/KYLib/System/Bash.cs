@@ -63,7 +63,7 @@ public static partial class Bash
 	/// <param name="stderr">Opcionalemente se puede pasar una acción que se llame cada vez que se reciba una salida del error estandar, en caso de no pasarse una acción el error estandar puede seguir siendo administrado por medio del objeto de proceso devuelto.</param>
 	/// <param name="stdin">Este metodo crea una acción que devuelve por medio de este parametro, llame a esta acción cada ves que quiera escribir algo en la entrada estandar del programa, en caso de ignorar esta acción aun puede administrar la entrada estandar por dmdio del objeto de proceso devuelto.</param>
 	/// <returns>Devuelve un objeto de proceso que representa al programa invocado corriendo.</returns>
-	public static Process Start(string file, string args, string runin, Action<string> stdout, Action<string> stderr, out Action<string> stdin)
+	public static Process Start(string file, string args, string? runin, Action<string> stdout, Action<string> stderr, out Action<string> stdin)
 	{
 		var process = CreateProcess(file, args, runin, true);
 		process.OutputDataReceived += (o, e) => stdout?.Invoke(e.Data);
@@ -116,7 +116,7 @@ public static partial class Bash
 	/// <param name="args">Argumentos opcionales para pasar al programa.</param>
 	/// <param name="runin">Directorio en el que se ejecutara el proceso.</param>
 	/// <returns>Devuelve un objeto de proceso que representa al programa invocado corriendo.</returns>
-	public static Process Start(string file, string args, string runin)
+	public static Process Start(string file, string args, string? runin)
 	{
 		var process = CreateProcess(file, args, runin, true);
 		process.Start();
