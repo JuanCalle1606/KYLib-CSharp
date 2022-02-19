@@ -14,7 +14,7 @@ public class ConsoleMenu
 	/// <summary>
 	/// Guarda todos los items del menu.
 	/// </summary>
-	protected List<ConsoleItem> Items = new();
+	protected readonly List<ConsoleItem> Items = new();
 
 	/// <summary>
 	/// Indica si el menu esta corriendo
@@ -27,38 +27,35 @@ public class ConsoleMenu
 	public string Title = "Menu";
 
 	/// <summary>
-	/// Indica cual es el texto que se usa para indicar al usaurio que ingrese una opción.
+	/// Indica cual es el texto que se usa para indicar al usuario que ingrese una opción.
 	/// </summary>
-	public string OptionText = null;
+	public string? OptionText { get; set; } = null;
 
 	/// <summary>
 	/// Indica cual es el texto que se usa para indicar al usurio que la opción no es valida.
 	/// </summary>
-	public string OptionErrorText = null;
+	public string? OptionErrorText { get; set; } = null;
 
 	/// <summary>
-	/// Indica si cuandos e agrega un nuevo item se debe agregar al final de la lista, en casod e ser false los items se agregan al inicio de la lista.
+	/// Indica si cuando se agrega un nuevo item se debe agregar al final de la lista, en caso de ser <c>false</c> los items se agregan al inicio de la lista.
 	/// </summary>
-	public bool AddAtEnd = true;
+	public bool AddAtEnd { get; set; } = true;
 
 	#endregion
 
 	#region Acciones
+
 	/// <summary>
 	/// Define una función que sera llamada antes de dibujarse las opciones en pantalla.
 	/// </summary>
-	/// <remarks>
-	/// Esta acción por defecto esta establecida en null por lo que no puede usar el operador += unicamente el =.
-	/// </remarks>
-	public Action BeforeRender;
+	// TODO: docs
+	public event Action? BeforeRender;
 
 	/// <summary>
 	/// Define una función que sera llamada despues de dibujarse las opciones en pantalla.
 	/// </summary>
-	/// <remarks>
-	/// Esta acción por defecto esta establecida en null por lo que no puede usar el operador += unicamente el =.
-	/// </remarks>
-	public Action AfterRender;
+	// TODO: docs
+	public event Action? AfterRender;
 
 	#endregion
 
@@ -192,7 +189,6 @@ public class ConsoleMenu
 	/// </summary>
 	void Run()
 	{
-		kint option;
 		//bucle principal del menu.
 		while (_running)
 		{
@@ -206,7 +202,7 @@ public class ConsoleMenu
 				_running = false;
 				return;
 			}
-			option = preoption.Value;
+			var option = preoption.Value;
 			if (ClearConsole) Cons.Clear();
 
 			Items[option].Task?.Invoke();
@@ -218,6 +214,9 @@ public class ConsoleMenu
 		}
 	}
 
+	/// <summary>
+	/// Vuelve a dibujar el menu en la consola.
+	/// </summary>
 	public void Update()
 	{
 		if (ClearConsole) Cons.Clear();
