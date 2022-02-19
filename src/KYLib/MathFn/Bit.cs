@@ -207,7 +207,7 @@ public struct Bit : IEquatable<Bit>
 		_value ? "1" : "0";
 
 	/// <inheritdoc/>
-	public override bool Equals(object obj) => obj.Equals(_value) || obj.ToString().Equals(this.ToString());
+	public override bool Equals(object obj) => obj.Equals(_value) || obj.ToString().Equals(ToString());
 
 	/// <inheritdoc/>
 	public bool Equals(Bit other) => this == other;

@@ -153,7 +153,7 @@ public
 
 	#region Interfaces
 	/// <inheritdoc/>
-	float INumber<float>.Value { get => _value; set => this._value = value; }
+	float INumber<float>.Value { get => _value; set => _value = value; }
 #if NETSTANDARD2_1
 		/// <inheritdoc/>
 		float IConvertible.ToSingle(IFormatProvider provider) => _value;

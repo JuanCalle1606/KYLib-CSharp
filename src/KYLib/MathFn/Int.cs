@@ -153,7 +153,7 @@ public
 
 	#region Interfaces
 	/// <inheritdoc/>
-	int INumber<int>.Value { get => _value; set => this._value = value; }
+	int INumber<int>.Value { get => _value; set => _value = value; }
 #if NETSTANDARD2_1
 		/// <inheritdoc/>
 		int IConvertible.ToInt32(IFormatProvider provider) => _value;

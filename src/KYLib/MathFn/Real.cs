@@ -162,7 +162,7 @@ public
 
 	#region Interfaces
 	/// <inheritdoc/>
-	double INumber<double>.Value { get => _value; set => this._value = value; }
+	double INumber<double>.Value { get => _value; set => _value = value; }
 #if NETSTANDARD2_1
 		/// <inheritdoc/>
 		double IConvertible.ToDouble(IFormatProvider provider) => _value;

@@ -158,7 +158,7 @@ public
 
 	#region Interfaces
 	/// <inheritdoc/>
-	byte INumber<byte>.Value { get => _value; set => this._value = value; }
+	byte INumber<byte>.Value { get => _value; set => _value = value; }
 #if NETSTANDARD2_1
 	/// <inheritdoc/>
 	byte IConvertible.ToByte(IFormatProvider provider) => _value;
