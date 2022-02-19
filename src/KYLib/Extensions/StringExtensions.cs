@@ -17,11 +17,17 @@ public static class StringExtensions
 	/// <returns>La cadena repetida <paramref name="amount"/> veces. </returns>
 	public static string Repeat(this string me, kint amount)
 	{
-		Ensure.NotLessThan<int>(amount, 0, nameof(amount));
-		if (amount == 0) return string.Empty;
-		if (amount == 1) return me;
+		Ensure.NotLessThan(amount, 0, nameof(amount));
+		switch (amount)
+		{
+			case 0:
+				return string.Empty;
+			case 1:
+				return me;
+		}
+
 		//en caso de ser necesario repetir si se usa el string builder.
-		StringBuilder sb = new(me.Length * amount, me.Length * amount);
+		var sb = new StringBuilder(me.Length * amount, me.Length * amount);
 		for (kint i = 0; i < amount; i++)
 			sb.Append(me);
 		return sb.ToString();

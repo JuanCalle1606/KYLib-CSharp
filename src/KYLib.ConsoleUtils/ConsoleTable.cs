@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using KYLib.Extensions;
-using KYLib.MathFn;
 
 namespace KYLib.ConsoleUtils;
 
@@ -13,7 +12,7 @@ public sealed class ConsoleTable
 	/// <summary>
 	/// Guarda la representación en cadena de esta tabla.
 	/// </summary>
-	string _string = null;
+	string _string = string.Empty;
 
 	/// <summary>
 	/// Indica sie s necesario actualziar la cadena.
@@ -23,17 +22,17 @@ public sealed class ConsoleTable
 	/// <summary>
 	/// Guarda las cadenas para separar filas.
 	/// </summary>
-	string _separator = null;
+	string _separator = string.Empty;
 
 	/// <summary>
-	/// Guarda todo el contenido de la tabla.
+	/// Guarda el contenido de la tabla.
 	/// </summary>
-	readonly List<List<string>> _dic = new();
+	readonly List<List<string?>> _dic = new();
 
 	/// <summary>
 	/// Guarda los tamaños de cada columna.
 	/// </summary>
-	readonly List<Int> _widths = new();
+	readonly List<kint> _widths = new();
 
 	/// <summary>
 	/// Agregar columna interna
@@ -41,7 +40,7 @@ public sealed class ConsoleTable
 	void AddColumn(string title, bool calc)
 	{
 		kint count = _dic.Count;
-		_dic.Add(new List<string>());
+		_dic.Add(new List<string?>());
 		_dic[count].Add(title);
 		if (calc)
 			CalculateColumnsWidth();
@@ -69,13 +68,13 @@ public sealed class ConsoleTable
 	/// Agrega una nueva fila a la tabla.
 	/// </summary>
 	/// <param name="content">Lista de objetos que seran ingresados en cada columna, si se pasan mas objetos que la cantidad de columnas entonces seran ignorados los pasados y si se pasan menos entonces los que falten seran añadidos como cadenas vacias.</param>
-	public void AddRow(params object[] content)
+	public void AddRow(params object?[] content)
 	{
 		for (kint i = 0; i < _dic.Count; i++)
 		{
 			try
 			{
-				_dic[i].Add(content?[i]?.ToString());
+				_dic[i].Add(content[i]?.ToString());
 			}
 			catch (Exception)
 			{
@@ -97,12 +96,11 @@ public sealed class ConsoleTable
 
 		List<string> lines = new();
 		_string += _separator + Environment.NewLine;
-		kint count;
 		var titles = true;
 		// primero rellenamos las lineas
 		for (kint item = 0; item < _dic.Count; item++)
 		{
-			count = 0;
+			kint count = 0;
 			foreach (var row in _dic[item])
 			{
 				if (titles)
@@ -122,10 +120,10 @@ public sealed class ConsoleTable
 	/// <summary>
 	/// Rellena los contenidos d elas filas con espacios
 	/// </summary>
-	string Fill(string row, Int index)
+	string Fill(string? row, kint index)
 	{
 		var dev = row;
-		dev += " ".Repeat(_widths[index] - dev.Length);
+		dev += " ".Repeat(_widths[index] - (dev?.Length ?? 0));
 		return dev;
 	}
 
@@ -140,7 +138,7 @@ public sealed class ConsoleTable
 			kint maxwidth = 0;
 			item.ForEach(i =>
 			{
-				if (i.Length > maxwidth)
+				if (i != null && i.Length > maxwidth)
 					maxwidth = i.Length;
 			});
 			_widths.Add(maxwidth);
