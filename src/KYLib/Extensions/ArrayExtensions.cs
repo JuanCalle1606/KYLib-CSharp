@@ -1,5 +1,4 @@
 ﻿using System;
-using KYLib.MathFn;
 
 namespace KYLib.Extensions;
 

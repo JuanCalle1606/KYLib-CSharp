@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using KYLib.Data.Converters;
 using KYLib.Interfaces;

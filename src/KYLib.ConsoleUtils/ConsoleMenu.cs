@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using KYLib.Extensions;
-using KYLib.MathFn;
 using KYLib.Utils;
 
 namespace KYLib.ConsoleUtils;
@@ -194,15 +192,21 @@ public class ConsoleMenu
 	/// </summary>
 	void Run()
 	{
-		Int option;
+		kint option;
 		//bucle principal del menu.
 		while (_running)
 		{
 			Update();
 
-			option = Cons.GetInt(0, Items.Count,
+			kint? preoption = Cons.GetInt(0, Items.Count,
 				OptionText ?? DefaultOptionText,
 				OptionErrorText ?? DefaultOptionErrorText);
+			if (preoption is null)
+			{
+				_running = false;
+				return;
+			}
+			option = preoption.Value;
 			if (ClearConsole) Cons.Clear();
 
 			Items[option].Task?.Invoke();

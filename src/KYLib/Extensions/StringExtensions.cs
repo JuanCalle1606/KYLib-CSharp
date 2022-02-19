@@ -1,6 +1,4 @@
-using System;
 using System.Text;
-using KYLib.MathFn;
 using KYLib.System;
 using KYLib.Utils;
 

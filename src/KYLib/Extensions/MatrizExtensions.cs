@@ -1,6 +1,4 @@
-﻿using KYLib.MathFn;
-
-namespace KYLib.Extensions;
+﻿namespace KYLib.Extensions;
 
 /// <summary>
 /// Extensiones generales para las matrices.
