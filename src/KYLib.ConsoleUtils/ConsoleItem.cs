@@ -1,5 +1,6 @@
 ﻿using System;
 using KYLib.Interfaces;
+using KYLib.Utils;
 
 namespace KYLib.ConsoleUtils;
 
@@ -11,12 +12,12 @@ public class ConsoleItem : INameable
 	/// <summary>
 	/// Acción que ejecutara este item.
 	/// </summary>
-	public Action Task = null;
+	public Action? Task { get; set; }
 
 	/// <summary>
 	/// Indica si esta opción se devuelve al menu contenedor inmediatamente despues de ejecutarse.
 	/// </summary>
-	public bool InstaOption = false;
+	public bool InstaOption { get; set; }
 
 	/// <summary>
 	/// Nombre del item.
@@ -30,6 +31,7 @@ public class ConsoleItem : INameable
 	{
 		Name = "MenuItem";
 	}
+	
 	/// <summary>
 	/// Crea un nuevo item con un nombre y que no hace nada.
 	/// </summary>
@@ -38,15 +40,18 @@ public class ConsoleItem : INameable
 	{
 		Name = name;
 	}
+	
 	/// <summary>
 	/// Crea un nuevo item con un nombre por defecto y que hara una acción dada.
 	/// </summary>
 	/// <param name="action">La acción que hara este item.</param>
 	public ConsoleItem(Action action)
 	{
+		Ensure.NotNull(action, nameof(action));
 		Name = "MenuItem";
 		Task = action;
 	}
+	
 	/// <summary>
 	/// Crea un nuevo item con un nombre y una acción dadas.
 	/// </summary>
@@ -54,16 +59,20 @@ public class ConsoleItem : INameable
 	/// <param name="action">La acción que hara este item.</param>
 	public ConsoleItem(string name, Action action)
 	{
+		Ensure.NotNull(action, nameof(action));
 		Name = name;
 		Task = action;
 	}
+	
 	/// <inheritdoc/>
 	public override string ToString() => Name;
+	
 	/// <summary>
 	/// Crea un nuevo item que hara una accion dada.
 	/// </summary>
 	/// <param name="action">La acción que hara este item.</param>
 	public static implicit operator ConsoleItem(Action action) => new(action);
+	
 	/// <summary>
 	/// Crea un nuevo item con un nombre especifico.
 	/// </summary>
