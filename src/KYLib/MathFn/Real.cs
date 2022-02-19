@@ -172,7 +172,7 @@ public
 		_value = source.ToDouble(null);
 
 	/// <inheritdoc/>
-	void INumber.UpdateValue(object source)
+	void INumber.UpdateValue(object? source)
 	{
 		//primero vemos si es un IConvertible
 		var n = (IConvertible)source;

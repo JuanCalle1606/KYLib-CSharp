@@ -1,4 +1,5 @@
-﻿namespace KYLib.Extensions;
+﻿using System.Collections.Generic;
+namespace KYLib.Extensions;
 
 /// <summary>
 /// Extensiones generales para las matrices.
@@ -25,8 +26,9 @@ public static class MatrizExtensions
 		return dev;
 	}
 
-	/// <inheritdoc/>
-	public static string ToString<T>(this T[,] arr, char separator, bool multiline, bool showindex)
+	/// <inheritdoc cref="EnumerableExtensions.ToString{T}(IEnumerable{T},char?,bool,bool)"/>
+	// TODO: Usar StringBuilder
+	public static string ToString<T>(this T[,] arr, char? separator, bool multiline = true, bool showindex = false)
 	{
 		var dev = "";
 		for (kint i = 0; i < arr.GetLength(0); i++)
@@ -34,14 +36,14 @@ public static class MatrizExtensions
 			if (showindex)
 				dev += $"{i}: ";
 			for (kint j = 0; j < arr.GetLength(1); j++)
-				dev += arr[i, j] + ",";
+				dev += arr[i, j] + separator.ToString();
 			if (multiline)
 			{
-				dev = dev.TrimEnd(',');
+				dev = dev.TrimEnd(separator ?? ' ');
 				dev += "\n";
 			}
 		}
-		dev = dev.TrimEnd(separator);
+		dev = dev.TrimEnd(separator ?? ' ');
 		return dev;
 	}
 	#endregion

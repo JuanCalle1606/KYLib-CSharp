@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace KYLib.Extensions;
 
@@ -71,24 +73,19 @@ public static class ArrayExtensions
 		return dev;
 	}
 
-	/// <inheritdoc/>
-	public static string ToString<T>(this T[][] arr, char separator, bool multiline, bool showindex)
+	/// <inheritdoc cref="EnumerableExtensions.ToString{T}(IEnumerable{T},char?,bool,bool)"/>
+	public static string ToString<T>(this T[][] arr, char? separator, bool multiline = true, bool showindex = false)
 	{
-		var dev = "";
+		var dev = new StringBuilder();
 		for (kint i = 0; i < arr.Length; i++)
 		{
 			if (showindex)
-				dev += $"{i}: ";
-			dev += arr[i].ToString(separator) + separator;
+				dev.Append($"{i}: ");
+			dev.Append(arr[i].ToString(separator) + separator);
 			if (multiline && i > 0)
-				dev += $"{separator}\n";
+				dev.Append($"{separator}\n");
 		}
-		dev = dev.TrimEnd(separator);
-		return dev;
+		return dev.ToString().TrimEnd(separator ?? ' ');
 	}
-
-	/// <inheritdoc/>
-	public static string ToString<T>(this T[][] arr, char separator, bool multiline) =>
-		arr.ToString(separator, multiline, false);
 	#endregion
 }

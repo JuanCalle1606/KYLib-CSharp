@@ -1,5 +1,7 @@
 using KYLib.Interfaces;
-
+using KYLib.Utils;
+#pragma warning disable CS1712
+#pragma warning disable CS1573
 
 namespace KYLib.Data;
 
@@ -8,115 +10,81 @@ namespace KYLib.Data;
 /// </summary>
 public static class Files
 {
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="path"></param>
-	/// <typeparam name="T"></typeparam>
-	/// <returns></returns>
-	public static object Load<T>(string path) where T : IDataFile, new() =>
+	/// <inheritdoc cref="IDataFile.Load"/>
+	/// <typeparam name="T">Tipo de <see cref="IDataFile"/> que se usara para la conversión.</typeparam>
+	public static object? Load<T>(string path) where T : IDataFile, new() =>
 		Load(path, new T());
 
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="path"></param>
-	/// <param name="serializer"></param>
-	/// <returns></returns>
-	public static object Load(string path, IDataFile serializer) =>
-		serializer.Load(path);
+	/// <inheritdoc cref="IDataFile.Load"/>
+	/// <param name="dataFile">El <see cref="IDataFile"/> que se usara para cargar los datos.</param>
+	public static object? Load(string path, IDataFile dataFile)
+	{
+		Ensure.NotNull(dataFile, nameof(dataFile));
+		return dataFile.Load(path);
+	}
 
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="path"></param>
-	/// <typeparam name="T"></typeparam>
-	/// <typeparam name="TResult"></typeparam>
-	/// <returns></returns>
-	public static TResult Load<T, TResult>(string path) where T : IDataFile, new() =>
+	/// <inheritdoc cref="Load{T}(string)"/>
+	/// <typeparam name="TResult">Tipo del objeto que sera leido.</typeparam>
+	public static TResult? Load<T, TResult>(string path) where T : IDataFile, new() =>
 		Load<TResult>(path, new T());
+	
+	/// <inheritdoc cref="Load"/>
+	/// <typeparam name="T">Tipo de <see cref="IDataFile"/> que se usara para la conversión.</typeparam>
+	public static T? Load<T>(string path, IDataFile dataFile)
+	{
+		Ensure.NotNull(dataFile, nameof(dataFile));
+		return dataFile.Load<T>(path);
+	}
 
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="path"></param>
-	/// <param name="deserializer"></param>
-	/// <typeparam name="T"></typeparam>
-	/// <returns></returns>
-	public static T Load<T>(string path, IDataFile deserializer) =>
-		deserializer.Load<T>(path);
-
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="source"></param>
-	/// <param name="path"></param>
-	/// <typeparam name="T"></typeparam>
-	public static void Save<T>(object source, string path) where T : IDataFile, new() =>
+	/// <inheritdoc cref="IDataFile.Save"/>
+	/// <typeparam name="T">Tipo de <see cref="IDataFile"/> que se usara para la conversión.</typeparam>
+	public static void Save<T>(object? source, string path) where T : IDataFile, new() =>
 		Save(source, path, new T());
 
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="source"></param>
-	/// <param name="path"></param>
-	/// <param name="serializer"></param>
-	public static void Save(object source, string path, IDataFile serializer) =>
-		serializer.Save(source, path);
+	/// <inheritdoc cref="IDataFile.Save"/>
+	/// <param name="dataFile">El <see cref="IDataFile"/> que se usara para cargar los datos.</param>
+	public static void Save(object? source, string path, IDataFile dataFile)
+	{
+		Ensure.NotNull(dataFile, nameof(dataFile));
+		dataFile.Save(source, path);
+	}
 
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="source"></param>
-	/// <typeparam name="T"></typeparam>
-	/// <returns></returns>
-	public static string Serialize<T>(object source) where T : IDataFile, new() =>
+	/// <inheritdoc cref="IDataFile.Serialize"/>
+	/// <typeparam name="T">Tipo de <see cref="IDataFile"/> que se usara para la conversión.</typeparam>
+	public static string Serialize<T>(object? source) where T : IDataFile, new() =>
 		Serialize(source, new T());
+	
+	/// <inheritdoc cref="IDataFile.Serialize"/>
+	/// <param name="dataFile">El <see cref="IDataFile"/> que se usara para cargar los datos.</param>
+	public static string Serialize(object? source, IDataFile dataFile)
+	{
+		Ensure.NotNull(dataFile, nameof(dataFile));
+		return dataFile.Serialize(source);
+	}
 
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="source"></param>
-	/// <param name="serializer"></param>
-	/// <returns></returns>
-	public static string Serialize(object source, IDataFile serializer) =>
-		serializer.Serialize(source);
+	/// <inheritdoc cref="IDataFile.Deserialize"/>
+	/// <typeparam name="T">Tipo de <see cref="IDataFile"/> que se usara para la conversión.</typeparam>
+	public static object? Deserialize<T>(string source) where T : IDataFile, new() =>
+		Deserialize(source, new T());
 
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="source"></param>
-	/// <typeparam name="T"></typeparam>
-	/// <returns></returns>
-	public static object Deserialize<T>(string source) where T : IDataFile, new() =>
-		new T().Deserialize(source);
+	/// <inheritdoc cref="IDataFile.Deserialize"/>
+	/// <param name="dataFile">El <see cref="IDataFile"/> que se usara para cargar los datos.</param>
+	public static object? Deserialize(string source, IDataFile dataFile)
+	{
+		Ensure.NotNull(dataFile, nameof(dataFile));
+		return dataFile.Deserialize(source);
+	}
 
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="source"></param>
-	/// <param name="deserializer"></param>
-	/// <returns></returns>
-	public static object Deserialize(string source, IDataFile deserializer) =>
-		deserializer.Deserialize(source);
+	/// <inheritdoc cref="Deserialize{T}(string)"/>
+	/// <typeparam name="TResult">Tipo del objeto que sera leido.</typeparam>
+	public static TResult? Deserialize<T, TResult>(string source) where T : IDataFile, new() =>
+		Deserialize<TResult>(source, new T());
 
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="source"></param>
-	/// <typeparam name="T"></typeparam>
-	/// <typeparam name="TResult"></typeparam>
-	/// <returns></returns>
-	public static TResult Deserialize<T, TResult>(string source) where T : IDataFile, new() =>
-		new T().Deserialize<TResult>(source);
-
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="source"></param>
-	/// <param name="deserializer"></param>
-	/// <typeparam name="T"></typeparam>
-	/// <returns></returns>
-	public static T Deserialize<T>(string source, IDataFile deserializer) =>
-		deserializer.Deserialize<T>(source);
+	/// <inheritdoc cref="Deserialize"/>
+	/// <typeparam name="T">Tipo del objeto que sera leido.</typeparam>
+	public static T? Deserialize<T>(string source, IDataFile dataFile)
+	{
+		Ensure.NotNull(dataFile, nameof(dataFile));
+		return dataFile.Deserialize<T>(source);
+	}
 }

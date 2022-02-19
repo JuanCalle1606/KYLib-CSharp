@@ -1,13 +1,14 @@
 using System.IO;
 using KYLib.Data.Converters;
 using KYLib.Interfaces;
+using KYLib.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace KYLib.Data.DataFiles;
 
 /// <summary>
-/// 
+/// TODO: docs
 /// </summary>
 public sealed class JsonFile : IDataFile
 {
@@ -17,7 +18,7 @@ public sealed class JsonFile : IDataFile
 	public static readonly JsonFile Default = new();
 
 	/// <inheritdoc/>
-	public JsonSerializerSettings Settings { get; set; } = new JsonSerializerSettings();
+	public JsonSerializerSettings Settings { get; } = new();
 
 	/// <summary>
 	/// Crea un nuevo <see cref="JsonFile"/> para la serialización y deserialización en formato Json.
@@ -36,15 +37,21 @@ public sealed class JsonFile : IDataFile
 	public string Extension => ".json";
 
 	/// <inheritdoc/>
-	public object Deserialize(string source) =>
-		JsonConvert.DeserializeObject(source, Settings);
+	public object? Deserialize(string source)
+	{
+		Ensure.NotNull(source, nameof(source));
+		return JsonConvert.DeserializeObject(source, Settings);
+	}
 
 	/// <inheritdoc/>
-	public T Deserialize<T>(string source) =>
-		JsonConvert.DeserializeObject<T>(source, Settings);
+	public T? Deserialize<T>(string source)
+	{
+		Ensure.NotNull(source, nameof(source));
+		return JsonConvert.DeserializeObject<T>(source, Settings);
+	}
 
 	/// <inheritdoc/>
-	public object Load(string path)
+	public object? Load(string path)
 	{
 		var realpath = ValidatePath(path);
 		var content = File.ReadAllText(realpath);
@@ -52,7 +59,7 @@ public sealed class JsonFile : IDataFile
 	}
 
 	/// <inheritdoc/>
-	public T Load<T>(string path)
+	public T? Load<T>(string path)
 	{
 		var realpath = ValidatePath(path);
 		var content = File.ReadAllText(realpath);
@@ -64,6 +71,7 @@ public sealed class JsonFile : IDataFile
 	/// </summary>
 	string ValidatePath(string path)
 	{
+		Ensure.NotNull(path, nameof(path));
 		string realpath;
 		//primero vemos si el archivo especificado existe, esto se hace por si el nombre pasado no tiene la extension del archivo
 		if (File.Exists(path))
@@ -78,15 +86,16 @@ public sealed class JsonFile : IDataFile
 	}
 
 	/// <inheritdoc/>
-	public void Save(object source, string path)
+	public void Save(object? source, string path)
 	{
+		Ensure.NotNull(path, nameof(path));
 		using var file = File.CreateText(path);
 		var serializer = JsonSerializer.CreateDefault(Settings);
 		serializer.Serialize(file, source);
 	}
 
 	/// <inheritdoc/>
-	public string Serialize(object source) =>
+	public string Serialize(object? source) =>
 		JsonConvert.SerializeObject(source, Settings);
 
 	#endregion

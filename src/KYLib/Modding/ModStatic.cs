@@ -22,7 +22,6 @@ partial class Mod
 	/// </summary>
 	public static readonly Mod Entry = new(Assembly.GetEntryAssembly());
 
-	
 	static readonly List<Mod> _Allmods = new();
 
 	/// <summary>

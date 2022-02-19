@@ -13,7 +13,7 @@ partial class Bash
 	/// NO se debe utilizar este metodo para ejecutar procesos que soliciten entrada de datos ya que este metodo solo captura las salidas, si se usa en un metodo que solicita entrada se producira un bloqueo porque siempre se estara esperando por una entrada.
 	/// </remarks>
 	/// <param name="bash">Comando a ejecutar.</param>
-	/// <returns>Se devuelve todo lo capturado de la salida estandar del programa ejecutado.</returns>
+	/// <returns>Se devuelve lo capturado de la salida estandar del programa ejecutado.</returns>
 	/// <exception cref="PlatformNotSupportedException">Se produce cuando no se conoce el sistema operativo.</exception>
 	public static string GetCommand(string bash)
 	{
@@ -30,7 +30,7 @@ partial class Bash
 	/// NO se debe utilizar este metodo para ejecutar procesos que soliciten entrada de datos ya que este metodo solo captura las salidas, si se usa en un metodo que solicita entrada se producira un bloqueo porque siempre se estara esperando por una entrada.
 	/// </remarks>
 	/// <param name="bash">Comando a ejecutar.</param>
-	/// <returns>Se devuelve todo lo capturado de la salida estandar del programa ejecutado.</returns>
+	/// <returns>Se devuelve lo capturado de la salida estandar del programa ejecutado.</returns>
 	/// <exception cref="PlatformNotSupportedException">Se produce cuando no se conoce el sistema operativo.</exception>
 	public static async Task<string> GetCommandAsync(string bash) =>
 		await Task.Run(async () =>

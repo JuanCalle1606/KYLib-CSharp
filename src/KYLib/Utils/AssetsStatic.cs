@@ -22,7 +22,7 @@ partial class Assets: IEquatable<Assets?>
 	/// <summary>
 	/// Obtiene una instnacia de <see cref="Assets"/> relacionada a la ruta de <see cref="Info.InstallDir"/>.
 	/// </summary>
-	public static readonly Assets? InstallDir = Info.InstallDir != null ? new(Info.InstallDir) : null;
+	public static readonly Assets? InstallDir = Info.InstallDir != null ? new Assets(Info.InstallDir) : null;
 
 	/// <summary>
 	/// Ubicación desde la que se cargan mods con el metodo <see cref="Mod.LoadMods"/>.
@@ -39,7 +39,7 @@ partial class Assets: IEquatable<Assets?>
 	/// Convierte un directorio en un objecto <see cref="Assets"/>.
 	/// </summary>
 	/// <param name="path">Directorio que estara relacionado con el objecto <see cref="Assets"/>.</param>
-	public static implicit operator Assets(string path) => new Assets(path);
+	public static implicit operator Assets(string path) => new(path);
 
 	public static bool operator ==(Assets? a, Assets? b)
 	{

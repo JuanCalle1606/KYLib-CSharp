@@ -6,6 +6,7 @@ using System.Text;
 using KYLib.Interfaces;
 using KYLib.MathFn;
 using KYLib.Utils;
+#pragma warning disable CS1573
 
 namespace KYLib.Extensions;
 
@@ -132,24 +133,20 @@ public static class EnumerableExtensions
 	public static float[] ToFloatArray<T>(this IEnumerable<T> arr) where T : IConvertible =>
 		arr.ToArray(t => Convert.ToSingle(t));
 
-	/// <inheritdoc/>
-	public static string ToString<T>(this IEnumerable<T> arr, bool showindex, bool multiline) =>
-		arr.ToString(null, showindex, multiline);
-		
-	/// <inheritdoc/>
-	public static string ToString<T>(this IEnumerable<T> arr, bool showindex) =>
-		arr.ToString(null, showindex, false);
-		
-	/// <inheritdoc/>
-	public static string ToString<T>(this IEnumerable<T> arr, char? separator) =>
-		arr.ToString(separator, false);
-		
-	/// <inheritdoc/>
-	public static string ToString<T>(this IEnumerable<T> arr, char? separator, bool showindex) =>
-		arr.ToString(separator, showindex, false);
-
-	/// <inheritdoc/>
-	public static string ToString<T>(this IEnumerable<T> arr, char? separator, bool showindex, bool multiline)
+	/// <summary>
+	/// Convierte el enumerable en su representacion textual.
+	/// </summary>
+	/// <param name="arr">Enumerable a convertir.</param>
+	/// <param name="multiline">Indica si cada elemento sera colocado en una nueva linea.</param>
+	/// <param name="showindex">Indica si se debe agregar un indice a cada elemento.</param>
+	/// <typeparam name="T">Tipo de objeto a enumerar.</typeparam>
+	/// <returns>La representanción en cadena de <paramref name="arr"/>.</returns>
+	public static string ToString<T>(this IEnumerable<T> arr, bool multiline, bool showindex) =>
+		arr.ToString(null, multiline, showindex);
+	
+	/// <inheritdoc cref="ToString{T}(IEnumerable{T},bool,bool)"/>
+	/// <param name="separator">EL caracter que sapara cada elemento.</param>
+	public static string ToString<T>(this IEnumerable<T> arr, char? separator, bool multiline = false, bool showindex = false)
 	{
 		StringBuilder stringBuilder = new();
 		kint i = 0;

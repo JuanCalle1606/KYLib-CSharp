@@ -41,7 +41,7 @@ public interface INumber : IComparable, IComparable<INumber>, IConvertible, IEqu
 	/// Actualiza el valor interno de este numero basado en otro numero.
 	/// </summary>
 	/// <param name="source">Otro numero o algun objeto que sea convertible a numero del cual queremos copiar el valor a este.</param>
-	void UpdateValue(object source);
+	void UpdateValue(object? source);
 
 	/// <summary>
 	/// Actualiza el valor interno de este numero basado en otro numero.

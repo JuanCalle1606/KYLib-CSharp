@@ -3,7 +3,7 @@
 namespace KYLib.Extensions;
 
 /// <summary>
-/// Extenciones para todo tipo de objeto
+/// Extenciones para cualquier tipo de objeto
 /// </summary>
 public static class ObjectExtensions
 {
