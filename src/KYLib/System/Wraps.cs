@@ -1,5 +1,4 @@
 using System.Runtime.InteropServices;
-
 namespace KYLib.System;
 
 #pragma warning disable IDE1006

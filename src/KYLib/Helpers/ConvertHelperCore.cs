@@ -1,5 +1,4 @@
 using System;
-
 namespace KYLib.Helpers;
 
 /// <summary>
@@ -23,7 +22,7 @@ public static partial class ConvertHelper
 	static T ConvertValue<T>(
 		IConvertible n,
 		Converter<object, T> converter,
-		Converter<IConvertible, T> onfail)
+		Converter<IConvertible, T>? onfail)
 	{
 		try
 		{
@@ -34,10 +33,8 @@ public static partial class ConvertHelper
 			if (!IgnoreErrors)
 				throw;
 			if (DefaultOnError)
-				return default;
-			if (onfail != null)
-				return onfail(n);
-			return default;
+				return default!;
+			return onfail != null ? onfail(n) : default!;
 		}
 	}
 }

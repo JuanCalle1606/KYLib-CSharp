@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-
 namespace KYLib.System;
 
 //Aqui se guardan los metodos que crean procesos

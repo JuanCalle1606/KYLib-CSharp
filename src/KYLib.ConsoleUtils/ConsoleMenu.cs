@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using KYLib.Extensions;
 using KYLib.Utils;
-
 namespace KYLib.ConsoleUtils;
 
 /// <summary>

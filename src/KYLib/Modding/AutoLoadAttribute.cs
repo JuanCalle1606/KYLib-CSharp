@@ -1,17 +1,17 @@
 ﻿using System;
-#if DEBUG
-using System.Diagnostics;
-#endif
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+#if DEBUG
+using System.Diagnostics;
+#endif
 
 namespace KYLib.Modding;
 
 /// <summary>
 /// 
 /// </summary>
-[AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Module | AttributeTargets.Class | AttributeTargets.Constructor | AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
+[AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Module | AttributeTargets.Class | AttributeTargets.Constructor | AttributeTargets.Method, Inherited = false)]
 public sealed class AutoLoadAttribute : Attribute
 {
 	/// <summary>

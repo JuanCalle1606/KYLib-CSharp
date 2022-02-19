@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using KYLib.Interfaces;
-
 namespace KYLib.MathFn;
 
 /// <summary>
@@ -205,7 +204,7 @@ public static partial class Mathf
 	/// <typeparam name="T">Cualquier tipo numerico.</typeparam>
 	/// <returns>Devuelve la suma de los elemetnos de un arreglo</returns>
 	public static T Sum<T>(params T[] nums) where T : struct, INumber =>
-		SumOf<T>(nums);
+		SumOf(nums);
 
 	#endregion
 
@@ -261,7 +260,11 @@ public static partial class Mathf
 			temp = 6;
 		else
 			temp = 8;
-		temp += res == '1' ? (byte)1 : (byte)0;
+		temp += res == '1' ?
+			// ReSharper disable once RedundantCast
+			(byte)1 :
+			// ReSharper disable once RedundantCast
+			(byte)0;
 		if (nr < 5)
 			outRes = '0';
 		else

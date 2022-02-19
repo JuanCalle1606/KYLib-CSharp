@@ -1,6 +1,5 @@
 using System;
 using KYLib.Interfaces;
-
 namespace KYLib.MathFn;
 
 // Aqui se guardan los metodos que proveen implementacion de los metodos de Math.

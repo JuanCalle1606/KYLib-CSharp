@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Dynamic;
-
 namespace KYLib.Utils;
 
 /// <summary>

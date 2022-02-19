@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using KYLib.Extensions;
-
 namespace KYLib.ConsoleUtils;
 
 /// <summary>
@@ -110,7 +109,7 @@ public static class Cons
 			{
 				if (dev.Length <= 0)
 					continue;
-				dev = dev[0..^1];
+				dev = dev[..^1];
 				Inline = "\b \b";
 			}
 			else
@@ -329,7 +328,7 @@ public static class Cons
 				colorchanged = true;
 				continue;
 			}
-			else if (item.GetType().IsEquivalentTo(_BColor))
+			if (item.GetType().IsEquivalentTo(_BColor))
 			{
 				Console.BackgroundColor = (ConsoleColor)item;
 				colorchanged = true;

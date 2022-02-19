@@ -1,5 +1,4 @@
 using System;
-
 namespace KYLib.Interfaces;
 
 /// <summary>

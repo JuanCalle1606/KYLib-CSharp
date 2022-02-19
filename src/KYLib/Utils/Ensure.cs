@@ -1,5 +1,4 @@
 ﻿using System;
-
 namespace KYLib.Utils;
 
 /// <summary>
@@ -28,7 +27,7 @@ public static class Ensure {
 	{
 		if (value.CompareTo(amount) > 0 && amount.CompareTo(value) < 0)
 			return true;
-		else if (!error)
+		if (!error)
 			return false;
 		throw new ArgumentOutOfRangeException(name);
 	}
@@ -40,7 +39,7 @@ public static class Ensure {
 	{
 		if (value.CompareTo(amount) <= 0 && amount.CompareTo(value) >= 0)
 			return true;
-		else if (!error)
+		if (!error)
 			return false;
 		throw new ArgumentOutOfRangeException(name);
 	}
@@ -51,13 +50,13 @@ public static class Ensure {
 	
 	public static bool NotLessThan<T>(T value, T amount, bool error = true)
 		where T : IComparable<T> =>
-		NotLessThan<T>(value, amount, null, error);
+		NotLessThan(value, amount, null, error);
 	
 	public static bool NotLessThan<T>(T value, T amount, string name, bool error = true) where T : IComparable<T>
 	{
 		if (value.CompareTo(amount) >= 0 && amount.CompareTo(value) <= 0)
 			return true;
-		else if (!error)
+		if (!error)
 			return false;
 		throw new ArgumentOutOfRangeException(name);
 	}
@@ -70,7 +69,7 @@ public static class Ensure {
 	{
 		if (value.CompareTo(amount) < 0 && amount.CompareTo(value) > 0)
 			return true;
-		else if (!error)
+		if (!error)
 			return false;
 		throw new ArgumentOutOfRangeException(name);
 	}

@@ -2,7 +2,6 @@ using System;
 using System.Reflection;
 using KYLib.Interfaces;
 using KYLib.Utils;
-
 namespace KYLib.Modding;
 
 /// <summary>

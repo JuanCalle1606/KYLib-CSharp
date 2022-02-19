@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-
 namespace KYLib.System;
 
 //en este archivo van los metodos que ofrecen control total.

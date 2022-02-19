@@ -1,7 +1,6 @@
 ﻿using System;
 using KYLib.Interfaces;
 using KYLib.Utils;
-
 namespace KYLib.ConsoleUtils;
 
 /// <summary>

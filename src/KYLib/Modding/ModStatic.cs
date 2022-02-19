@@ -1,4 +1,3 @@
-using KYLib.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-
+using KYLib.Utils;
 namespace KYLib.Modding;
 
 partial class Mod
@@ -220,7 +219,7 @@ partial class Mod
 		return de;
 	}
 
-	static bool _autoloads = false;
+	static bool _autoloads;
 
 	/// <summary>
 	/// 

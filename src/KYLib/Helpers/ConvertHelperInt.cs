@@ -1,5 +1,4 @@
 using System;
-
 namespace KYLib.Helpers;
 
 /// <summary>
@@ -14,7 +13,7 @@ partial class ConvertHelper
 	/// <param name="n">Valor a convertir.</param>
 	/// <returns>El <see cref="int"/> equivalente a <paramref name="n"/> o 0 si <paramref name="n"/> es <c>null</c>.</returns>
 	public static int ToInt32(IConvertible n) =>
-		ConvertValue(n, Convert.ToInt32, v => (int)ToDouble(n));
+		ConvertValue(n, Convert.ToInt32, v => (int)ToDouble(v));
 
 	/// <summary>
 	/// Convierte el valor especificado en un <see cref="byte"/>.
@@ -22,6 +21,6 @@ partial class ConvertHelper
 	/// <param name="n">Valor a convertir.</param>
 	/// <returns>El <see cref="byte"/> equivalente a <paramref name="n"/> o 0 si <paramref name="n"/> es <c>null</c>.</returns>
 	public static byte ToByte(IConvertible n) =>
-		ConvertValue(n, Convert.ToByte, v => (byte)ToSingle(n));
+		ConvertValue(n, Convert.ToByte, v => (byte)ToSingle(v));
 
 }

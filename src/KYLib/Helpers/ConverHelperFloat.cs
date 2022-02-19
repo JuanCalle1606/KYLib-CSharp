@@ -1,5 +1,4 @@
 using System;
-
 namespace KYLib.Helpers;
 
 /// <summary>

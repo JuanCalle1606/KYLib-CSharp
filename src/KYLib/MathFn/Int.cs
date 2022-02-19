@@ -1,11 +1,10 @@
 using System;
 using KYLib.Helpers;
 using KYLib.Interfaces;
-
 namespace KYLib.MathFn;
 
 /// <summary>
-/// Wrapper a la estructura <see cref="Int32"/>  implementando la interfaz <see cref="INumber"/>.
+/// Wrapper a la estructura <see cref="int"/>  implementando la interfaz <see cref="INumber"/>.
 /// Esta clase provee sobrecargas a todos los operadores sobrecargables.
 /// </summary>
 public

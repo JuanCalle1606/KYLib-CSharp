@@ -1,5 +1,4 @@
 ﻿using KYLib.Utils;
-
 namespace KYLib.Extensions;
 
 /// <summary>

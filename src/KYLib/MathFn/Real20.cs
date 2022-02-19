@@ -1,9 +1,8 @@
 ﻿#if NETSTANDARD2_0
-using KYLib.Helpers;
-using KYLib.Interfaces;
 using System;
 using System.Globalization;
-
+using KYLib.Helpers;
+using KYLib.Interfaces;
 namespace KYLib.MathFn
 {
 	partial struct Real : INumber<double>

@@ -1,6 +1,7 @@
 using System;
+#if NETSTANDARD2_1
 using KYLib.Helpers;
-
+#endif
 namespace KYLib.Interfaces;
 
 /// <summary>
@@ -53,7 +54,7 @@ where TBase : struct, IComparable, IComparable<TBase>, IConvertible, IEquatable<
 
 	/// <inheritdoc/>
 	string IFormattable.ToString(string format, IFormatProvider formatProvider) =>
-		((IFormattable)Value).ToString(format, formatProvider);
+		Value.ToString(format, formatProvider);
 
 	/// <inheritdoc/>
 	object IConvertible.ToType(Type conversionType, IFormatProvider provider) =>

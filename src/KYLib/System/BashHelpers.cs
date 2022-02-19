@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-
 namespace KYLib.System;
 
 //Aqui se guardan los metodos que son de ayuda para la ejecución de procesos.

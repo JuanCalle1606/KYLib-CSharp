@@ -1,7 +1,6 @@
 using System;
 using KYLib.Modding;
 using KYLib.System;
-
 namespace KYLib.Utils;
 
 /// <summary>

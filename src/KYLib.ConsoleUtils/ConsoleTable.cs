@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using KYLib.Extensions;
-
 namespace KYLib.ConsoleUtils;
 
 /// <summary>

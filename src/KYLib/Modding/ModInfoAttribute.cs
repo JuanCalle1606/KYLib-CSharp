@@ -1,6 +1,5 @@
-﻿using KYLib.Interfaces;
-using System;
-
+﻿using System;
+using KYLib.Interfaces;
 namespace KYLib.Modding;
 
 [AttributeUsage(AttributeTargets.Assembly)]

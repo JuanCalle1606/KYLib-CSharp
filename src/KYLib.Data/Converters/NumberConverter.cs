@@ -1,7 +1,6 @@
 using System;
 using KYLib.Interfaces;
 using Newtonsoft.Json;
-
 namespace KYLib.Data.Converters;
 
 /// <summary>

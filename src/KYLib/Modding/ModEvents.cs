@@ -1,6 +1,5 @@
 ﻿
 using System;
-
 namespace KYLib.Modding;
 
 partial class Mod
