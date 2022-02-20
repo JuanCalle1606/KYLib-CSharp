@@ -5,11 +5,15 @@
 
 		<IsPackable>false</IsPackable>
 		<DocumentationFile />
-		<TargetFrameworks>net472;net48;net6.0;net5.0;</TargetFrameworks>
+		<TargetFrameworks>net6.0;net5.0;</TargetFrameworks>
 		<OutputType>Library</OutputType>
 		<ReferringTargetFrameworkForProjectReferences>netstandard2.0</ReferringTargetFrameworkForProjectReferences>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="$(OS) == 'Windows_NT'">
+		<TargetFrameworks>net48;net472;$(TargetFrameworks)</TargetFrameworks>
+	</PropertyGroup>
+	
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
 		<PackageReference Include="xunit" Version="2.4.1" />
