@@ -162,17 +162,11 @@ public
 		_value = source.ToInt32(null);
 
 	/// <inheritdoc/>
-	void INumber.UpdateValue(object source)
+	void INumber.UpdateValue(object? source)
 	{
-		//primero vemos si es un IConvertible
-		var n = (IConvertible)source;
-		if (n != null)
-		{
-			_value = ConvertHelper.ToInt32(n);
-			return;
-		}
-		//si llegamos aqui es porque no se pudo leer el numero, en ese caso se produce una exepción
-		throw new ArgumentException("El valor proporcionado no puede ser convertido en Int.", nameof(source));
+		if (source is not IConvertible n)
+			throw new ArgumentException("El valor proporcionado no puede ser convertido en Int.", nameof(source));
+		_value = ConvertHelper.ToInt32(n);
 	}
 
 	/// <inheritdoc/>

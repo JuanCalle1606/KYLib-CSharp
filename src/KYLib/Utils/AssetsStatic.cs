@@ -46,12 +46,7 @@ partial class Assets: IEquatable<Assets?>
 	/// <param name="a">Objeto a comparar con <paramref name="b"/>.</param>
 	/// <param name="b">Objeto a comparar con <paramref name="a"/>.</param>
 	/// <returns><c>true</c> si <paramref name="a"/> es igual a <paramref name="b"/>, de lo contrario <c>false</c>.</returns>
-	public static bool operator ==(Assets? a, Assets? b)
-	{
-		if (a is null && b is null) return true;
-		if (a is not null) return a.Equals(b);
-		return b is not null && b.Equals(a);
-	}
+	public static bool operator ==(Assets? a, Assets? b) => a is null && b is null || (a?.Equals(b) ?? b!.Equals(a));
 
 	/// <summary>
 	/// Compara si dos <see cref="Assets"/> son diferentes.
@@ -59,32 +54,15 @@ partial class Assets: IEquatable<Assets?>
 	/// <param name="a">Objeto a comparar con <paramref name="b"/>.</param>
 	/// <param name="b">Objeto a comparar con <paramref name="a"/>.</param>
 	/// <returns><c>true</c> si <paramref name="a"/> es deferente a <paramref name="b"/>, de lo contrario <c>false</c>.</returns>
-	public static bool operator !=(Assets? a, Assets? b)
-	{
-		//return a.SearchPath != b.SearchPath;
-		if (a is null && b is null) return false;
-		if (a is not null) return !a.Equals(b);
-		return b is not null && !b.Equals(a);
-	}
+	public static bool operator !=(Assets? a, Assets? b) => (a is not null || b is not null) && (!a?.Equals(b) ?? !b!.Equals(a));
 
 	/// <inheritdoc/>
-	public bool Equals(Assets? other)
-	{
-		if (other is null) return false;
-		return SearchPath == other.SearchPath;
-	}
+	public bool Equals(Assets? other) => other is not null && SearchPath == other.SearchPath;
 
 	/// <inheritdoc/>
-	public override bool Equals(object? obj)
-	{
-		var other = obj as Assets;
-		return Equals(other);
-	}
+	public override bool Equals(object? obj) => Equals(obj as Assets);
 
 	/// <inheritdoc/>
-	public override int GetHashCode()
-	{
-		// ReSharper disable once NonReadonlyMemberInGetHashCode
-		return SearchPath.GetHashCode();
-	}
+	// ReSharper disable once NonReadonlyMemberInGetHashCode
+	public override int GetHashCode() => SearchPath.GetHashCode();
 }

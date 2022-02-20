@@ -167,17 +167,11 @@ public
 		_value = source.ToByte(null);
 
 	/// <inheritdoc/>
-	void INumber.UpdateValue(object source)
+	void INumber.UpdateValue(object? source)
 	{
-		//primero vemos si es un IConvertible
-		var n = (IConvertible)source;
-		if (n != null)
-		{
-			_value = ConvertHelper.ToByte(n);
-			return;
-		}
-		//si llegamos aqui es porque no se pudo leer el numero, en ese caso se produce una exepción
-		throw new ArgumentException("El valor proporcionado no puede ser convertido en Small.", nameof(source));
+		if (source is not IConvertible n)
+			throw new ArgumentException("El valor proporcionado no puede ser convertido en Small.", nameof(source));
+		_value = ConvertHelper.ToByte(n);
 	}
 
 	/// <inheritdoc/>

@@ -1,6 +1,8 @@
 using System;
+using System.Globalization;
 using KYLib.Helpers;
 using KYLib.Interfaces;
+// ReSharper disable CompareOfFloatsByEqualityOperator
 namespace KYLib.MathFn;
 
 /// <summary>
@@ -55,38 +57,60 @@ public
 
 	#region Operadores Unarios
 
-	/// <inheritdoc/>
+	/// <summary>
+	/// Duelve el mismo valor.
+	/// </summary>
 	public static Real operator +(Real num) => num;
 
-	/// <inheritdoc/>
+	/// <summary>
+	/// Niega el valor de <paramref name="num"/>.
+	/// </summary>
 	public static Real operator -(Real num) => new(-num._value);
 
-	/*/// <inheritdoc/>
-	public static Real operator ~(Real num) => new(~num.value);*/
-
-	/// <inheritdoc/>
+	/// <summary>
+	/// Duelve <paramref name="num"/> incrementado en 1.
+	/// </summary>
 	public static Real operator ++(Real num) => new(num._value + 1);
 
-	/// <inheritdoc/>
+	/// <summary>
+	/// Duelve <paramref name="num"/> decrementado en 1.
+	/// </summary>
 	public static Real operator --(Real num) => new(num._value - 1);
 
 	#endregion
 
 	#region Operadores Binarios Aritmeticos
 
-	/// <inheritdoc/>
+	/// <summary>
+	/// Suma dos numeros.
+	/// </summary>
+	/// <param name="num1">Primer operador.</param>
+	/// <param name="num2">Segundo operador</param>
+	/// <returns>El resutado de la operación con <paramref name="num1"/> y <paramref name="num2"/>.</returns>
 	public static Real operator +(Real num1, Real num2) => new(num1._value + num2._value);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="op_Addition"/>
+	/// <summary>
+	///	Resta dos numeros.
+	/// </summary>
 	public static Real operator -(Real num1, Real num2) => new(num1._value - num2._value);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="op_Addition"/>
+	/// <summary>
+	///	Multiplica dos numeros.
+	/// </summary>
 	public static Real operator *(Real num1, Real num2) => new(num1._value * num2._value);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="op_Addition"/>
+	/// <summary>
+	///	Divide dos numeros.
+	/// </summary>
 	public static Real operator /(Real num1, Real num2) => new(num1._value / num2._value);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="op_Addition"/>
+	/// <summary>
+	///	Modula dos numeros.
+	/// </summary>
 	public static Real operator %(Real num1, Real num2) => new(num1._value % num2._value);
 
 	#endregion
@@ -121,40 +145,45 @@ public
 
 	#region Operadores Binarios Comparativos
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="double.op_Equality"/>
 	public static bool operator ==(Real num1, Real num2) => num1._value == num2._value;
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="double.op_Inequality"/>
 	public static bool operator !=(Real num1, Real num2) => num1._value != num2._value;
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="double.op_LessThan"/>
 	public static bool operator <(Real num1, Real num2) => num1._value < num2._value;
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="double.op_GreaterThan"/>
 	public static bool operator >(Real num1, Real num2) => num1._value > num2._value;
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="double.op_LessThanOrEqual"/>
 	public static bool operator <=(Real num1, Real num2) => num1._value <= num2._value;
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="double.op_GreaterThanOrEqual"/>
 	public static bool operator >=(Real num1, Real num2) => num1._value >= num2._value;
 
 	#endregion
 
 	#region conversiones
-	/// <inheritdoc/>
+	
+	/// <summary>
+	/// Convierte un valor numerico a un <see cref="Real"/>.
+	/// </summary>
 	public static implicit operator Real(double value) => new(value);
 
-	/// <inheritdoc/>
+	/// <summary>
+	/// Convierte el valor a un <see cref="double"/>.
+	/// </summary>
 	public static implicit operator double(Real value) => value._value;
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="op_Implicit(double)"/>
 	public static implicit operator Real(Int value) => new(value);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="op_Implicit(double)"/>
 	public static implicit operator Real(Float value) => new(value);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="op_Implicit(double)"/>
 	public static implicit operator Real(Small value) => new(value);
 
 	#endregion
@@ -173,15 +202,9 @@ public
 	/// <inheritdoc/>
 	void INumber.UpdateValue(object? source)
 	{
-		//primero vemos si es un IConvertible
-		var n = (IConvertible)source;
-		if (n != null)
-		{
-			_value = ConvertHelper.ToDouble(n);
-			return;
-		}
-		//si llegamos aqui es porque no se pudo leer el numero, en ese caso se produce una exepción
-		throw new ArgumentException("El valor proporcionado no puede ser convertido en Real.", nameof(source));
+		if (source is not IConvertible n)
+			throw new ArgumentException("El valor proporcionado no puede ser convertido en Real.", nameof(source));
+		_value = ConvertHelper.ToDouble(n);
 	}
 
 	/// <inheritdoc/>
@@ -199,7 +222,7 @@ public
 	/// <inheritdoc/>
 	public bool Equals(INumber other) => _value.Equals(other.ToDouble(null));
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="double.Equals(double)"/>
 	public bool Equals(Real other) => _value.Equals(other._value);
 
 	/// <inheritdoc/>
@@ -218,7 +241,7 @@ public
 	#region overrides
 
 	/// <inheritdoc/>
-	public override string ToString() => _value.ToString();
+	public override string ToString() => _value.ToString(CultureInfo.CurrentCulture);
 
 	/// <inheritdoc/>
 	public override int GetHashCode() => _value.GetHashCode();

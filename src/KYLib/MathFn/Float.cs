@@ -1,6 +1,8 @@
 using System;
+using System.Globalization;
 using KYLib.Helpers;
 using KYLib.Interfaces;
+// ReSharper disable CompareOfFloatsByEqualityOperator
 namespace KYLib.MathFn;
 
 /// <summary>
@@ -55,38 +57,35 @@ public
 
 	#region Operadores Unarios
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_UnaryPlus"/>
 	public static Float operator +(Float num) => num;
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_UnaryNegation"/>
 	public static Float operator -(Float num) => new(-num._value);
 
-	/*/// <inheritdoc/>
-	public static Float operator ~(Float num) => new(~num.value);*/
-
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_Increment"/>
 	public static Float operator ++(Float num) => new(num._value + 1);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_Decrement"/>
 	public static Float operator --(Float num) => new(num._value - 1);
 
 	#endregion
 
 	#region Operadores Binarios Aritmeticos
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_Addition"/>
 	public static Float operator +(Float num1, Float num2) => new(num1._value + num2._value);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_Subtraction"/>
 	public static Float operator -(Float num1, Float num2) => new(num1._value - num2._value);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_Multiply"/>
 	public static Float operator *(Float num1, Float num2) => new(num1._value * num2._value);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_Division"/>
 	public static Float operator /(Float num1, Float num2) => new(num1._value / num2._value);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_Modulus"/>
 	public static Float operator %(Float num1, Float num2) => new(num1._value % num2._value);
 
 	#endregion
@@ -112,40 +111,44 @@ public
 
 	#region Operadores Binarios Comparativos
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="float.op_Equality"/>
 	public static bool operator ==(Float num1, Float num2) => num1._value == num2._value;
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="float.op_Inequality"/>
 	public static bool operator !=(Float num1, Float num2) => num1._value != num2._value;
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="float.op_LessThan"/>
 	public static bool operator <(Float num1, Float num2) => num1._value < num2._value;
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="float.op_GreaterThan"/>
 	public static bool operator >(Float num1, Float num2) => num1._value > num2._value;
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="float.op_LessThanOrEqual"/>
 	public static bool operator <=(Float num1, Float num2) => num1._value <= num2._value;
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="float.op_GreaterThanOrEqual"/>
 	public static bool operator >=(Float num1, Float num2) => num1._value >= num2._value;
 
 	#endregion
 
 	#region conversiones
-	/// <inheritdoc/>
+	/// <summary>
+	/// Convierte un valor numerico a un <see cref="Float"/>.
+	/// </summary>
 	public static implicit operator Float(float value) => new(value);
 
-	/// <inheritdoc/>
+	/// <summary>
+	/// Convierte el valor a un <see cref="float"/>.
+	/// </summary>
 	public static implicit operator float(Float value) => value._value;
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="op_Implicit(float)"/>
 	public static implicit operator Float(Small value) => new(value);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="op_Implicit(float)"/>
 	public static implicit operator Float(Int value) => new(value);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="op_Implicit(float)"/>
 	public static explicit operator Float(Real value) => new(((INumber)value).ToSingle(null));
 
 	#endregion
@@ -162,18 +165,11 @@ public
 		_value = source.ToSingle(null);
 
 	/// <inheritdoc/>
-	void INumber.UpdateValue(object source)
+	void INumber.UpdateValue(object? source)
 	{
-		//primero vemos si es un IConvertible
-		//primero vemos si es un IConvertible
-		var n = (IConvertible)source;
-		if (n != null)
-		{
-			_value = ConvertHelper.ToSingle(n);
-			return;
-		}
-		//si llegamos aqui es porque no se pudo leer el numero, en ese caso se produce una exepción
-		throw new ArgumentException("El valor proporcionado no puede ser convertido en Float.", nameof(source));
+		if (source is not IConvertible n)
+			throw new ArgumentException("El valor proporcionado no puede ser convertido en Float.", nameof(source));
+		_value = ConvertHelper.ToSingle(n);
 	}
 
 	/// <inheritdoc/>
@@ -191,7 +187,7 @@ public
 	/// <inheritdoc/>
 	public bool Equals(INumber other) => _value.Equals(other.ToSingle(null));
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="float.Equals(float)"/>
 	public bool Equals(Float other) => _value.Equals(other._value);
 
 	/// <inheritdoc/>
@@ -210,7 +206,7 @@ public
 	#region overrides
 
 	/// <inheritdoc/>
-	public override string ToString() => _value.ToString();
+	public override string ToString() => _value.ToString(CultureInfo.CurrentCulture);
 
 	/// <inheritdoc/>
 	public override Int32 GetHashCode() => _value.GetHashCode();

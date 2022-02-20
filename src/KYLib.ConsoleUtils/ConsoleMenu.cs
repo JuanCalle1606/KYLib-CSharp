@@ -91,7 +91,7 @@ public class ConsoleMenu
 	/// <param name="addExit">Indica si se quiere agregar la opción de salir.</param>
 	public ConsoleMenu(bool addExit)
 	{
-		if (addExit) Items.Add(new ConsoleItem("Salir", Stop) { InstaOption = true });
+		if (addExit) Items.Add(new("Salir", Stop) { InstaOption = true });
 	}
 
 	#endregion
@@ -153,7 +153,7 @@ public class ConsoleMenu
 	/// <param name="name">Nombre que tendra el item.</param>
 	/// <param name="action"></param>
 	/// <returns>Devuelve si el item se pudo agregar al menu.</returns>
-	public bool AddItem(string name, Action action) => AddItem(new ConsoleItem(name, action));
+	public bool AddItem(string name, Action action) => AddItem(new(name, action));
 
 	/// <summary>
 	/// Agrega un nuevo item al menu.
@@ -163,7 +163,7 @@ public class ConsoleMenu
 	/// <param name="instaOption">Indica la acción que efectuara este item.</param>
 	/// <returns>Devuelve si el item se pudo agregar al menu.</returns>
 	public bool AddItem(string name, Action action, bool instaOption) =>
-		AddItem(new ConsoleItem(name, action) { InstaOption = instaOption });
+		AddItem(new(name, action) { InstaOption = instaOption });
 
 
 	#endregion
