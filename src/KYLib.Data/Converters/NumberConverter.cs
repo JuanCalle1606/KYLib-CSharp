@@ -1,5 +1,5 @@
 using System;
-using KYLib.Interfaces;
+using KYLib.Abstractions;
 using Newtonsoft.Json;
 namespace KYLib.Data.Converters;
 

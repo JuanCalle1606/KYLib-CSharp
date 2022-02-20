@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
+using KYLib.Abstractions;
 using KYLib.Helpers;
-using KYLib.Interfaces;
 // ReSharper disable CompareOfFloatsByEqualityOperator
 namespace KYLib.MathFn;
 

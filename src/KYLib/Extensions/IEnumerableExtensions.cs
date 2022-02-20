@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using KYLib.Interfaces;
+using KYLib.Abstractions;
 using KYLib.MathFn;
 using KYLib.Utils;
 #pragma warning disable CS1573

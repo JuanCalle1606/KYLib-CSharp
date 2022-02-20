@@ -1,4 +1,4 @@
-using KYLib.Interfaces;
+using KYLib.Abstractions;
 using KYLib.Utils;
 #pragma warning disable CS1712
 #pragma warning disable CS1573

@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 
 // ReSharper disable once CheckNamespace
-namespace KYLib.Interfaces;
+namespace KYLib.Abstractions;
 
 /// <summary>
 /// Representa un archivo que se usa para guardar y cargar datos.

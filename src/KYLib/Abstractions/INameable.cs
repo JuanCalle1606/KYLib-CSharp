@@ -1,5 +1,5 @@
 ﻿
-namespace KYLib.Interfaces;
+namespace KYLib.Abstractions;
 
 /// <summary>
 /// Representa un objeto que tiene un nombre.

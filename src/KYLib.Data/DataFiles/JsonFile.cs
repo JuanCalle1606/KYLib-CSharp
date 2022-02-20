@@ -1,6 +1,6 @@
 using System.IO;
 using KYLib.Data.Converters;
-using KYLib.Interfaces;
+using KYLib.Abstractions;
 using KYLib.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;

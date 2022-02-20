@@ -11,4 +11,4 @@ global using kfloat = System.Single;
 global using kdouble = System.Double;
 #endif
 
-global using num = KYLib.Interfaces.INumber;
+global using num = KYLib.Abstractions.INumber;

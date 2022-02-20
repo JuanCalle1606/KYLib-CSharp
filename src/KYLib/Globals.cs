@@ -1,5 +1,5 @@
 ﻿//#define KYTYPES
-global using num = KYLib.Interfaces.INumber;
+global using num = KYLib.Abstractions.INumber;
 global using bit = KYLib.MathFn.Bit;
 #if KYTYPES
 global using kint = KYLib.MathFn.Int;

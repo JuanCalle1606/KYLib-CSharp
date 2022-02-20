@@ -1,7 +1,7 @@
 ﻿#if NETSTANDARD2_0
 using System;
+using KYLib.Abstractions;
 using KYLib.Helpers;
-using KYLib.Interfaces;
 namespace KYLib.MathFn
 {
 	partial struct Int : INumber<int>

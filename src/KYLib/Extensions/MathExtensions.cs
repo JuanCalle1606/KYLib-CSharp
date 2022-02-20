@@ -1,6 +1,6 @@
 
 using System.Collections.Generic;
-using KYLib.Interfaces;
+using KYLib.Abstractions;
 using KYLib.MathFn;
 namespace KYLib.Extensions;
 

@@ -2,7 +2,7 @@ using System;
 #if NETSTANDARD2_1
 using KYLib.Helpers;
 #endif
-namespace KYLib.Interfaces;
+namespace KYLib.Abstractions;
 
 /// <summary>
 /// Representa un numero que esta basado en un tipo numerico nativo de C#.

@@ -1,5 +1,5 @@
 ﻿using System;
-using KYLib.Interfaces;
+using KYLib.Abstractions;
 namespace KYLib.Modding;
 
 /// <summary>

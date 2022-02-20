@@ -1,5 +1,5 @@
 using System;
-namespace KYLib.Interfaces;
+namespace KYLib.Abstractions;
 
 /// <summary>
 /// Representa un numero en el cual se pueden operar las operaciones basicas como suma, resta, multiplicación y división.

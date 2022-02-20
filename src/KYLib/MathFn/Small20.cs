@@ -1,6 +1,6 @@
 ﻿#if NETSTANDARD2_0
 using System;
-using KYLib.Interfaces;
+using KYLib.Abstractions;
 namespace KYLib.MathFn
 {
 	partial struct Small : INumber<byte>

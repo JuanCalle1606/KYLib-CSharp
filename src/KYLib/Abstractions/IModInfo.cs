@@ -1,4 +1,4 @@
-﻿namespace KYLib.Interfaces;
+﻿namespace KYLib.Abstractions;
 
 /// <summary>
 /// Proveedor de información acerca de un mod.
