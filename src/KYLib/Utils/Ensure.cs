@@ -37,7 +37,7 @@ public static class Ensure {
 	/// <param name="error">Indica si se debe generar un error si <paramref name="obj"/> no es mayor que <paramref name="amount"/>.</param>
 	/// <typeparam name="T">Cualquier tipo  <see cref="IComparable{T}"/>.</typeparam>
 	/// <returns>Si <paramref name="obj"/> es mayor que <paramref name="amount"/> retorna <c>true</c>, en caso de que no sea mayor se retorna <c>false</c> si y solo si <paramref name="error"/> es <c>false</c>, de lo contrario se genera un error.</returns>
-	/// <exception cref="ArgumentOutOfRangeException"><see cref="error"/> es <c>true</c> y <paramref name="obj"/> no es mayor que <paramref name="amount"/>.</exception>
+	/// <exception cref="ArgumentOutOfRangeException"><paramref name="error"/> es <c>true</c> y <paramref name="obj"/> no es mayor que <paramref name="amount"/>.</exception>
 	public static bool GreaterThan<T>(T obj, T amount, string? name, bool error = true) where T : IComparable<T>
 	{
 		if (obj.CompareTo(amount) > 0 && amount.CompareTo(obj) < 0)
@@ -56,7 +56,7 @@ public static class Ensure {
 	/// <param name="error">Indica si se debe generar un error si <paramref name="obj"/> es mayor que <paramref name="amount"/>.</param>
 	/// <typeparam name="T">Cualquier tipo  <see cref="IComparable{T}"/>.</typeparam>
 	/// <returns>Si <paramref name="obj"/> no es mayor que <paramref name="amount"/> retorna <c>true</c>, en caso de que sea mayor se retorna <c>false</c> si y solo si <paramref name="error"/> es <c>false</c>, de lo contrario se genera un error.</returns>
-	/// <exception cref="ArgumentOutOfRangeException"><see cref="error"/> es <c>true</c> y <paramref name="obj"/> es mayor que <paramref name="amount"/>.</exception>
+	/// <exception cref="ArgumentOutOfRangeException"><paramref name="error"/> es <c>true</c> y <paramref name="obj"/> es mayor que <paramref name="amount"/>.</exception>
 	public static bool NotGreaterThan<T>(T obj, T amount, string? name, bool error = true) where T : IComparable<T>
 	{
 		if (obj.CompareTo(amount) <= 0 && amount.CompareTo(obj) >= 0)
@@ -79,7 +79,7 @@ public static class Ensure {
 	/// <param name="error">Indica si se debe generar un error si <paramref name="obj"/> es menor que <paramref name="amount"/>.</param>
 	/// <typeparam name="T">Cualquier tipo  <see cref="IComparable{T}"/>.</typeparam>
 	/// <returns>Si <paramref name="obj"/> no es menor que <paramref name="amount"/> retorna <c>true</c>, en caso de que sea menor se retorna <c>false</c> si y solo si <paramref name="error"/> es <c>false</c>, de lo contrario se genera un error.</returns>
-	/// <exception cref="ArgumentOutOfRangeException"><see cref="error"/> es <c>true</c> y <paramref name="obj"/> es menor que <paramref name="amount"/>.</exception>
+	/// <exception cref="ArgumentOutOfRangeException"><paramref name="error"/> es <c>true</c> y <paramref name="obj"/> es menor que <paramref name="amount"/>.</exception>
 	public static bool NotLessThan<T>(T obj, T amount, string? name, bool error = true) where T : IComparable<T>
 	{
 		if (obj.CompareTo(amount) >= 0 && amount.CompareTo(obj) <= 0)
@@ -98,7 +98,7 @@ public static class Ensure {
 	/// <param name="error">Indica si se debe generar un error si <paramref name="obj"/> no es menor que <paramref name="amount"/>.</param>
 	/// <typeparam name="T">Cualquier tipo  <see cref="IComparable{T}"/>.</typeparam>
 	/// <returns>Si <paramref name="obj"/> es menor que <paramref name="amount"/> retorna <c>true</c>, en caso de que no sea menor se retorna <c>false</c> si y solo si <paramref name="error"/> es <c>false</c>, de lo contrario se genera un error.</returns>
-	/// <exception cref="ArgumentOutOfRangeException"><see cref="error"/> es <c>true</c> y <paramref name="obj"/> no es menor que <paramref name="amount"/>.</exception>
+	/// <exception cref="ArgumentOutOfRangeException"><paramref name="error"/> es <c>true</c> y <paramref name="obj"/> no es menor que <paramref name="amount"/>.</exception>
 	public static bool LessThan<T>(T obj, T amount, string? name, bool error = true) where T : IComparable<T>
 	{
 		if (obj.CompareTo(amount) < 0 && amount.CompareTo(obj) > 0)
@@ -119,7 +119,7 @@ public static class Ensure {
 	/// <param name="name">Nombre de la variable.</param>
 	/// <param name="error">Indica si se debe generar un error en caso de que <paramref name="obj"/> se <c>null</c>.</param>
 	/// <returns>Si <paramref name="obj"/> es no nulo se retorna <c>true</c>, en caso de que si sea nulo se retorna <c>false</c> si y solo si <paramref name="error"/> es <c>false</c>, de lo contrario se genera un error.</returns>
-	/// <exception cref="ArgumentException"><see cref="error"/> es <c>true</c> y <paramref name="obj"/> es nulo.</exception>
+	/// <exception cref="ArgumentException"><paramref name="error"/> es <c>true</c> y <paramref name="obj"/> es nulo.</exception>
 	public static bool NotNull(object? obj, string? name, bool error = true)
 	{
 		if (obj is not null)

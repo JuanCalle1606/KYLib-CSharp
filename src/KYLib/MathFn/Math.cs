@@ -5,6 +5,15 @@ namespace KYLib.MathFn;
 // Aqui se guardan los metodos que proveen implementacion de los metodos de Math.
 partial class Mathf
 {
+	#region Variables
+
+	/// <summary>
+	/// Tolerancia al comparar valores enteros con flotantes.
+	/// </summary>
+	public static kdouble Tolerance { get; set; } = 1e-10;
+
+	#endregion
+	
 	#region Root
 
 	/// <summary>
@@ -18,9 +27,9 @@ partial class Mathf
 	{
 		var dev = default(T);
 		kdouble rnum = num.ToDouble(null), rbase = nbase.ToDouble(null), math;
-		if (rbase == 2) math = Math.Sqrt(rnum);
+		if (Math.Abs(rbase - 2) < Tolerance) math = Math.Sqrt(rnum);
 #if NETSTANDARD2_1
-		else if (rbase == 3) math = Math.Cbrt(rnum);
+		else if (Math.Abs(rbase - 3) < Tolerance) math = Math.Cbrt(rnum);
 #endif
 		else math = Math.Pow(rnum, 1 / rbase);
 

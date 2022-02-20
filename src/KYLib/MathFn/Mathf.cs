@@ -43,8 +43,9 @@ public static partial class Mathf
 	/// <returns>La media del conjunto de datos.</returns>
 	public static T MeanOf<T>(IEnumerable<INumber> nums) where T : struct, INumber
 	{
-		Int count = nums.Count();
-		var sum = SumOf<T>(nums);
+		var enumerable = nums as INumber[] ?? nums.ToArray();
+		Int count = enumerable.Length;
+		var sum = SumOf<T>(enumerable);
 		sum.Div(count);
 		return sum;
 	}
@@ -68,8 +69,9 @@ public static partial class Mathf
 	where T : struct, INumber
 	where TOut : struct, INumber
 	{
-		Int count = nums.Count();
-		var sum = SumOf<T, TOut>(nums);
+		var enumerable = nums as T[] ?? nums.ToArray();
+		Int count = enumerable.Length;
+		var sum = SumOf<T, TOut>(enumerable);
 		sum.Div(count);
 		return sum;
 	}
@@ -265,10 +267,7 @@ public static partial class Mathf
 			(byte)1 :
 			// ReSharper disable once RedundantCast
 			(byte)0;
-		if (nr < 5)
-			outRes = '0';
-		else
-			outRes = '1';
+		outRes = nr < 5 ? '0' : '1';
 		return char.Parse($"{temp}");
 
 	}
