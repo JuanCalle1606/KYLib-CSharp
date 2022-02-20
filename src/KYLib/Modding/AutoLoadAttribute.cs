@@ -9,15 +9,16 @@ using System.Diagnostics;
 namespace KYLib.Modding;
 
 /// <summary>
-/// 
+/// Especifica que el elemento debe ser cargado cuando se llame a <see cref="Mod.EnableAutoLoads"/>.
 /// </summary>
 [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Module | AttributeTargets.Class | AttributeTargets.Constructor | AttributeTargets.Method, Inherited = false)]
 public sealed class AutoLoadAttribute : Attribute
 {
 	/// <summary>
-	/// 
+	/// Indica que el elemento se debe cargar de forma asincronica.
 	/// </summary>
 	public bool Async { get; set; }
+
 	#region Assembly
 	internal static void AutoLoad(Assembly[] assemblies)
 	{
@@ -159,7 +160,7 @@ public sealed class AutoLoadAttribute : Attribute
 		// check static methods
 		foreach (var staticmember in type.GetMethods(staticconsFlags))
 		{
-			if (staticmember?.GetCustomAttribute<AutoLoadAttribute>() != null && staticmember.GetParameters().Length == 0)
+			if (staticmember.GetCustomAttribute<AutoLoadAttribute>() != null && staticmember.GetParameters().Length == 0)
 			{
 				staticmember.Invoke(null, null);
 #if DEBUG
@@ -175,7 +176,7 @@ public sealed class AutoLoadAttribute : Attribute
 		// check normal methods
 		foreach (var member in type.GetMethods(consFlags))
 		{
-			if (member?.GetCustomAttribute<AutoLoadAttribute>() != null && member.GetParameters().Length == 0)
+			if (member.GetCustomAttribute<AutoLoadAttribute>() != null && member.GetParameters().Length == 0)
 			{
 				member.Invoke(Activator.CreateInstance(type, true), null);
 #if DEBUG

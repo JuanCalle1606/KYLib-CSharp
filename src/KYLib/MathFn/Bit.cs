@@ -10,6 +10,7 @@ public struct Bit : IEquatable<Bit>
 	/// Representa el bit 1.
 	/// </summary>
 	public static readonly Bit One = 1;
+	
 	/// <summary>
 	/// Representa el bit 0.
 	/// </summary>
@@ -40,6 +41,7 @@ public struct Bit : IEquatable<Bit>
 			return tmp;
 		}
 	}
+	
 	/// <summary>
 	/// Crea un nuevo bit con un valor dado.
 	/// </summary>
@@ -49,11 +51,12 @@ public struct Bit : IEquatable<Bit>
 		_value = value;
 		Rest = false;
 	}
+	
 	/// <summary>
 	/// Crea un nuevo bit con un valor dado.
 	/// </summary>
 	/// <param name="value">Es <c>true</c> si el bit debe vale 1 o <c>false</c> si debe valer 0.</param> 
-	/// <param name="rest">Es <c>true</c> si el bit tiene resto o <c>false</c> si debe no.</param>
+	/// <param name="rest">Es <c>true</c> si el bit tiene resto o <c>false</c> si no.</param>
 	Bit(bool value, bool rest)
 	{
 		_value = value;
@@ -128,19 +131,26 @@ public struct Bit : IEquatable<Bit>
 	#endregion
 
 	#region Boolean Operators
-	/// <inheritdoc/>
+	/// <summary>
+	/// Devuelve si el bit esta encendido.
+	/// </summary>
 	public static bool operator true(Bit value) => value._value;
-	/// <inheritdoc/>
+	
+	/// <summary>
+	/// Devuelve si el bit esta apagado.
+	/// </summary>
 	public static bool operator false(Bit value) => !value._value;
 
 	/// <summary>
 	/// Compara si dos bis son iguales.
 	/// </summary>
 	public static bool operator ==(Bit val1, Bit val2) => val1._value == val2._value;
+	
 	/// <summary>
 	/// Compara si dos bits son diferentes.
 	/// </summary>
 	public static bool operator !=(Bit val1, Bit val2) => val1._value != val2._value;
+	
 	/// <summary>
 	/// Compara si un bit es mayor que otro.
 	/// </summary>
@@ -153,49 +163,64 @@ public struct Bit : IEquatable<Bit>
 
 	#region From Numbers
 
-	static Bit FromDouble(double value)
-	{
-		/*
-		if (value != 0 && value != 1)
-			throw new ArgumentOutOfRangeException(nameof(value), value, "El tipo bit solo acepta los valores 1 o 0");
-		*/
-		return new Bit(value > 0);
-	}
-	/// <inheritdoc/>
-	public static implicit operator Bit(byte value) => FromDouble(value);
-	/// <inheritdoc/>
+	static Bit FromDouble(kdouble value) => new(value != 0);
+	
+	/// <inheritdoc cref="op_Implicit(bool)"/>
+	public static implicit operator Bit(kbyte value) => FromDouble(value);
+
+	/// <inheritdoc cref="op_Implicit(bool)"/>
 	public static implicit operator Bit(short value) => FromDouble(value);
-	/// <inheritdoc/>
+
+	/// <inheritdoc cref="op_Implicit(bool)"/>
 	public static implicit operator Bit(ushort value) => FromDouble(value);
-	/// <inheritdoc/>
-	public static implicit operator Bit(int value) => FromDouble(value);
-	/// <inheritdoc/>
+
+	/// <inheritdoc cref="op_Implicit(bool)"/>
+	public static implicit operator Bit(kint value) => FromDouble(value);
+
+	/// <inheritdoc cref="op_Implicit(bool)"/>
 	public static implicit operator Bit(uint value) => FromDouble(value);
-	/// <inheritdoc/>
-	public static implicit operator Bit(float value) => FromDouble(value);
-	/// <inheritdoc/>
-	public static implicit operator Bit(double value) => FromDouble(value);
-	/// <inheritdoc/>
+
+	/// <inheritdoc cref="op_Implicit(bool)"/>
+	public static implicit operator Bit(kfloat value) => FromDouble(value);
+	
+	/// <inheritdoc cref="op_Implicit(bool)"/>
+	public static implicit operator Bit(kdouble value) => FromDouble(value);
+	
+	/// <summary>
+	/// Crea un nuevo bit a partir de un valor.
+	/// </summary>
 	public static implicit operator Bit(bool value) => new(value);
 	#endregion
+	
 	#region To Numbers
+
+	/// <summary>
+	/// Convierte el bit a un valor de otro tipo.
+	/// </summary>
 	int Toint() => _value ? 1 : 0;
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Toint"/>
 	public static implicit operator byte(Bit value) => (byte)value.Toint();
-	/// <inheritdoc/>
+
+	/// <inheritdoc cref="Toint"/>
 	public static implicit operator short(Bit value) => (byte)value.Toint();
-	/// <inheritdoc/>
+
+	/// <inheritdoc cref="Toint"/>
 	public static implicit operator ushort(Bit value) => (byte)value.Toint();
-	/// <inheritdoc/>
+
+	/// <inheritdoc cref="Toint"/>
 	public static implicit operator int(Bit value) => value.Toint();
-	/// <inheritdoc/>
+
+	/// <inheritdoc cref="Toint"/>
 	public static implicit operator uint(Bit value) => (byte)value.Toint();
-	/// <inheritdoc/>
+
+	/// <inheritdoc cref="Toint"/>
 	public static implicit operator float(Bit value) => value.Toint();
-	/// <inheritdoc/>
+
+	/// <inheritdoc cref="Toint"/>
 	public static implicit operator double(Bit value) => value.Toint();
-	/// <inheritdoc/>
+
+	/// <inheritdoc cref="Toint"/>
 	public static implicit operator bool(Bit value) => value._value;
 	#endregion
 
@@ -204,12 +229,12 @@ public struct Bit : IEquatable<Bit>
 		_value ? "1" : "0";
 
 	/// <inheritdoc/>
-	public override bool Equals(object obj) => obj.Equals(_value) || obj.ToString().Equals(ToString());
+	public override bool Equals(object? obj) => _value.Equals(obj);
 
 	/// <inheritdoc/>
-	public bool Equals(Bit other) => this == other;
+	public bool Equals(Bit other) => _value == other._value;
 
 	/// <inheritdoc/>
-	public override int GetHashCode() => base.GetHashCode();
+	public override int GetHashCode() => _value.GetHashCode();
 
 }

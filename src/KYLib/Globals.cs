@@ -10,5 +10,9 @@ global using kbyte = System.Byte;
 global using kfloat = System.Single;
 global using kdouble = System.Double;
 #endif
-
 global using num = KYLib.Interfaces.INumber;
+global using bit = KYLib.MathFn.Bit;
+
+using KYLib.Modding;
+[assembly: AutoLoad]
+[module: AutoLoad]

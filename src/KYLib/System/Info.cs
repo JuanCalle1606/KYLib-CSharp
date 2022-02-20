@@ -2,12 +2,15 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading;
 using KYLib.Extensions;
+using KYLib.Modding;
 namespace KYLib.System;
 
 /// <summary>
 /// Provee información del sistema operativo y demas cosas.
 /// </summary>
+[AutoLoad(Async=true)]
 public static partial class Info
 {
 

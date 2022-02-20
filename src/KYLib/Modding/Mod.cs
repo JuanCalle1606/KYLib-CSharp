@@ -7,7 +7,7 @@ namespace KYLib.Modding;
 /// <summary>
 /// Representa un ensamblado y provee metodos para facilitar el manejo.
 /// </summary>
-public partial class Mod : IEquatable<Mod> {
+public partial class Mod : IEquatable<Mod?> {
 	/// <summary>
 	/// Ensamblado relacionado a este objeto.
 	/// </summary>
@@ -28,7 +28,7 @@ public partial class Mod : IEquatable<Mod> {
 	}
 
 	/// <inheritdoc/>
-	public bool Equals(Mod other) =>
+	public bool Equals(Mod? other) =>
 		Dll.Equals(other?.Dll);
 
 	/// <inheritdoc/>
