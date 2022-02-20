@@ -19,6 +19,11 @@ public static partial class Info
 	public static readonly string? EntryDll = Assembly.GetEntryAssembly()?.Location;
 
 	/// <summary>
+	/// Indica si se tiene un ensamblado administrado de entrada.
+	/// </summary>
+	public static readonly bool HasEntry = Assembly.GetEntryAssembly() is not null;
+
+	/// <summary>
 	/// Nombre del ensamblado de entrada.
 	/// </summary>
 	public static readonly string AppName = AppDomain.CurrentDomain.FriendlyName;

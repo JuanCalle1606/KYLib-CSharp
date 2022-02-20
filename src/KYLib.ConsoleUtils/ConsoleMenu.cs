@@ -135,7 +135,7 @@ public class ConsoleMenu
 	/// <returns>Devuelve si el item se pudo agregar al menu.</returns>
 	public bool AddItem(ConsoleItem item)
 	{
-		Ensure.NotNull(item);
+		Ensure.NotNull(item, nameof(item));
 		if (Items.FindByName(item.Name) == null)
 		{
 			if (AddAtEnd)

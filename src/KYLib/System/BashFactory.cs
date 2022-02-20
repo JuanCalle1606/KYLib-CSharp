@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using KYLib.Utils;
 namespace KYLib.System;
 
 //Aqui se guardan los metodos que crean procesos
@@ -127,8 +128,12 @@ partial class Bash
 	/// <param name="error">Indica si debe redirigir la salida de error estandar del proceso.</param>
 	/// <param name="input">Indica si debe redirigir la entrada estandar del proceso.</param>
 	/// <returns>Devuelve el proceso generado.</returns>
-	public static Process CreateProcess(string file, string args, string? runin, bool output, bool error, bool input) =>
-		CreateProcess(new ProcessStartInfo
+	public static Process CreateProcess(string file, string args, string? runin, bool output, bool error, bool input)
+	{
+		Ensure.NotNull(file, nameof(file));
+		Ensure.NotNull(args, nameof(args));
+		
+		return CreateProcess(new ProcessStartInfo
 		{
 			FileName = file,
 			Arguments = args,
@@ -139,6 +144,7 @@ partial class Bash
 			CreateNoWindow = false,
 			WorkingDirectory = string.IsNullOrWhiteSpace(runin) ? Environment.CurrentDirectory : runin
 		});
+	}
 
 	/// <summary>
 	/// Crea un nuevo proceso con una información dada.
@@ -147,7 +153,8 @@ partial class Bash
 	/// <returns>El proceso generado.</returns>
 	public static Process CreateProcess(ProcessStartInfo info)
 	{
-		return new Process
+		Ensure.NotNull(info, nameof(info));
+		return new()
 		{
 			EnableRaisingEvents = true,
 			StartInfo = info

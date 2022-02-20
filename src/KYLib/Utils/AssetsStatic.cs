@@ -40,6 +40,12 @@ partial class Assets: IEquatable<Assets?>
 	/// <param name="path">Directorio que estara relacionado con el objecto <see cref="Assets"/>.</param>
 	public static implicit operator Assets(string path) => new(path);
 
+	/// <summary>
+	/// Compara si dos <see cref="Assets"/> son iguales.
+	/// </summary>
+	/// <param name="a">Objeto a comparar con <paramref name="b"/>.</param>
+	/// <param name="b">Objeto a comparar con <paramref name="a"/>.</param>
+	/// <returns><c>true</c> si <paramref name="a"/> es igual a <paramref name="b"/>, de lo contrario <c>false</c>.</returns>
 	public static bool operator ==(Assets? a, Assets? b)
 	{
 		if (a is null && b is null) return true;
@@ -47,9 +53,18 @@ partial class Assets: IEquatable<Assets?>
 		return b is not null && b.Equals(a);
 	}
 
+	/// <summary>
+	/// Compara si dos <see cref="Assets"/> son diferentes.
+	/// </summary>
+	/// <param name="a">Objeto a comparar con <paramref name="b"/>.</param>
+	/// <param name="b">Objeto a comparar con <paramref name="a"/>.</param>
+	/// <returns><c>true</c> si <paramref name="a"/> es deferente a <paramref name="b"/>, de lo contrario <c>false</c>.</returns>
 	public static bool operator !=(Assets? a, Assets? b)
 	{
-		return a.SearchPath != b.SearchPath;
+		//return a.SearchPath != b.SearchPath;
+		if (a is null && b is null) return false;
+		if (a is not null) return !a.Equals(b);
+		return b is not null && !b.Equals(a);
 	}
 
 	/// <inheritdoc/>

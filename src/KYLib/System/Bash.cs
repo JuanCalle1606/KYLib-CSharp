@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using KYLib.Utils;
 namespace KYLib.System;
 
 //en este archivo van los metodos que ofrecen control total.
@@ -64,9 +65,11 @@ public static partial class Bash
 	/// <returns>Devuelve un objeto de proceso que representa al programa invocado corriendo.</returns>
 	public static Process Start(string file, string args, string? runin, Action<string> stdout, Action<string> stderr, out Action<string> stdin)
 	{
+		Ensure.NotNull(stdout, nameof(stdout));
+		Ensure.NotNull(stderr, nameof(stderr));
 		var process = CreateProcess(file, args, runin, true);
-		process.OutputDataReceived += (o, e) => stdout?.Invoke(e.Data);
-		process.ErrorDataReceived += (o, e) => stderr?.Invoke(e.Data);
+		process.OutputDataReceived += (_, e) => stdout(e.Data);
+		process.ErrorDataReceived += (_, e) => stderr(e.Data);
 		process.Start();
 		process.BeginOutputReadLine();
 		process.BeginErrorReadLine();

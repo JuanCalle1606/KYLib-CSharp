@@ -54,7 +54,7 @@ partial class Bash
 		await Task.Run(() =>
 		{
 			using var process = CreateBashProcess(bash, null, true, false);
-			process.OutputDataReceived += (o, e) => callback?.Invoke(e.Data);
+			process.OutputDataReceived += (_, e) => callback?.Invoke(e.Data);
 			process.Start();
 			process.BeginOutputReadLine();
 			process.WaitForExit();
