@@ -240,13 +240,13 @@ partial class Mod
 	}
 
 	static Mod() =>
-		AppDomain.CurrentDomain.AssemblyLoad += (o, a) =>
+		AppDomain.CurrentDomain.AssemblyLoad += (_, a) =>
 		{
 			if (_autoloads && a.LoadedAssembly.GetCustomAttribute<AutoLoadAttribute>() != null)
 				AutoLoadAttribute.AutoLoad(a.LoadedAssembly);
 #if DEBUG
 			Console.WriteLine($"Ensamblado {a.LoadedAssembly.GetName().Name} cargado");
 #endif
-			_Allmods.Add(new Mod(a.LoadedAssembly));
+			_Allmods.Add(new(a.LoadedAssembly));
 		};
 }

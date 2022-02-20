@@ -1,4 +1,6 @@
 ﻿//#define KYTYPES
+global using num = KYLib.Interfaces.INumber;
+global using bit = KYLib.MathFn.Bit;
 #if KYTYPES
 global using kint = KYLib.MathFn.Int;
 global using kbyte = KYLib.MathFn.Small;
@@ -10,9 +12,10 @@ global using kbyte = System.Byte;
 global using kfloat = System.Single;
 global using kdouble = System.Double;
 #endif
-global using num = KYLib.Interfaces.INumber;
-global using bit = KYLib.MathFn.Bit;
 
+using KYLib.Internal;
 using KYLib.Modding;
+
+[assembly: ModInfo(typeof(KYLibInfo))]
 [assembly: AutoLoad]
 [module: AutoLoad]

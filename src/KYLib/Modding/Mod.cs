@@ -22,7 +22,7 @@ public partial class Mod : IEquatable<Mod?> {
 	{
 		Ensure.NotNull(assembly, nameof(assembly));
 		var att = assembly.GetCustomAttribute<ModInfoAttribute>();
-		if (att != null)
+		if (att is { Type: {} })
 			ModInfo = (IModInfo)Activator.CreateInstance(att.Type);
 		Dll = assembly;
 	}
