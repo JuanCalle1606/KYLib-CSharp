@@ -55,44 +55,47 @@ public
 
 	#region Operadores Unarios
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_UnaryPlus"/>
 	public static Int operator +(Int num) => num;
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_UnaryNegation"/>
 	public static Int operator -(Int num) => new(-num._value);
 
-	/// <inheritdoc/>
+	/// <summary>
+	/// Devuelve la negación bit a bit del numero.
+	/// </summary>
 	public static Int operator ~(Int num) => new(~num._value);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_Increment"/>
 	public static Int operator ++(Int num) => new(num._value + 1);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_Decrement"/>
 	public static Int operator --(Int num) => new(num._value - 1);
 
 	#endregion
 
 	#region Operadores Binarios Aritmeticos
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_Addition"/>
 	public static Int operator +(Int num1, Int num2) => new(num1._value + num2._value);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_Subtraction"/>
 	public static Int operator -(Int num1, Int num2) => new(num1._value - num2._value);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_Multiply"/>
 	public static Int operator *(Int num1, Int num2) => new(num1._value * num2._value);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_Division"/>
 	public static Int operator /(Int num1, Int num2) => new(num1._value / num2._value);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_Modulus"/>
 	public static Int operator %(Int num1, Int num2) => new(num1._value % num2._value);
 
 	#endregion
 
 	#region Operadores Binarios Logicos
 
+	// ReSharper disable InheritdocInvalidUsage
 	/// <inheritdoc/>
 	public static Int operator &(Int num1, Int num2) => new(num1._value & num2._value);
 
@@ -129,23 +132,28 @@ public
 
 	/// <inheritdoc/>
 	public static bool operator >=(Int num1, Int num2) => num1._value >= num2._value;
-
+	// ReSharper restore InheritdocInvalidUsage
 	#endregion
 
 	#region conversiones
-	/// <inheritdoc/>
+	
+	/// <summary>
+	/// Convierte un valor numerico a un <see cref="Int"/>.
+	/// </summary>
 	public static implicit operator Int(int value) => new(value);
 
-	/// <inheritdoc/>
+	/// <summary>
+	/// Convierte el valor a un <see cref="int"/>.
+	/// </summary>
 	public static implicit operator int(Int value) => value._value;
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="op_Implicit(int)"/>
 	public static implicit operator Int(Small value) => new(value);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="op_Implicit(int)"/>
 	public static explicit operator Int(Float value) => new(((INumber)value).ToInt32(null));
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="op_Implicit(int)"/>
 	public static explicit operator Int(Real value) => new(((INumber)value).ToInt32(null));
 
 	#endregion
@@ -154,8 +162,8 @@ public
 	/// <inheritdoc/>
 	int INumber<int>.Value { get => _value; set => _value = value; }
 #if NETSTANDARD2_1
-		/// <inheritdoc/>
-		int IConvertible.ToInt32(IFormatProvider provider) => _value;
+	/// <inheritdoc/>
+	int IConvertible.ToInt32(IFormatProvider provider) => _value;
 #endif
 	/// <inheritdoc/>
 	void INumber.UpdateValue(INumber source) =>
@@ -184,7 +192,7 @@ public
 	/// <inheritdoc/>
 	public bool Equals(INumber other) => _value.Equals(other.ToInt32(null));
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="int.Equals(int)"/>
 	public bool Equals(Int other) => _value.Equals(other._value);
 
 	/// <inheritdoc/>

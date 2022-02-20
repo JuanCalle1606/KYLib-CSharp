@@ -1,6 +1,8 @@
 using System.IO;
 #if NETSTANDARD2_1
 using KYLib.System;
+#else
+using System;
 #endif
 
 namespace KYLib.Utils;
@@ -13,12 +15,14 @@ public partial class Assets {
 	/// Directorio de busqueda de recursos.
 	/// </summary>
 	public string SearchPath { get; private set; }
-#if NETSTANDARD2_1
+	
 	/// <summary>
 	/// Indica si las rutas devueltas por el indexador son absolutas.
 	/// </summary>
-	public bool ResolveAbsolute = false;
+#if NETSTANDARD2_0
+	[Obsolete("Esta propiedad no tiene ningun uso en esta version")]
 #endif
+	public bool ResolveAbsolute { get; set; } = false;
 
 	/// <summary>
 	/// Crea una nueva instancia basada en un directorio.

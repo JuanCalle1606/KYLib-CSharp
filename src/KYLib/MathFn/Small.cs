@@ -60,44 +60,45 @@ public
 
 	#region Operadores Unarios
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_UnaryPlus"/>
 	public static Small operator +(Small num) => num;
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_UnaryNegation"/>
 	public static Small operator -(Small num) => new((byte)-num._value);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Int.op_OnesComplement"/>
 	public static Small operator ~(Small num) => new((byte)~num._value);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_Increment"/>
 	public static Small operator ++(Small num) => new(num._value + _One);
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_Decrement"/>
 	public static Small operator --(Small num) => new(num._value - _One);
 
 	#endregion
 
 	#region Operadores Binarios Aritmeticos
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_Addition"/>
 	public static Small operator +(Small num1, Small num2) => new((byte)(num1._value + num2._value));
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_Subtraction"/>
 	public static Small operator -(Small num1, Small num2) => new((byte)(num1._value - num2._value));
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_Multiply"/>
 	public static Small operator *(Small num1, Small num2) => new((byte)(num1._value * num2._value));
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_Division"/>
 	public static Small operator /(Small num1, Small num2) => new((byte)(num1._value / num2._value));
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="Real.op_Modulus"/>
 	public static Small operator %(Small num1, Small num2) => new((byte)(num1._value % num2._value));
 
 	#endregion
 
 	#region Operadores Binarios Logicos
-
+	
+	// ReSharper disable InheritdocInvalidUsage
 	/// <inheritdoc/>
 	public static Small operator &(Small num1, Small num2) => new((byte)(num1._value & num2._value));
 
@@ -135,22 +136,28 @@ public
 	/// <inheritdoc/>
 	public static bool operator >=(Small num1, Small num2) => num1._value >= num2._value;
 
+	// ReSharper restore InheritdocInvalidUsage
 	#endregion
 
 	#region conversiones
-	/// <inheritdoc/>
+	
+	/// <summary>
+	/// Convierte un valor numerico en un <see cref="Small"/>.
+	/// </summary>
 	public static implicit operator Small(byte value) => new(value);
 
-	/// <inheritdoc/>
+	/// <summary>
+	/// COnvierte el valor en un <see cref="byte"/>.
+	/// </summary>
 	public static implicit operator byte(Small value) => value._value;
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="op_Implicit(byte)"/>
 	public static explicit operator Small(Real value) => new(((INumber)value).ToByte(null));
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="op_Implicit(byte)"/>
 	public static explicit operator Small(Float value) => new(((INumber)value).ToByte(null));
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="op_Implicit(byte)"/>
 	public static explicit operator Small(Int value) => new(((INumber)value).ToByte(null));
 
 	#endregion
@@ -189,7 +196,7 @@ public
 	/// <inheritdoc/>
 	public bool Equals(INumber other) => _value.Equals(other.ToByte(null));
 
-	/// <inheritdoc/>
+	/// <inheritdoc cref="byte.Equals(byte)"/>
 	public bool Equals(Small other) => _value.Equals(other._value);
 
 	/// <inheritdoc/>
