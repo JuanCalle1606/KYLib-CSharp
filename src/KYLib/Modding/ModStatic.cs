@@ -12,13 +12,13 @@ namespace KYLib.Modding;
 
 partial class Mod
 {
+	static readonly List<Mod> _Allmods = new();
+
 	/// <summary>
 	/// Obtiene el mod relacionado a <see cref="Assembly.GetEntryAssembly"/>.
 	/// </summary>
 	public static readonly Mod? Entry = Info.HasEntry ? GetMod(Assembly.GetEntryAssembly()!) : null;
-
-	static readonly List<Mod> _Allmods = new();
-
+	
 	/// <summary>
 	/// Lista de todos los mods, en cuestión contiene lo mismo que <see cref="AppDomain.GetAssemblies"/> pero en una lista.
 	/// </summary>
