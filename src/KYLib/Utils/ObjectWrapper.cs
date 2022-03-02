@@ -5,7 +5,7 @@ namespace KYLib.Utils;
 /// <summary>
 /// Encapsula un objeto para proveer metodos privados y otras utilidades.
 /// </summary>
-public sealed class ObjectWrapper : DynamicObject
+public class ObjectWrapper : DynamicObject, IDynamicMetaObjectProvider
 {
 	/// <summary>
 	/// Obtiene el objeto almacenado.
