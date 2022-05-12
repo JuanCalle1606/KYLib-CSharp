@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -40,7 +39,7 @@ partial class Mod
 		if (string.IsNullOrWhiteSpace(mod))
 			return null;
 		ValidateMods();
-		return _Allmods.Find(a => a.Dll.GetName().Name == mod);
+		return _Allmods.Find(a => a.Dll.GetName().Name == mod || a.ModInfo?.Name == mod);
 	}
 
 	/// <inheritdoc cref="GetMod(string)"/>
@@ -48,19 +47,17 @@ partial class Mod
 	{
 		Ensure.NotNull(mod, nameof(mod));
 		ValidateMods();
-		return _Allmods.Find(m => m.Dll == mod);
+		return _Allmods.Find(m => m.Dll == mod)!;
 	}
 
 	/// <inheritdoc cref="GetMod(string)"/>
 
-	public static Mod GetMod(AssemblyName mod)
+	public static Mod? GetMod(AssemblyName mod)
 	{
 		Ensure.NotNull(mod, nameof(mod));
 		ValidateMods();
 		return _Allmods.Find(m => m.Dll.GetName().ToString() == mod.ToString());
 	}
-
-#pragma warning disable CS1587
 
 	/// <summary>
 	/// Carga un mod desde un ensamblado de una ubicación arbitraria.
@@ -84,11 +81,8 @@ partial class Mod
 	static string GetRealPath(string path, string cci, string ncci)
 	{
 		var posiblePaths = new List<string>();
-#if NETSTANDARD2_1
 		var abs = Path.IsPathFullyQualified(path);
-#else
-		var abs = Path.GetFullPath(path) == path;
-#endif
+
 		if (abs)
 		{
 			var fileInfo = new FileInfo(path);
@@ -143,8 +137,6 @@ partial class Mod
 
 		return string.IsNullOrWhiteSpace(existing) ? path : existing;
 	}
-
-#pragma warning restore CS1587
 
 	/// <summary>
 	/// Intenta cargar un mod con <see cref="Import(string)"/>.
@@ -263,8 +255,8 @@ partial class Mod
 		{
 			if (_Autoloads && a.LoadedAssembly.GetCustomAttribute<AutoLoadAttribute>() != null)
 				AutoLoadAttribute.AutoLoad(a.LoadedAssembly);
-#if DEBUG
-			Console.WriteLine($"Ensamblado {a.LoadedAssembly.GetName().Name} cargado");
+#if DEBUGa
+			Console.WriteLine($"Ensamblado {a.LoadedAssembly.GetName().Name} cargado de " + a.LoadedAssembly.Location);
 #endif
 			_Allmods.Add(new(a.LoadedAssembly));
 		};

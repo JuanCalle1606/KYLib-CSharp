@@ -31,7 +31,7 @@ public static partial class Info
 	/// <summary>
 	/// Obtiene la dirección del directorio en el que se encuentra el ejecutable.
 	/// </summary>
-	public static readonly string? InstallDir = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
+	public static readonly string? InstallDir = HasEntry ? Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location) : null;
 
 	/// <summary>
 	/// Obtiene la ubicación desde la que se cargan ensamblados por defecto.
@@ -84,10 +84,11 @@ public static partial class Info
 
 		if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
 		{ CurrentSystem = Os.Osx; return; }
-
+		
 		var uname = Bash.GetCommand("uname -a").ToLower();
 		if (uname.Contains("linux")) CurrentSystem = Os.Linux;
 		if (uname.Contains("debian")) CurrentSystem = Os.Debian;
+		if (uname.Contains("ubuntu")) CurrentSystem = Os.Ubuntu;
 		if (uname.Contains("parrot")) CurrentSystem = Os.Parrot;
 	}
 

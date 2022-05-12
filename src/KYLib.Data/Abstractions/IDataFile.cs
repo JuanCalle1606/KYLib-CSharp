@@ -7,12 +7,7 @@ namespace KYLib.Abstractions;
 /// Representa un archivo que se usa para guardar y cargar datos.
 /// </summary>
 public interface IDataFile
-{
-	/// <summary>
-	/// Configuraciones que usa este formato de archivo.
-	/// </summary>
-	JsonSerializerSettings Settings { get; }
-
+{ 
 	/// <summary>
 	/// Convierte un objeto en su representación de tipo de archivo.
 	/// </summary>

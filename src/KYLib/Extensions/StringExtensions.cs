@@ -1,3 +1,5 @@
+using System;
+using System.Security.Cryptography;
 using System.Text;
 using KYLib.System;
 using KYLib.Utils;
@@ -47,4 +49,14 @@ public static class StringExtensions
 	/// <param name="me">Cadena que contiene el comando.</param>
 	/// <returns>Salida del proceso.</returns>
 	public static string RunInBash(this string me) => Bash.GetCommand(me);
+
+	public static string ToMD5(this string input)
+	{
+		using var md5 = MD5.Create();
+		
+		byte[] inputBytes = Encoding.ASCII.GetBytes(input);
+		byte[] hashBytes = md5.ComputeHash(inputBytes);
+
+		return Convert.ToHexString(hashBytes);
+	}
 }

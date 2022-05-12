@@ -1,14 +1,10 @@
 using System.IO;
-using KYLib.Data.Converters;
 using KYLib.Abstractions;
 using KYLib.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 namespace KYLib.Data.DataFiles;
 
-/// <summary>
-/// TODO: docs
-/// </summary>
 public sealed class JsonFile : IDataFile
 {
 	/// <summary>
@@ -24,7 +20,6 @@ public sealed class JsonFile : IDataFile
 	/// </summary>
 	public JsonFile()
 	{
-		Settings.Converters.Add(new NumberConverter());
 		Settings.Converters.Add(new StringEnumConverter());
 		Settings.Formatting = Formatting.Indented;
 		Settings.NullValueHandling = NullValueHandling.Ignore;

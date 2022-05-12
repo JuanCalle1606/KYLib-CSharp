@@ -2,6 +2,7 @@
 	<Import Project="$(MSBuildThisFileDirectory)external/JuanCalle1606/code/csharp/Directory.Build.props"/>
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
+		<LangVersion>preview</LangVersion>
 		<TargetFramework>net7.0</TargetFramework>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<RepositoryUrl>https://github.com/JuanCalle1606/KYLib-CSharp</RepositoryUrl>

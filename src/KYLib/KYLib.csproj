@@ -2,14 +2,6 @@
 
   <PropertyGroup>
     <Description>Libreria sencilla de clases y utilidades, esta libreria esta pensada unicamente para uso personal</Description>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup Condition="$(TargetFramework)=='netstandard2.0'">
-    <PackageReference Include="IndexRange" Version="1.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-  </ItemGroup>
 </Project>

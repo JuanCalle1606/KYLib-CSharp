@@ -6,10 +6,10 @@ namespace KYLib.Utils;
 /// <summary>
 /// Provee funciones para obtener recursos.
 /// </summary>
-partial class Assets: IEquatable<Assets?>
+partial class Assets: IEquatable<Assets?>, IEqualityOperators<Assets, Assets>
 {
 	/// <summary>
-	/// Obtiene una instnacia de <see cref="Assets"/> relacionada a la ruta de <see cref="Info.BaseDir"/>.
+	/// Obtiene una instancia de <see cref="Assets"/> relacionada a la ruta de <see cref="Info.BaseDir"/>.
 	/// </summary>
 	public static readonly Assets BaseDir = new(Info.BaseDir);
 

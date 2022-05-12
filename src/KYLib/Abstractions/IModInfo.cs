@@ -14,4 +14,12 @@ public interface IModInfo : INameable
 	/// Descripción del mod.
 	/// </summary>
 	string Description { get; }
+
+	string Title { get; }
+
+	string[] Dependencies { get; }
+
+	string[] SoftDependencies { get; }
+
+	Type? ModType { get; }
 }

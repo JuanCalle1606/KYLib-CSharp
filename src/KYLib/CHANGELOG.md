@@ -19,6 +19,7 @@
 - Se ha removido la estructura BitArray.
 - Removidas las clases TypeValidator, TrayIcon y YadTrayIcon.
 - Se quito la varible Current de la clase Mod.
+- Se han removido los tipos numericos ya que net7.0 ya implementa INumber<> para matematica generica.
 
 ### Cambiado
 - Cambiada la forma de obtener información del sistema en Info.
