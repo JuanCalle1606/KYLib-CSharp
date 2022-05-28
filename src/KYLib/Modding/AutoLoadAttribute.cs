@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 #if DEBUG
@@ -129,7 +128,7 @@ public sealed class AutoLoadAttribute : Attribute
 
 	static void AutoLoadSync(Type type)
 	{
-		Mod.TypeAutoLoaded(Mod.GetMod(type.Assembly), type);
+		Mod.InternalTypeAutoLoaded(Mod.GetMod(type.Assembly), type);
 #if DEBUG
 		var sw = Stopwatch.StartNew();
 #endif

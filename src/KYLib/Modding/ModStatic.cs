@@ -4,6 +4,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Loader;
+using KYLib.Extensions;
 using KYLib.System;
 using KYLib.Utils;
 #pragma warning disable CS1573
@@ -11,6 +13,8 @@ namespace KYLib.Modding;
 
 partial class Mod
 {
+	static AssemblyLoadContext modLoadContext;
+
 	static readonly List<Mod> _Allmods = new();
 
 	/// <summary>
@@ -67,12 +71,13 @@ partial class Mod
 
 	/// <inheritdoc cref="Import(string)"/>
 	/// <param name="info">Identificador de cultura del ensanmblado que se quiere cargar.</param>
-	public static Mod Import(string path, CultureInfo info)
+	public static Mod Import(string path, CultureInfo info, AssemblyLoadContext? modLoadContext = null)
 	{
 		Ensure.NotNull(path, nameof(path));
 		Ensure.NotNull(info, nameof(info));
 		var realpath = GetRealPath(path, info.Name + "/", info.Parent.Name + "/");
-		return GetMod(Assembly.LoadFrom(realpath));
+		realpath = Path.GetFullPath(realpath);
+		return modLoadContext == null ? GetMod(Assembly.LoadFrom(realpath)) : GetMod(modLoadContext.LoadFromAssemblyPath(realpath));
 	}
 
 	/// <summary>
@@ -214,20 +219,43 @@ partial class Mod
 			_Allmods.AddRange(mods.Select(a => new Mod(a)));
 		}
 	}
-	
-	/// <summary>
-	/// Carga todos 
-	/// </summary>
-	/// <returns></returns>
-	public static List<Mod> LoadMods()
+
+	public static IEnumerable<Mod> LoadMods() => LoadMods(Assets.ModsDir);
+
+	public static IEnumerable<Mod> LoadMods(Assets directory)
 	{
-		Directory.CreateDirectory(Assets.ModsDir);
-		var files = Directory.GetFiles(Assets.ModsDir, "*.dll");
-		var de = new List<Mod>();
+		Directory.CreateDirectory(directory);
+		var files = Directory.GetFiles(directory, "*.dll");
+		modLoadContext ??= new AssemblyLoadContext("ExtensionMods");
 		foreach (var file in files)
-			if(Import(file) is {} mod)
-				de.Add(mod);
-		return de;
+			if(Import(file, CultureInfo.CurrentCulture, modLoadContext) is {} mod)
+				yield return mod;
+	}
+
+	public static IEnumerable<Tmod> LoadExtensionMods<Tmod>(Assets directory) where Tmod : Mod
+	{
+		Console.WriteLine("Will load mods xdd");
+		foreach (var item in LoadMods(directory))
+		{
+			if (AnalizeExtensionMod<Tmod>(item))
+				yield return ReplaceMod(item, item.ModInfo!.ModType!.RequiredInstance<Tmod>());
+		}
+	}
+
+	private static Tmod ReplaceMod<Tmod>(Mod item, Tmod replacement) where Tmod : Mod
+	{
+		//cuando un mod tiene un tipo definido se debe usar dicho tipo como mod en lugar de usar el tipo base
+		var t = replacement;
+		t.Dll = item.Dll;
+		t.ModInfo = item.ModInfo;
+		_Allmods.Remove(item);
+		_Allmods.Add(t);
+		return t;
+	}
+
+	private static bool AnalizeExtensionMod<Tmod>(Mod mod)
+	{
+		return mod.ModInfo != null && mod.ModInfo.ModType != null && mod.ModInfo.ModType.IsAssignableTo(typeof(Tmod));
 	}
 
 	static bool _Autoloads;

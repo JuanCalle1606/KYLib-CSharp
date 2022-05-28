@@ -11,12 +11,14 @@ public partial class Mod : IEquatable<Mod?> {
 	/// <summary>
 	/// Ensamblado relacionado a este objeto.
 	/// </summary>
-	public readonly Assembly Dll;
+	public Assembly Dll { get; internal set; }
 
 	/// <summary>
 	/// Intancia de <see cref="IModInfo"/> que se crea si el ensamblado tiene un atributo <see cref="ModInfoAttribute"/>.
 	/// </summary>
-	public readonly IModInfo? ModInfo;
+	public IModInfo? ModInfo { get; internal set; }
+
+	internal Mod() { Dll = null!; }
 
 	Mod(Assembly assembly)
 	{

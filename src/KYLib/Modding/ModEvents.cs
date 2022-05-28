@@ -1,16 +1,15 @@
-﻿using System;
-namespace KYLib.Modding;
-
+﻿namespace KYLib.Modding;
+ 
 partial class Mod
 {
 	/// <summary>
 	/// Se lanza cuando un tipo con <see cref="AutoLoadAttribute"/> es cargado.
 	/// </summary>
-	public static event TypeAutoLoadedHandler? OnTypeAutoLoaded;
+	public static event TypeAutoLoadedHandler TypeAutoLoaded;
 
-	internal static void TypeAutoLoaded(Mod container, Type type)
+	internal static void InternalTypeAutoLoaded(Mod container, Type type)
 	{
-		OnTypeAutoLoaded?.Invoke(container, type);
+		TypeAutoLoaded?.Invoke(container, type);
 	}
 	
 	/// <summary>
