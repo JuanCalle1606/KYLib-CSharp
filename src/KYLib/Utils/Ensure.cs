@@ -1,5 +1,4 @@
-﻿using System;
-#pragma warning disable CS1573
+﻿#pragma warning disable CS1573
 namespace KYLib.Utils;
 
 /// <summary>

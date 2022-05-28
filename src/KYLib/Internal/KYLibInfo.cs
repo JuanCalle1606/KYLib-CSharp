@@ -5,11 +5,11 @@ namespace KYLib.Internal;
 // ReSharper disable once InconsistentNaming
 internal class KYLibInfo : IModInfo
 {
-	public string Name => "KYLib";
+	public string Name => Resources.ModName;
 
-	public string Author => "Juan Pablo Calle";
+	public string Author => Resources.ModAuthor;
 
-	public string Description => "Libreria de utilidades para uso personal";
+	public string Description => Resources.ModDescription;
 
 	public string Title => Name;
 
