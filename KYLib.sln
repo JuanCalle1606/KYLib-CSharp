@@ -1,27 +1,31 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32414.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1A739049-E3DB-481C-AF4F-5200A9A125F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KYLib", "src\KYLib\KYLib.csproj", "{187D3E26-2AA6-489C-84CE-5AB2E67BB452}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KYLib", "src\KYLib\KYLib.csproj", "{187D3E26-2AA6-489C-84CE-5AB2E67BB452}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KYLib.Data", "src\KYLib.Data\KYLib.Data.csproj", "{182A74DB-47A8-4B1C-9DDA-2DF4F8BC1631}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KYLib.Data", "src\KYLib.Data\KYLib.Data.csproj", "{182A74DB-47A8-4B1C-9DDA-2DF4F8BC1631}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KYLib.ConsoleUtils", "src\KYLib.ConsoleUtils\KYLib.ConsoleUtils.csproj", "{9E189F57-2F6A-4C09-A204-894D83672266}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KYLib.ConsoleUtils", "src\KYLib.ConsoleUtils\KYLib.ConsoleUtils.csproj", "{9E189F57-2F6A-4C09-A204-894D83672266}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{18FCEEE8-9FC7-4BE6-9D13-D08CAB5835BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KYLibTest", "test\KYLibTest\KYLibTest.csproj", "{1669249D-7C28-41E6-BC1A-E2055C7B6536}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KYLibTest", "test\KYLibTest\KYLibTest.csproj", "{1669249D-7C28-41E6-BC1A-E2055C7B6536}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KYLib.Host", "src\KYLib.Host\KYLib.Host.csproj", "{D4CEA12E-0B67-4CF5-8A2D-C87C909C37EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{402B2CD3-6150-4DDC-8E67-2688EE11C9EF}"
+	ProjectSection(SolutionItems) = preProject
+		Resources.Designer.t4 = Resources.Designer.t4
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{187D3E26-2AA6-489C-84CE-5AB2E67BB452}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -40,11 +44,23 @@ Global
 		{1669249D-7C28-41E6-BC1A-E2055C7B6536}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1669249D-7C28-41E6-BC1A-E2055C7B6536}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1669249D-7C28-41E6-BC1A-E2055C7B6536}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4CEA12E-0B67-4CF5-8A2D-C87C909C37EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4CEA12E-0B67-4CF5-8A2D-C87C909C37EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4CEA12E-0B67-4CF5-8A2D-C87C909C37EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4CEA12E-0B67-4CF5-8A2D-C87C909C37EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{187D3E26-2AA6-489C-84CE-5AB2E67BB452} = {1A739049-E3DB-481C-AF4F-5200A9A125F6}
 		{182A74DB-47A8-4B1C-9DDA-2DF4F8BC1631} = {1A739049-E3DB-481C-AF4F-5200A9A125F6}
 		{9E189F57-2F6A-4C09-A204-894D83672266} = {1A739049-E3DB-481C-AF4F-5200A9A125F6}
 		{1669249D-7C28-41E6-BC1A-E2055C7B6536} = {18FCEEE8-9FC7-4BE6-9D13-D08CAB5835BC}
+		{D4CEA12E-0B67-4CF5-8A2D-C87C909C37EE} = {1A739049-E3DB-481C-AF4F-5200A9A125F6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		RESX_NeutralResourcesLanguage = es-CO
+		SolutionGuid = {B027FA3D-DDB3-4AA4-86C0-0D14EDC74EC0}
 	EndGlobalSection
 EndGlobal
