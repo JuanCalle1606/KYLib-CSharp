@@ -58,6 +58,16 @@ public static class EnumerableExtensions
 	public static bool TrueForAll<T>(this IEnumerable<T> arr, Predicate<T> predicate) =>
 		Array.TrueForAll(arr.ToArray(), predicate);
 
+	public static void ForEach<T>(this IEnumerable<T> arr, Action<T> action)
+	{
+		Ensure.NotNull(action, nameof(action));
+		Ensure.NotNull(arr, nameof(arr));
+		foreach (var item in arr)
+		{
+			action(item);
+		}
+	}
+
 	#endregion
 
 	#region Listas
