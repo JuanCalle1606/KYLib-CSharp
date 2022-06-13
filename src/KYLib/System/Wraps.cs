@@ -1,7 +1,4 @@
-using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using static KYLib.System.Windows;
+﻿using System.Runtime.InteropServices;
 
 namespace KYLib.System;
 
@@ -10,6 +7,26 @@ internal static class Linux
 {
 	[DllImport("libc")]
 	internal static extern int getuid();
+
+	[DllImport("libc")]
+	public static extern void uname(out Utsname o);
+	
+	[StructLayout(LayoutKind.Sequential)]
+	internal struct Utsname
+	{
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 65)]
+		public string sysname;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 65)]
+		public string nodename;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 65)]
+		public string release;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 65)]
+		public string version;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 65)]
+		public string machine;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 65)]
+		public string domainname;
+	}
 }
 #pragma warning restore IDE1006
 internal static class Windows

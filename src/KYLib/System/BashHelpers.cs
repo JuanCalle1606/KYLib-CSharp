@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 namespace KYLib.System;
 
 //Aqui se guardan los metodos que son de ayuda para la ejecución de procesos.
@@ -15,7 +15,7 @@ partial class Bash
 	/// <exception cref="PlatformNotSupportedException">Se produce cuando no se conoce el sistema operativo.</exception>
 	public static string GetCommand(string bash)
 	{
-		using var process = CreateBashProcess(bash, null, true, false);
+		using var process = CreateBashProcess(bash, null, true, true, true);
 		process.Start();
 		process.WaitForExit();
 		return process.StandardOutput.ReadToEnd();
@@ -30,15 +30,14 @@ partial class Bash
 	/// <param name="bash">Comando a ejecutar.</param>
 	/// <returns>Se devuelve lo capturado de la salida estandar del programa ejecutado.</returns>
 	/// <exception cref="PlatformNotSupportedException">Se produce cuando no se conoce el sistema operativo.</exception>
-	public static async Task<string> GetCommandAsync(string bash) =>
-		await Task.Run(async () =>
-		{
-			using var process = CreateBashProcess(bash, null, true, false);
-			process.Start();
-			process.WaitForExit();
-			var dev = await process.StandardOutput.ReadToEndAsync();
-			return dev;
-		});
+	public static async Task<string> GetCommandAsync(string bash)
+	{
+		using var process = CreateBashProcess(bash, null, true, false);
+		process.Start();
+		await process.WaitForExitAsync();
+		var dev = await process.StandardOutput.ReadToEndAsync();
+		return dev;
+	}
 
 	/// <summary>
 	/// Ejecuta un proceso en el terminal y espera por sus salidas.
@@ -49,15 +48,14 @@ partial class Bash
 	/// <param name="bash">Comando a ejecutar.</param>
 	/// <param name="callback">Acción que recibe las salidas del proceso cada vez que son recibidas.</param>
 	/// <exception cref="PlatformNotSupportedException">Se produce cuando no se conoce el sistema operativo.</exception>
-	public static async Task CommandAsync(string bash, Action<string> callback) =>
-		await Task.Run(() =>
-		{
-			using var process = CreateBashProcess(bash, null, true, false);
-			process.OutputDataReceived += (_, e) => callback?.Invoke(e.Data);
-			process.Start();
-			process.BeginOutputReadLine();
-			process.WaitForExit();
-		});
+	public static async Task CommandAsync(string bash, Action<string?> callback)
+	{
+		using var process = CreateBashProcess(bash, null, true, false);
+		process.OutputDataReceived += (_, e) => callback?.Invoke(e.Data);
+		process.Start();
+		process.BeginOutputReadLine();
+		await process.WaitForExitAsync();
+	}
 
 	/// <summary>
 	/// Ejecuta un comando en consola y no intercepta ni su salida ni su entrada por lo que es interactivo y el usuario puede verlo en consola.
