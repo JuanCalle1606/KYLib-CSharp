@@ -1,5 +1,4 @@
-using System;
-namespace KYLib.System;
+﻿namespace KYLib.System;
 
 /// <summary>
 /// Enumeración de sistemas operativos soportados por la libreria.

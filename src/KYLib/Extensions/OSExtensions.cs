@@ -1,4 +1,4 @@
-using KYLib.System;
+﻿using KYLib.System;
 namespace KYLib.Extensions;
 
 /// <summary>

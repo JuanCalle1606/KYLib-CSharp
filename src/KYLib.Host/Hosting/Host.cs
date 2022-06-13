@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Linq;
+using KYLib.Host.Modding;
 
 namespace KYLib.Host.Hosting;
 public class Hosts

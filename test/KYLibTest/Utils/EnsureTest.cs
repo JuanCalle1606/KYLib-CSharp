@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using KYLib.Utils;
 using Xunit;
 // ReSharper disable VariableCanBeNotNullable

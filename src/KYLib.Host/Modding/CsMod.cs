@@ -1,8 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using KYLib.Modding;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace KYLib.Modding;
+namespace KYLib.Host.Modding;
 
 public abstract class CsMod : Mod
 {

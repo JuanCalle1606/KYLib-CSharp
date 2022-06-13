@@ -1,7 +1,6 @@
 ﻿using KYLib.Extensions;
 using KYLib.Modding;
 using KYLib.Utils;
-using System;
 using System.Runtime.Versioning;
 using System.Threading;
 
@@ -37,7 +36,7 @@ public abstract class EventDispatcher : IDisposable
 	}
 
 	[SupportedOSPlatform("windows")]
-	private static EventWaitHandle openMutex(string name, bool signal)
+	static EventWaitHandle openMutex(string name, bool signal)
 	{
 		EventWaitHandle dev;
 		if (!EventWaitHandle.TryOpenExisting(name, out dev))

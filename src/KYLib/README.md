@@ -1,4 +1,4 @@
-# KYLib
+﻿# KYLib
 [![Build KYLib](https://img.shields.io/github/workflow/status/JuanCalle1606/KYLib-CSharp/.NET%20Build%20KYLib%20Project?label=Build%20KYLib%20Project&logo=github)](https://github.com/JuanCalle1606/KYLib-CSharp/actions/workflows/BuildKYLib.yml)
 [![KYLib](https://img.shields.io/nuget/v/KYLib?label=Nuget&logo=nuget)](https://www.nuget.org/packages/KYLib/)
 [![KYLib](https://img.shields.io/nuget/dt/KYLib?label=Downloads&logo=nuget)](https://www.nuget.org/packages/KYLib/)

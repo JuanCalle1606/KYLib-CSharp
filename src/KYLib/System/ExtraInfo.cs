@@ -1,4 +1,4 @@
-namespace KYLib.System;
+﻿namespace KYLib.System;
 
 /// <summary>
 /// Provee información del sistema operativo y demas cosas.

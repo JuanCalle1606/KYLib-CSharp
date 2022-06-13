@@ -1,4 +1,4 @@
-# KYLib-CSharp
+﻿# KYLib-CSharp
 [![Build Solution](https://img.shields.io/github/workflow/status/JuanCalle1606/KYLib-CSharp/.NET%20Build%20Solution?label=Build%20Solution%20&logo=github)](https://github.com/JuanCalle1606/KYLib-CSharp/actions/workflows/BuildAll.yml)
 [![Release](https://img.shields.io/github/v/release/JuanCalle1606/KYLib-CSharp?include_prereleases&logo=github)](https://github.com/JuanCalle1606/KYLib-CSharp/releases)
 [![Release Date](https://img.shields.io/github/release-date-pre/JuanCalle1606/KYLib-CSharp?logo=github)](https://github.com/JuanCalle1606/KYLib-CSharp/releases)

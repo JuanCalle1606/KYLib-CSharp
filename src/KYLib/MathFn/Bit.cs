@@ -1,5 +1,4 @@
-﻿using System;
-namespace KYLib.MathFn;
+﻿namespace KYLib.MathFn;
 
 /// <summary>
 /// Representa un entero de 1 bit.

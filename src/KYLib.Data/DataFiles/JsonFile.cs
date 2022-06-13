@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using KYLib.Abstractions;
 using KYLib.Utils;
 using Newtonsoft.Json;

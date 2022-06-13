@@ -6,8 +6,9 @@ namespace KYLib.Internal.Loopers;
 
 internal class PreciseLooper : Looper
 {
-	private TimeSpan interval;
-	private CancellationTokenSource source;
+	TimeSpan interval;
+
+	CancellationTokenSource source;
 
 	public PreciseLooper(TimeSpan targetInterval)
 	{

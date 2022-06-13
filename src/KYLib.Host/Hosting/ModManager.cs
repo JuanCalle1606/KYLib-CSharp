@@ -1,14 +1,14 @@
-﻿using KYLib.Modding;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using KYLib.Host.Modding;
 
 namespace KYLib.Host.Hosting;
 
 public class ModManager : IDisposable
 {
-	private IEnumerable<CsMod> mods;
+	IEnumerable<CsMod> mods;
 	ILogger logger;
 
 	public ModManager(HostBuilderContext context, IServiceProvider m, IEnumerable<CsMod> mods)

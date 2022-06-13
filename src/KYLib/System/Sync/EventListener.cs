@@ -1,6 +1,5 @@
-using KYLib.Modding;
+﻿using KYLib.Modding;
 using KYLib.Utils;
-using System;
 using System.Collections.Generic;
 using System.Runtime.Versioning;
 using System.Threading;
@@ -12,12 +11,13 @@ public class EventListener : IDisposable
 	public event Action Listener;
 	List<EventWaitHandle> Handles = new();
 	Mutex mutexHandle = new Mutex(false);
-	private EventDispatcher dispatcher;
+
+	EventDispatcher dispatcher;
 	bool disposed = false;
 
 	public bool ListenOnBackground { get; set; }
 
-	private EventListener(EventDispatcher dispatcher)
+	EventListener(EventDispatcher dispatcher)
 	{
 		this.dispatcher = dispatcher;
 		dispatcher.Dispatcher += Invoke; 
@@ -31,7 +31,7 @@ public class EventListener : IDisposable
 	}
 
 	[SupportedOSPlatform("windows")]
-	private static EventListener ListenGlobal(Mod mod, string v)
+	static EventListener ListenGlobal(Mod mod, string v)
 	{
 		var temp = EventDispatcher.CreateGlobal(mod, v);
 		return ListenDispatcher(temp);

@@ -1,7 +1,6 @@
 ﻿using KYLib.Internal.Loopers;
 using System.Diagnostics;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace KYLib.Utils;
 

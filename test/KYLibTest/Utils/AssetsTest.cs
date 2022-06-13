@@ -1,4 +1,4 @@
-using KYLib.Utils;
+﻿using KYLib.Utils;
 using Xunit;
 #pragma warning disable CS1718
 // ReSharper disable EqualExpressionComparison

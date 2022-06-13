@@ -1,12 +1,11 @@
-using System;
-using KYLib.Modding;
+﻿using KYLib.Modding;
 using KYLib.System;
 namespace KYLib.Utils;
 
 /// <summary>
 /// Provee funciones para obtener recursos.
 /// </summary>
-partial class Assets: IEquatable<Assets?>, IEqualityOperators<Assets, Assets>
+partial class Assets:  IEqualityOperators<Assets, Assets?>
 {
 	/// <summary>
 	/// Obtiene una instancia de <see cref="Assets"/> relacionada a la ruta de <see cref="Info.BaseDir"/>.
@@ -24,7 +23,7 @@ partial class Assets: IEquatable<Assets?>, IEqualityOperators<Assets, Assets>
 	public static readonly Assets? InstallDir = Info.InstallDir != null ? new Assets(Info.InstallDir) : null;
 
 	/// <summary>
-	/// Ubicación desde la que se cargan mods con el metodo <see cref="Mod.LoadMods"/>.
+	/// Ubicación desde la que se cargan mods con el metodo <see cref="Mod.LoadMods()"/>.
 	/// </summary>
 	public static readonly Assets ModsDir = BaseDir.GetAssets("mods");
 
@@ -65,4 +64,7 @@ partial class Assets: IEquatable<Assets?>, IEqualityOperators<Assets, Assets>
 	/// <inheritdoc/>
 	// ReSharper disable once NonReadonlyMemberInGetHashCode
 	public override int GetHashCode() => SearchPath.GetHashCode();
+
+	/// <inheritdoc/>
+	public override string ToString() => SearchPath;
 }

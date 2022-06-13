@@ -1,4 +1,4 @@
-using KYLib.Abstractions;
+﻿using KYLib.Abstractions;
 
 namespace KYLib.Internal;
 

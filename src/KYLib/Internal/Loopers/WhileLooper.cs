@@ -20,7 +20,7 @@ internal class WhileLooper : Looper
 		Task.Run(Start);
 	}
 
-	private void Start()
+	void Start()
 	{
 		handle?.Dispose();
 		handle = new AutoResetEvent(false);
@@ -32,7 +32,7 @@ internal class WhileLooper : Looper
 		}
 	}
 
-	private bool CanRun()
+	bool CanRun()
 	{
 		lock (sync)
 		{

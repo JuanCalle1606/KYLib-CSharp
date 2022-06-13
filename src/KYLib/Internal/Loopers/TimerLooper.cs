@@ -1,9 +1,6 @@
 ﻿using KYLib.Utils;
-using System.Threading.Tasks;
-using System.Threading;
 using System.Timers;
 using Timer = System.Timers.Timer;
-using System.Diagnostics;
 
 namespace KYLib.Internal.Loopers;
 
@@ -18,7 +15,7 @@ internal class TimerLooper : Looper
 		timer = new Timer(1000d / Frequency);
 	}
 
-	private void Timer_Elapsed(object? sender, ElapsedEventArgs e)
+	void Timer_Elapsed(object? sender, ElapsedEventArgs e)
 	{
 		LoopElapsed();
 	}

@@ -1,14 +1,13 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 
 namespace KYLib.System.Sync;
 
 internal class GlobalEventDispatcher : EventDispatcher
 {
-	private EventWaitHandle mutex;
-	private EventWaitHandle controler;
+	EventWaitHandle mutex;
+
+	EventWaitHandle controler;
 	
 
 	internal GlobalEventDispatcher(EventWaitHandle mutex, EventWaitHandle controler)
@@ -18,7 +17,7 @@ internal class GlobalEventDispatcher : EventDispatcher
 		Task.Run(SyncThread);
 	}
 
-	private void SyncThread()
+	void SyncThread()
 	{
 		while(true)
 		{

@@ -1,6 +1,4 @@
-﻿using System.Threading;
-
-namespace KYLib.System.Sync;
+﻿namespace KYLib.System.Sync;
 internal class LocalEventDispatcher : EventDispatcher
 {
 	public override void Dispatch()

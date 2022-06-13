@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using KYLib.ConsoleUtils;
 // ReSharper disable once CheckNamespace
 namespace KYLib.Extensions;

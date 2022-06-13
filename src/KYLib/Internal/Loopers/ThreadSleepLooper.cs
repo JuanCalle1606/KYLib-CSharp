@@ -1,5 +1,4 @@
 ﻿using KYLib.Utils;
-using System.Threading.Tasks;
 using System.Threading;
 using System.Diagnostics;
 
@@ -8,7 +7,8 @@ internal class ThreadSleepLooper : Looper
 {
 	object sync = new();
 	bool canrun;
-	private TimeSpan interval;
+
+	TimeSpan interval;
 
 	public ThreadSleepLooper(TimeSpan timeSpan)
 	{
@@ -27,7 +27,7 @@ internal class ThreadSleepLooper : Looper
 		t.Start();
 	}
 
-	private void Start()
+	void Start()
 	{
 		canrun = true;
 		var sw = Stopwatch.StartNew();
@@ -38,7 +38,7 @@ internal class ThreadSleepLooper : Looper
 		}
 	}
 
-	private bool CanRun()
+	bool CanRun()
 	{
 		lock (sync)
 		{

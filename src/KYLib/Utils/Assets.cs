@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using KYLib.System;
 
 namespace KYLib.Utils;
@@ -15,20 +15,33 @@ public partial class Assets {
 	/// <summary>
 	/// Indica si las rutas devueltas por el indexador son absolutas.
 	/// </summary>
-	public bool ResolveAbsolute { get; set; } = false;
+	public bool ResolveAbsolute { get; set; }
+	
+	/// <summary>
+	/// Indica si este objeto se peude modificar con los llamados a 
+	/// </summary>
+	public bool ReadOnly { get; }
 
 	/// <summary>
 	/// Crea una nueva instancia basada en un directorio.
 	/// </summary>
 	/// <param name="directory">Directorio relacionado a esta instancia.</param>
-	public Assets(string directory) => SearchPath = Path.GetFullPath(directory).TrimEnd('\\', '/');
+	/// <param name="readOnly">Indica si este objeto assets se podra modificar.</param>
+	public Assets(string directory, bool readOnly = false)
+	{
+		SearchPath = Path.GetFullPath(directory).TrimEnd('\\', '/');
+		ReadOnly = readOnly;
+	}
 
 	/// <summary>
 	/// Actualiza <see cref="SearchPath"/> con una ruta relativa al directorio actual.
 	/// </summary>
 	/// <param name="path">Ruta relativa nueva</param>
-	public void UpdateRelPath(string path) =>
+	public void UpdateRelPath(string path)
+	{
+		if(ReadOnly) return;
 		SearchPath = Path.GetFullPath(Path.GetRelativePath(SearchPath, path), SearchPath);
+	}
 
 	/// <summary>
 	/// Obtiene una instancia de <see cref="Assets"/> de una ruta relativa a <see cref="SearchPath"/>.

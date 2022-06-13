@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -242,7 +242,7 @@ partial class Mod
 		}
 	}
 
-	private static Tmod ReplaceMod<Tmod>(Mod item, Tmod replacement) where Tmod : Mod
+	static Tmod ReplaceMod<Tmod>(Mod item, Tmod replacement) where Tmod : Mod
 	{
 		//cuando un mod tiene un tipo definido se debe usar dicho tipo como mod en lugar de usar el tipo base
 		var t = replacement;
@@ -253,7 +253,7 @@ partial class Mod
 		return t;
 	}
 
-	private static bool AnalizeExtensionMod<Tmod>(Mod mod)
+	static bool AnalizeExtensionMod<Tmod>(Mod mod)
 	{
 		return mod.ModInfo != null && mod.ModInfo.ModType != null && mod.ModInfo.ModType.IsAssignableTo(typeof(Tmod));
 	}
