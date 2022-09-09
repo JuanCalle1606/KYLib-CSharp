@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using KYLib.Extensions;
@@ -79,25 +80,16 @@ public static partial class Info
 	{
 		if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 		{ CurrentSystem = Os.Windows; return; }
+		CurrentSystem = Os.Unix;
 
 		if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
 		{ CurrentSystem = Os.Osx; return; }
-
-		if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-		{
-			CurrentSystem = Os.Linux;
-			Linux.uname(out var unamea);
-			var uname = $"{unamea.sysname} {unamea.version}".ToLower();
-			if (uname.Contains("debian")) CurrentSystem = Os.Debian;
-			if (uname.Contains("ubuntu")) CurrentSystem = Os.Ubuntu;
-			if (uname.Contains("parrot")) CurrentSystem = Os.Parrot;
-			return;
-		}
-
-		if (Environment.OSVersion.Platform == PlatformID.Unix)
-		{ CurrentSystem = Os.Unix; return; }
 		
-		CurrentSystem = Os.Unknow;
+		var uname = Bash.GetCommand("uname -a").ToLower();
+		if (uname.Contains("linux")) CurrentSystem = Os.Linux;
+		if (uname.Contains("debian")) CurrentSystem = Os.Debian;
+		if (uname.Contains("ubuntu")) CurrentSystem = Os.Ubuntu;
+		if (uname.Contains("parrot")) CurrentSystem = Os.Parrot;
 	}
 
 	/// <summary>
