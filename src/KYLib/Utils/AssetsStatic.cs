@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 using KYLib.Modding;
 using KYLib.System;
 namespace KYLib.Utils;
@@ -6,7 +7,7 @@ namespace KYLib.Utils;
 /// <summary>
 /// Provee funciones para obtener recursos.
 /// </summary>
-partial class Assets: IEquatable<Assets?>, IEqualityOperators<Assets, Assets>
+partial class Assets: IEquatable<Assets?>, IEqualityOperators<Assets, Assets, bool>
 {
 	/// <summary>
 	/// Obtiene una instancia de <see cref="Assets"/> relacionada a la ruta de <see cref="Info.BaseDir"/>.
